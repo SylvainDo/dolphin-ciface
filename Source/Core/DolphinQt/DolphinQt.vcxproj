@@ -41,6 +41,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch_qt.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>pch_qt.h</ForcedIncludeFiles>
+      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWarningAsError>
+      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWarningAsError>
     </ClCompile>
     <Manifest>
       <AdditionalManifestFiles>DolphinQt.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -156,6 +158,18 @@
     <ClCompile Include="GCMemcardManager.cpp" />
     <ClCompile Include="Host.cpp" />
     <ClCompile Include="HotkeyScheduler.cpp" />
+    <ClCompile Include="Interop\Alloc.cpp" />
+    <ClCompile Include="Interop\GuiApplication.cpp" />
+    <ClCompile Include="Interop\Config.cpp" />
+    <ClCompile Include="Interop\Core.cpp" />
+    <ClCompile Include="Interop\DolphinAnalytics.cpp" />
+    <ClCompile Include="Interop\GuiHost.cpp" />
+    <ClCompile Include="Interop\GuiMainWindow.cpp" />
+    <ClCompile Include="Interop\GuiSettings.cpp" />
+    <ClCompile Include="Interop\GuiResources.cpp" />
+    <ClCompile Include="Interop\GuiTranslation.cpp" />
+    <ClCompile Include="Interop\UICommon.cpp" />
+    <ClCompile Include="Interop\Util.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MenuBar.cpp" />
@@ -228,6 +242,21 @@
     <ClInclude Include="Config\PatchesWidget.h" />
     <ClInclude Include="Debugger\RegisterColumn.h" />
     <ClInclude Include="GBAHost.h" />
+    <ClInclude Include="Interop\Export.h" />
+    <ClInclude Include="Interop\Interface\dol\Alloc.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiApplication.h" />
+    <ClInclude Include="Interop\Interface\dol\Config.h" />
+    <ClInclude Include="Interop\Interface\dol\Core.h" />
+    <ClInclude Include="Interop\Interface\dol\DolphinAnalytics.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiMainWindow.h" />
+    <ClInclude Include="Interop\Interface\dol\Prelude.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiHost.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiSettings.h" />
+    <ClInclude Include="Interop\Interface\dol\Enums.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiResources.h" />
+    <ClInclude Include="Interop\Interface\dol\GuiTranslation.h" />
+    <ClInclude Include="Interop\Interface\dol\UICommon.h" />
+    <ClInclude Include="Interop\Util.h" />
     <ClInclude Include="QtUtils\ActionHelper.h" />
     <ClInclude Include="QtUtils\DolphinFileDialog.h" />
     <ClInclude Include="QtUtils\FlowLayout.h" />
