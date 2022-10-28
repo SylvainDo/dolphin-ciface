@@ -3,6 +3,7 @@
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
+extern dol_calloc_t interop_calloc;
 #include "Interface/dol/Config.h"
 
 #include "Core/Config/DefaultLocale.h"
@@ -851,43 +852,43 @@ static void* dolConfig_getInfoForWiimoteSource(int index)
 
 EXPORT dolConfig* dolConfig_newInterface()
 {
-  auto _this = new dolConfig{};
-  _this->findInfo1 = dolConfig_findInfo1;
-  _this->findInfo2 = dolConfig_findInfo2;
-  _this->getInfo1 = dolConfig_getInfo1;
-  _this->getInfo2 = dolConfig_getInfo2;
-  _this->getInfo3 = dolConfig_getInfo3;
-  _this->getInfo4 = dolConfig_getInfo4;
-  _this->getInfo5 = dolConfig_getInfo5;
-  _this->setInfo1 = dolConfig_setInfo1;
-  _this->setInfo2 = dolConfig_setInfo2;
-  _this->setInfo3 = dolConfig_setInfo3;
-  _this->setInfo4 = dolConfig_setInfo4;
-  _this->setInfo5 = dolConfig_setInfo5;
-  _this->getDefaultLanguage = dolConfig_getDefaultLanguage;
-  _this->getOptionalDefaultCountry = dolConfig_getOptionalDefaultCountry;
-  _this->getDefaultCountry = dolConfig_getDefaultCountry;
-  _this->getDefaultRegion = dolConfig_getDefaultRegion;
-  _this->getInfoForMemcardPath = dolConfig_getInfoForMemcardPath;
-  _this->getInfoForAGPCartPath = dolConfig_getInfoForAGPCartPath;
-  _this->getInfoForGCIPathOverride = dolConfig_getInfoForGCIPathOverride;
-  _this->getInfoForEXIDevice = dolConfig_getInfoForEXIDevice;
-  _this->getInfoForSIDevice = dolConfig_getInfoForSIDevice;
-  _this->getInfoForAdapterRumble = dolConfig_getInfoForAdapterRumble;
-  _this->getInfoForSimulateKonga = dolConfig_getInfoForSimulateKonga;
-  _this->getGPUDeterminismMode = dolConfig_getGPUDeterminismMode;
-  _this->shouldUseDPL2Decoder = dolConfig_shouldUseDPL2Decoder;
-  _this->getIsoPaths = dolConfig_getIsoPaths;
-  _this->setIsoPaths = dolConfig_setIsoPaths;
-  _this->getUSBDeviceWhitelist = dolConfig_getUSBDeviceWhitelist;
-  _this->setUSBDeviceWhitelist = dolConfig_setUSBDeviceWhitelist;
-  _this->toGameCubeRegion = dolConfig_toGameCubeRegion;
-  _this->getDirectoryForRegion = dolConfig_getDirectoryForRegion;
-  _this->getBootROMPath = dolConfig_getBootROMPath;
-  _this->getMemcardPath1 = dolConfig_getMemcardPath1;
-  _this->getMemcardPath2 = dolConfig_getMemcardPath2;
-  _this->isDefaultMemcardPathConfigured = dolConfig_isDefaultMemcardPathConfigured;
-  _this->getInfoForWiimoteSource = dolConfig_getInfoForWiimoteSource;
+  auto iface = static_cast<dolConfig*>(interop_calloc(1, sizeof(dolConfig)));
+  iface->findInfo1 = dolConfig_findInfo1;
+  iface->findInfo2 = dolConfig_findInfo2;
+  iface->getInfo1 = dolConfig_getInfo1;
+  iface->getInfo2 = dolConfig_getInfo2;
+  iface->getInfo3 = dolConfig_getInfo3;
+  iface->getInfo4 = dolConfig_getInfo4;
+  iface->getInfo5 = dolConfig_getInfo5;
+  iface->setInfo1 = dolConfig_setInfo1;
+  iface->setInfo2 = dolConfig_setInfo2;
+  iface->setInfo3 = dolConfig_setInfo3;
+  iface->setInfo4 = dolConfig_setInfo4;
+  iface->setInfo5 = dolConfig_setInfo5;
+  iface->getDefaultLanguage = dolConfig_getDefaultLanguage;
+  iface->getOptionalDefaultCountry = dolConfig_getOptionalDefaultCountry;
+  iface->getDefaultCountry = dolConfig_getDefaultCountry;
+  iface->getDefaultRegion = dolConfig_getDefaultRegion;
+  iface->getInfoForMemcardPath = dolConfig_getInfoForMemcardPath;
+  iface->getInfoForAGPCartPath = dolConfig_getInfoForAGPCartPath;
+  iface->getInfoForGCIPathOverride = dolConfig_getInfoForGCIPathOverride;
+  iface->getInfoForEXIDevice = dolConfig_getInfoForEXIDevice;
+  iface->getInfoForSIDevice = dolConfig_getInfoForSIDevice;
+  iface->getInfoForAdapterRumble = dolConfig_getInfoForAdapterRumble;
+  iface->getInfoForSimulateKonga = dolConfig_getInfoForSimulateKonga;
+  iface->getGPUDeterminismMode = dolConfig_getGPUDeterminismMode;
+  iface->shouldUseDPL2Decoder = dolConfig_shouldUseDPL2Decoder;
+  iface->getIsoPaths = dolConfig_getIsoPaths;
+  iface->setIsoPaths = dolConfig_setIsoPaths;
+  iface->getUSBDeviceWhitelist = dolConfig_getUSBDeviceWhitelist;
+  iface->setUSBDeviceWhitelist = dolConfig_setUSBDeviceWhitelist;
+  iface->toGameCubeRegion = dolConfig_toGameCubeRegion;
+  iface->getDirectoryForRegion = dolConfig_getDirectoryForRegion;
+  iface->getBootROMPath = dolConfig_getBootROMPath;
+  iface->getMemcardPath1 = dolConfig_getMemcardPath1;
+  iface->getMemcardPath2 = dolConfig_getMemcardPath2;
+  iface->isDefaultMemcardPathConfigured = dolConfig_isDefaultMemcardPathConfigured;
+  iface->getInfoForWiimoteSource = dolConfig_getInfoForWiimoteSource;
 
-  return _this;
+  return iface;
 }
