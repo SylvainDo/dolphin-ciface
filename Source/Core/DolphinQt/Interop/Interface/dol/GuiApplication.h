@@ -11,6 +11,8 @@ struct dolGuiApplication
   void (*setApplicationName)(const char* application);
   void (*setApplicationVersion)(const char* version);
   void (*setApplicationDisplayName)(const char* name);
+  void (*addLibraryPath)(const char* path);
+  void (*setExeDirectory)(const char* path);
   void (*init)(void);
   void (*shutdown)(void);
   bool (*hasExited)(void);

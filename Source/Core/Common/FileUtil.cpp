@@ -885,14 +885,26 @@ std::string GetExePath()
   return dolphin_path;
 }
 
+static std::string s_exe_directory;
+
 std::string GetExeDirectory()
 {
-  std::string exe_path = GetExePath();
+  if (!s_exe_directory.empty())
+    return s_exe_directory;
+  else
+  {
+    std::string exe_path = GetExePath();
 #ifdef _WIN32
-  return exe_path.substr(0, exe_path.rfind('\\'));
+    return exe_path.substr(0, exe_path.rfind('\\'));
 #else
-  return exe_path.substr(0, exe_path.rfind('/'));
+    return exe_path.substr(0, exe_path.rfind('/'));
 #endif
+  }
+}
+
+void SetExeDirectory(const std::string& path)
+{
+  s_exe_directory = path;
 }
 
 static std::string CreateSysDirectoryPath()

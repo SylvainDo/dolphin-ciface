@@ -7,6 +7,7 @@ extern dol_calloc_t interop_calloc;
 #include <QAbstractEventDispatcher>
 #include <QApplication>
 
+#include "Common/FileUtil.h"
 #include "Common/MsgHandler.h"
 #include "Core/Core.h"
 
@@ -55,6 +56,16 @@ static void dolGuiApplication_setApplicationVersion(const char* version)
 static void dolGuiApplication_setApplicationDisplayName(const char* name)
 {
   QApplication::setApplicationDisplayName(QString::fromUtf8(name));
+}
+
+static void dolGuiApplication_addLibraryPath(const char* path)
+{
+  QApplication::addLibraryPath(QString::fromUtf8(path));
+}
+
+static void dolGuiApplication_setExeDirectory(const char* path)
+{
+  File::SetExeDirectory(path);
 }
 
 static void dolGuiApplication_init()
@@ -107,6 +118,8 @@ EXPORT dolGuiApplication* dolGuiApplication_newInterface()
   iface->setApplicationName = dolGuiApplication_setApplicationName;
   iface->setApplicationVersion = dolGuiApplication_setApplicationVersion;
   iface->setApplicationDisplayName = dolGuiApplication_setApplicationDisplayName;
+  iface->addLibraryPath = dolGuiApplication_addLibraryPath;
+  iface->setExeDirectory = dolGuiApplication_setExeDirectory;
   iface->init = dolGuiApplication_init;
   iface->shutdown = dolGuiApplication_shutdown;
   iface->hasExited = dolGuiApplication_hasExited;
