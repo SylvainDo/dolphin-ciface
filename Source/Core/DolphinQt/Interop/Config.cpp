@@ -20,17 +20,18 @@ enum class PropertyType
 {
   Boolean,
   Integer,
-  FreeLook_ControlType,
   AspectMode,
+  AudioCommon_DPL2Quality,
+  Config_ShowCursor,
+  DiscIO_Region,
+  ExpansionInterface_EXIDeviceType,
+  FreeLook_ControlType,
+  HSP_HSPDeviceType,
+  PowerPC_CPUCore,
+  SerialInterface_SIDevices,
   ShaderCompilationMode,
   StereoMode,
-  PowerPC_CPUCore,
-  AudioCommon_DPL2Quality,
-  ExpansionInterface_EXIDeviceType,
-  SerialInterface_SIDevices,
-  HSP_HSPDeviceType,
-  DiscIO_Region,
-  Config_ShowCursor,
+  TriState,
   WiimoteSource,
   String,
   Float,
@@ -112,6 +113,9 @@ static std::unordered_map<std::string_view, Property> _properties
   PropertyDeclare(GFX_SHADER_COMPILER_THREADS, Integer),
   PropertyDeclare(GFX_SHADER_PRECOMPILER_THREADS, Integer),
   PropertyDeclare(GFX_SAVE_TEXTURE_CACHE_TO_STATE, Boolean),
+  PropertyDeclare(GFX_PREFER_VS_FOR_LINE_POINT_EXPANSION, Boolean),
+  PropertyDeclare(GFX_MTL_MANUALLY_UPLOAD_BUFFERS, TriState),
+  PropertyDeclare(GFX_MTL_USE_PRESENT_DRAWABLE, Boolean),
   PropertyDeclare(GFX_SW_DUMP_OBJECTS, Boolean),
   PropertyDeclare(GFX_SW_DUMP_TEV_STAGES, Boolean),
   PropertyDeclare(GFX_SW_DUMP_TEV_TEX_FETCHES, Boolean),
@@ -470,17 +474,18 @@ static void* dolConfig_findInfo2(dolConfigSystem system, const char* section, co
 
     HandleCase(Boolean, bool)
     else HandleCase(Integer, int)
-    else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
     else HandleCase(AspectMode, AspectMode)
+    else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
+    else HandleCase(Config_ShowCursor, Config::ShowCursor)
+    else HandleCase(DiscIO_Region, DiscIO::Region)
+    else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
+    else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
+    else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
+    else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
+    else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
     else HandleCase(ShaderCompilationMode, ShaderCompilationMode)
     else HandleCase(StereoMode, StereoMode)
-    else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
-    else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
-    else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
-    else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
-    else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
-    else HandleCase(DiscIO_Region, DiscIO::Region)
-    else HandleCase(Config_ShowCursor, Config::ShowCursor)
+    else HandleCase(TriState, TriState)
     else HandleCase(WiimoteSource, WiimoteSource)
     else HandleCase(String, std::string)
     else HandleCase(Float, float)
@@ -513,17 +518,18 @@ static int dolConfig_getInfo1(void* prop, bool base)
 
   HandleCase(Boolean, bool)
   else HandleCase(Integer, int)
-  else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
   else HandleCase(AspectMode, AspectMode)
+  else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
+  else HandleCase(Config_ShowCursor, Config::ShowCursor)
+  else HandleCase(DiscIO_Region, DiscIO::Region)
+  else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
+  else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
+  else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
+  else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
+  else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
   else HandleCase(ShaderCompilationMode, ShaderCompilationMode)
   else HandleCase(StereoMode, StereoMode)
-  else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
-  else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
-  else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
-  else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
-  else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
-  else HandleCase(DiscIO_Region, DiscIO::Region)
-  else HandleCase(Config_ShowCursor, Config::ShowCursor)
+  else HandleCase(TriState, TriState)
   else HandleCase(WiimoteSource, WiimoteSource)
 
 #undef HandleCase
@@ -605,17 +611,18 @@ static void dolConfig_setInfo1(void* prop, int value, bool base)
 
   HandleCase(Boolean, bool)
   else HandleCase(Integer, int)
-  else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
   else HandleCase(AspectMode, AspectMode)
+  else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
+  else HandleCase(Config_ShowCursor, Config::ShowCursor)
+  else HandleCase(DiscIO_Region, DiscIO::Region)
+  else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
+  else HandleCase(FreeLook_ControlType, FreeLook::ControlType)
+  else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
+  else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
+  else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
   else HandleCase(ShaderCompilationMode, ShaderCompilationMode)
   else HandleCase(StereoMode, StereoMode)
-  else HandleCase(PowerPC_CPUCore, PowerPC::CPUCore)
-  else HandleCase(AudioCommon_DPL2Quality, AudioCommon::DPL2Quality)
-  else HandleCase(ExpansionInterface_EXIDeviceType, ExpansionInterface::EXIDeviceType)
-  else HandleCase(SerialInterface_SIDevices, SerialInterface::SIDevices)
-  else HandleCase(HSP_HSPDeviceType, HSP::HSPDeviceType)
-  else HandleCase(DiscIO_Region, DiscIO::Region)
-  else HandleCase(Config_ShowCursor, Config::ShowCursor)
+  else HandleCase(TriState, TriState)
   else HandleCase(WiimoteSource, WiimoteSource)
 
 #undef HandleCase

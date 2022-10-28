@@ -168,6 +168,13 @@ enum dolStereoMode
   dolStereoMode_Passive
 };
 
+enum dolTriState
+{
+  Off,
+  On,
+  Auto
+};
+
 enum dolWiimoteSource
 {
   dolWiimoteSource_None = 0,
