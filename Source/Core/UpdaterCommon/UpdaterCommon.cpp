@@ -13,6 +13,7 @@
 #include <mbedtls/sha256.h>
 #include <zlib.h>
 
+#include "Common/CommonFuncs.h"
 #include "Common/CommonPaths.h"
 #include "Common/FileUtil.h"
 #include "Common/HttpRequest.h"
@@ -24,6 +25,11 @@
 #ifndef _WIN32
 #include <sys/stat.h>
 #include <sys/types.h>
+#endif
+
+#ifdef _WIN32
+#include <Windows.h>
+#include <filesystem>
 #endif
 
 // Refer to docs/autoupdate_overview.md for a detailed overview of the autoupdate process
@@ -369,7 +375,7 @@ void CleanUpTempDir(const std::string& temp_dir, const TodoList& todo)
 bool BackupFile(const std::string& path)
 {
   std::string backup_path = path + ".bak";
-  fprintf(log_fp, "Backing up unknown pre-existing %s to .bak.\n", path.c_str());
+  fprintf(log_fp, "Backing up existing %s to .bak.\n", path.c_str());
   if (!File::Rename(path, backup_path))
   {
     fprintf(log_fp, "Cound not rename %s to %s for backup.\n", path.c_str(), backup_path.c_str());
@@ -414,6 +420,11 @@ bool DeleteObsoleteFiles(const std::vector<TodoList::DeleteOp>& to_delete,
 bool UpdateFiles(const std::vector<TodoList::UpdateOp>& to_update,
                  const std::string& install_base_path, const std::string& temp_path)
 {
+#ifdef _WIN32
+  const auto self_path = std::filesystem::path(GetModuleName(nullptr).value());
+  const auto self_filename = self_path.filename();
+#endif
+
   for (const auto& op : to_update)
   {
     std::string path = install_base_path + DIR_SEP + op.filename;
@@ -445,6 +456,20 @@ bool UpdateFiles(const std::vector<TodoList::UpdateOp>& to_update,
 
       permission = file_stats.st_mode;
 #endif
+
+#ifdef _WIN32
+      // If incoming file would overwrite the currently executing file, rename ourself to allow the
+      // overwrite to complete. Renaming ourself while executing is fine, but deleting ourself is
+      // rather tricky. The best way to handle that would be to execute the newly-placed Updater.exe
+      // after entire update has completed, and have it delete our relocated executable. For now we
+      // just let the relocated file hang around.
+      // It is enough to match based on filename, don't need File/VolumeId etc.
+      const bool is_self = op.filename == self_filename;
+#else
+      // On other platforms, the renaming is handled by Dolphin before running the Updater.
+      const bool is_self = false;
+#endif
+
       std::string contents;
       if (!File::ReadFileToString(path, contents))
       {
@@ -457,7 +482,7 @@ bool UpdateFiles(const std::vector<TodoList::UpdateOp>& to_update,
         fprintf(log_fp, "File %s was already up to date. Partial update?\n", op.filename.c_str());
         continue;
       }
-      else if (!op.old_hash || contents_hash != *op.old_hash)
+      else if (!op.old_hash || contents_hash != *op.old_hash || is_self)
       {
         if (!BackupFile(path))
           return false;
