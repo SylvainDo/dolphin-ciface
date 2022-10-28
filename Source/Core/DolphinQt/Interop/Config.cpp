@@ -464,7 +464,8 @@ static void* dolConfig_findInfo2(dolConfigSystem system, const char* section, co
     { \
       auto i = static_cast<Config::Info<t2>*>(p.second.info); \
       auto l = i->GetLocation(); \
-      return l.system == static_cast<Config::System>(system) && l.section == section && l.key == key; \
+      return system == static_cast<dolConfigSystem>(-1) && l.section == section && l.key == key \
+        || l.system == static_cast<Config::System>(system) && l.section == section && l.key == key; \
     }
 
     HandleCase(Boolean, bool)
