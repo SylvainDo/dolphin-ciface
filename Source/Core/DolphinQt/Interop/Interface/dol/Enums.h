@@ -71,6 +71,15 @@ enum dolConfigSystem
   dolConfigSystem_Session
 };
 
+enum dolCoreState
+{
+  dolCoreState_Uninitialized,
+  dolCoreState_Paused,
+  dolCoreState_Running,
+  dolCoreState_Stopping,
+  dolCoreState_Starting
+};
+
 enum dolDiscIOLanguage
 {
   dolDiscIOLanguage_Japanese = 0,
