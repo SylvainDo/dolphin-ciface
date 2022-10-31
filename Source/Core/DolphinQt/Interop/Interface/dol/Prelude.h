@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AddressSpaceAccessors.h"
 #include "Alloc.h"
 #include "Config.h"
 #include "Core.h"
@@ -11,4 +12,6 @@
 #include "GuiResources.h"
 #include "GuiSettings.h"
 #include "GuiTranslation.h"
+#include "JitInterface.h"
+#include "Memory.h"
 #include "UICommon.h"

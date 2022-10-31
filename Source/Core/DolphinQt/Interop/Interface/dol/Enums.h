@@ -4,6 +4,16 @@
 extern "C" {
 #endif
 
+enum dolAddressSpaceType
+{
+  dolAddressSpaceType_Effective,
+  dolAddressSpaceType_Auxiliary,
+  dolAddressSpaceType_Physical,
+  dolAddressSpaceType_Mem1,
+  dolAddressSpaceType_Mem2,
+  dolAddressSpaceType_Fake
+};
+
 enum dolAspectMode
 {
   dolAspectMode_Auto,

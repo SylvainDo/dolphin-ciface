@@ -158,6 +158,7 @@
     <ClCompile Include="GCMemcardManager.cpp" />
     <ClCompile Include="Host.cpp" />
     <ClCompile Include="HotkeyScheduler.cpp" />
+    <ClCompile Include="Interop\AddressSpaceAccessors.cpp" />
     <ClCompile Include="Interop\Alloc.cpp" />
     <ClCompile Include="Interop\GuiApplication.cpp" />
     <ClCompile Include="Interop\Config.cpp" />
@@ -168,6 +169,8 @@
     <ClCompile Include="Interop\GuiSettings.cpp" />
     <ClCompile Include="Interop\GuiResources.cpp" />
     <ClCompile Include="Interop\GuiTranslation.cpp" />
+    <ClCompile Include="Interop\JitInterface.cpp" />
+    <ClCompile Include="Interop\Memory.cpp" />
     <ClCompile Include="Interop\UICommon.cpp" />
     <ClCompile Include="Interop\Util.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -243,12 +246,15 @@
     <ClInclude Include="Debugger\RegisterColumn.h" />
     <ClInclude Include="GBAHost.h" />
     <ClInclude Include="Interop\Export.h" />
+    <ClInclude Include="Interop\Interface\dol\AddressSpaceAccessors.h" />
     <ClInclude Include="Interop\Interface\dol\Alloc.h" />
     <ClInclude Include="Interop\Interface\dol\GuiApplication.h" />
     <ClInclude Include="Interop\Interface\dol\Config.h" />
     <ClInclude Include="Interop\Interface\dol\Core.h" />
     <ClInclude Include="Interop\Interface\dol\DolphinAnalytics.h" />
     <ClInclude Include="Interop\Interface\dol\GuiMainWindow.h" />
+    <ClInclude Include="Interop\Interface\dol\JitInterface.h" />
+    <ClInclude Include="Interop\Interface\dol\Memory.h" />
     <ClInclude Include="Interop\Interface\dol\Prelude.h" />
     <ClInclude Include="Interop\Interface\dol\GuiHost.h" />
     <ClInclude Include="Interop\Interface\dol\GuiSettings.h" />
