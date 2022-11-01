@@ -14,4 +14,5 @@
 #include "GuiTranslation.h"
 #include "JitInterface.h"
 #include "Memory.h"
+#include "State.h"
 #include "UICommon.h"
