@@ -142,6 +142,22 @@ enum dolHSPHSPDeviceType
   dolHSPHSPDeviceType_ARAMExpansion
 };
 
+enum dolPadButton
+{
+  dolPadButton_PAD_BUTTON_LEFT = 0x0001,
+  dolPadButton_PAD_BUTTON_RIGHT = 0x0002,
+  dolPadButton_PAD_BUTTON_DOWN = 0x0004,
+  dolPadButton_PAD_BUTTON_UP = 0x0008,
+  dolPadButton_PAD_TRIGGER_Z = 0x0010,
+  dolPadButton_PAD_TRIGGER_R = 0x0020,
+  dolPadButton_PAD_TRIGGER_L = 0x0040,
+  dolPadButton_PAD_BUTTON_A = 0x0100,
+  dolPadButton_PAD_BUTTON_B = 0x0200,
+  dolPadButton_PAD_BUTTON_X = 0x0400,
+  dolPadButton_PAD_BUTTON_Y = 0x0800,
+  dolPadButton_PAD_BUTTON_START = 0x1000
+};
+
 enum dolPowerPCCPUCore
 {
   dolPowerPCCPUCore_Interpreter = 0,

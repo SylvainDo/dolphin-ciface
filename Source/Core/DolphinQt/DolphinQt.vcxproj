@@ -171,6 +171,7 @@
     <ClCompile Include="Interop\GuiTranslation.cpp" />
     <ClCompile Include="Interop\JitInterface.cpp" />
     <ClCompile Include="Interop\Memory.cpp" />
+    <ClCompile Include="Interop\Pad.cpp" />
     <ClCompile Include="Interop\State.cpp" />
     <ClCompile Include="Interop\UICommon.cpp" />
     <ClCompile Include="Interop\InteropUtil.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Interop\Interface\dol\GuiMainWindow.h" />
     <ClInclude Include="Interop\Interface\dol\JitInterface.h" />
     <ClInclude Include="Interop\Interface\dol\Memory.h" />
+    <ClInclude Include="Interop\Interface\dol\Pad.h" />
     <ClInclude Include="Interop\Interface\dol\Prelude.h" />
     <ClInclude Include="Interop\Interface\dol\GuiHost.h" />
     <ClInclude Include="Interop\Interface\dol\GuiSettings.h" />
