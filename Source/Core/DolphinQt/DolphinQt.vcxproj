@@ -172,7 +172,7 @@
     <ClCompile Include="Interop\JitInterface.cpp" />
     <ClCompile Include="Interop\Memory.cpp" />
     <ClCompile Include="Interop\UICommon.cpp" />
-    <ClCompile Include="Interop\Util.cpp" />
+    <ClCompile Include="Interop\InteropUtil.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MenuBar.cpp" />
@@ -262,7 +262,7 @@
     <ClInclude Include="Interop\Interface\dol\GuiResources.h" />
     <ClInclude Include="Interop\Interface\dol\GuiTranslation.h" />
     <ClInclude Include="Interop\Interface\dol\UICommon.h" />
-    <ClInclude Include="Interop\Util.h" />
+    <ClInclude Include="Interop\InteropUtil.h" />
     <ClInclude Include="QtUtils\ActionHelper.h" />
     <ClInclude Include="QtUtils\DolphinFileDialog.h" />
     <ClInclude Include="QtUtils\FlowLayout.h" />

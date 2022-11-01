@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "Util.h"
+#include "InteropUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_calloc_t interop_calloc;
@@ -39,7 +39,7 @@ static bool dolUICommon_triggerSTMPowerEvent()
 
 static char* dolUICommon_formatSize(uint64_t bytes, int decimals)
 {
-  return Util::dupStdString(UICommon::FormatSize(bytes, decimals));
+  return InteropUtil::dupStdString(UICommon::FormatSize(bytes, decimals));
 }
 
 EXPORT dolUICommon* dolUICommon_newInterface()

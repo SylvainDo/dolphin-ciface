@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Util
+namespace InteropUtil
 {
 
 char* dupStdString(const std::string& src);

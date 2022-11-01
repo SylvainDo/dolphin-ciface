@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "Util.h"
+#include "InteropUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
@@ -545,9 +545,9 @@ static char* dolConfig_getInfo2(void* prop, bool base)
   {
     auto i = static_cast<Config::Info<std::string>*>(p->info);
     if (base)
-      return Util::dupStdString(Config::GetBase(*i));
+      return InteropUtil::dupStdString(Config::GetBase(*i));
     else
-      return Util::dupStdString(Config::GetUncached(*i));
+      return InteropUtil::dupStdString(Config::GetUncached(*i));
   }
   return nullptr;
 }
@@ -775,7 +775,7 @@ static char** dolConfig_getIsoPaths(int* numPaths)
   auto paths = Config::GetIsoPaths();
   auto v = static_cast<char**>(interop_malloc(sizeof(char*) * paths.size()));
   for (size_t i{}; i < paths.size(); ++i)
-    v[i] = Util::dupStdString(paths[i]);
+    v[i] = InteropUtil::dupStdString(paths[i]);
   *numPaths = static_cast<int>(paths.size());
   return v;
 }
@@ -821,18 +821,19 @@ static dolDiscIORegion dolConfig_toGameCubeRegion(dolDiscIORegion region)
 
 static char* dolConfig_getDirectoryForRegion(dolDiscIORegion region)
 {
-  return Util::dupStdString(Config::GetDirectoryForRegion(static_cast<DiscIO::Region>(region)));
+  return InteropUtil::dupStdString(
+      Config::GetDirectoryForRegion(static_cast<DiscIO::Region>(region)));
 }
 
 static char* dolConfig_getBootROMPath(const char* region_directory)
 {
-  return Util::dupStdString(Config::GetBootROMPath(region_directory));
+  return InteropUtil::dupStdString(Config::GetBootROMPath(region_directory));
 }
 
 static char* dolConfig_getMemcardPath1(dolExpansionInterfaceSlot slot, dolDiscIORegion* region,
                                        uint16_t size_mb)
 {
-  return Util::dupStdString(Config::GetMemcardPath(
+  return InteropUtil::dupStdString(Config::GetMemcardPath(
       static_cast<ExpansionInterface::Slot>(slot),
       region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
 }
@@ -841,7 +842,7 @@ static char* dolConfig_getMemcardPath2(const char* configured_filename,
                                        dolExpansionInterfaceSlot slot, dolDiscIORegion* region,
                                        uint16_t size_mb)
 {
-  return Util::dupStdString(Config::GetMemcardPath(
+  return InteropUtil::dupStdString(Config::GetMemcardPath(
       configured_filename, static_cast<ExpansionInterface::Slot>(slot),
       region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
 }
