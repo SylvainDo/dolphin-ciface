@@ -1,0 +1,46 @@
+#include "Export.h"
+
+#include "Interface/dol/Alloc.h"
+extern dol_calloc_t interop_calloc;
+#include "Interface/dol/Gui_MainWindow.h"
+
+#include "DolphinQt/MainWindow.h"
+
+static MainWindow* _instance;
+
+static void dol_Gui_MainWindow_init()
+{
+  _instance = new MainWindow({}, {});
+}
+
+static void dol_Gui_MainWindow_shutdown()
+{
+  delete _instance;
+}
+
+static void dol_Gui_MainWindow_show()
+{
+  _instance->Show();
+}
+
+static bool dol_Gui_MainWindow_requestStop()
+{
+  return _instance->RequestStop();
+}
+
+static void dol_Gui_MainWindow_startGame1(const char* path)
+{
+  _instance->StartGame(BootParameters::GenerateFromFile(path));
+}
+
+EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
+{
+  auto iface = static_cast<dol_Gui_MainWindow*>(interop_calloc(1, sizeof(dol_Gui_MainWindow)));
+  iface->init = dol_Gui_MainWindow_init;
+  iface->shutdown = dol_Gui_MainWindow_shutdown;
+  iface->show = dol_Gui_MainWindow_show;
+  iface->requestStop = dol_Gui_MainWindow_requestStop;
+  iface->startGame1 = dol_Gui_MainWindow_startGame1;
+
+  return iface;
+}

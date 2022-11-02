@@ -8,9 +8,9 @@ extern "C" {
 
 #include <stdint.h>
 
-struct dolAddressSpaceAccessors
+struct dol_AddressSpace_Accessors
 {
-  void (*setCurrent)(dolAddressSpaceType address_space);
+  void (*setCurrent)(dol_AddressSpace_Type address_space);
   bool (*isValidAddress)(uint32_t address);
   uint8_t (*readU8)(uint32_t address);
   void (*writeU8)(uint32_t address, uint8_t value);
@@ -27,7 +27,7 @@ struct dolAddressSpaceAccessors
                  bool forward, uint32_t* result);
 };
 
-typedef dolAddressSpaceAccessors* (*dolAddressSpaceAccessors_newInterface_t)(void);
+typedef dol_AddressSpace_Accessors* (*dol_AddressSpace_Accessors_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

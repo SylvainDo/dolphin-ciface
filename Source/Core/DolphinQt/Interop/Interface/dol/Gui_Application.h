@@ -4,7 +4,7 @@
 extern "C" {
 #endif
 
-struct dolGuiApplication
+struct dol_Gui_Application
 {
   void (*setOrganizationDomain)(const char* orgDomain);
   void (*setOrganizationName)(const char* orgName);
@@ -22,7 +22,7 @@ struct dolGuiApplication
   bool (*processEvents3)(void);
 };
 
-typedef dolGuiApplication* (*dolGuiApplication_newInterface_t)(void);
+typedef dol_Gui_Application* (*dol_Gui_Application_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

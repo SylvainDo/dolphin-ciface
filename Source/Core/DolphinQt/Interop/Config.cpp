@@ -451,13 +451,13 @@ static std::unordered_map<std::string_view, Property> _properties
 };
 // clang-format on
 
-static void* dolConfig_findInfo1(const char* name)
+static void* dol_Config_findInfo1(const char* name)
 {
   auto it = _properties.find(name);
   return it != _properties.end() ? static_cast<void*>(&it->second) : nullptr;
 }
 
-static void* dolConfig_findInfo2(dolConfigSystem system, const char* section, const char* key)
+static void* dol_Config_findInfo2(dol_Config_System system, const char* section, const char* key)
 {
   // clang-format off
   auto it = std::find_if(_properties.begin(), _properties.end(),
@@ -468,7 +468,7 @@ static void* dolConfig_findInfo2(dolConfigSystem system, const char* section, co
     { \
       auto i = static_cast<Config::Info<t2>*>(p.second.info); \
       auto l = i->GetLocation(); \
-      return system == static_cast<dolConfigSystem>(-1) && l.section == section && l.key == key \
+      return system == static_cast<dol_Config_System>(-1) && l.section == section && l.key == key \
         || l.system == static_cast<Config::System>(system) && l.section == section && l.key == key; \
     }
 
@@ -501,7 +501,7 @@ static void* dolConfig_findInfo2(dolConfigSystem system, const char* section, co
   return it != _properties.end() ? static_cast<void*>(&it->second) : nullptr;
 }
 
-static int dolConfig_getInfo1(void* prop, bool base)
+static int dol_Config_getInfo1(void* prop, bool base)
 {
   auto p = static_cast<Property*>(prop);
 
@@ -538,7 +538,7 @@ static int dolConfig_getInfo1(void* prop, bool base)
 }
 // clang-format on
 
-static char* dolConfig_getInfo2(void* prop, bool base)
+static char* dol_Config_getInfo2(void* prop, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::String)
@@ -552,7 +552,7 @@ static char* dolConfig_getInfo2(void* prop, bool base)
   return nullptr;
 }
 
-static float dolConfig_getInfo3(void* prop, bool base)
+static float dol_Config_getInfo3(void* prop, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Float)
@@ -566,7 +566,7 @@ static float dolConfig_getInfo3(void* prop, bool base)
   return 0;
 }
 
-static uint16_t dolConfig_getInfo4(void* prop, bool base)
+static uint16_t dol_Config_getInfo4(void* prop, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Unsigned16)
@@ -580,7 +580,7 @@ static uint16_t dolConfig_getInfo4(void* prop, bool base)
   return 0;
 }
 
-static uint32_t dolConfig_getInfo5(void* prop, bool base)
+static uint32_t dol_Config_getInfo5(void* prop, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Unsigned32)
@@ -594,7 +594,7 @@ static uint32_t dolConfig_getInfo5(void* prop, bool base)
   return 0;
 }
 
-static void dolConfig_setInfo1(void* prop, int value, bool base)
+static void dol_Config_setInfo1(void* prop, int value, bool base)
 {
   auto p = static_cast<Property*>(prop);
 
@@ -629,7 +629,7 @@ static void dolConfig_setInfo1(void* prop, int value, bool base)
   // clang-format on
 }
 
-static void dolConfig_setInfo2(void* prop, const char* value, bool base)
+static void dol_Config_setInfo2(void* prop, const char* value, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::String)
@@ -642,7 +642,7 @@ static void dolConfig_setInfo2(void* prop, const char* value, bool base)
   }
 }
 
-static void dolConfig_setInfo3(void* prop, float value, bool base)
+static void dol_Config_setInfo3(void* prop, float value, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Float)
@@ -655,7 +655,7 @@ static void dolConfig_setInfo3(void* prop, float value, bool base)
   }
 }
 
-static void dolConfig_setInfo4(void* prop, uint16_t value, bool base)
+static void dol_Config_setInfo4(void* prop, uint16_t value, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Unsigned16)
@@ -668,7 +668,7 @@ static void dolConfig_setInfo4(void* prop, uint16_t value, bool base)
   }
 }
 
-static void dolConfig_setInfo5(void* prop, uint32_t value, bool base)
+static void dol_Config_setInfo5(void* prop, uint32_t value, bool base)
 {
   auto p = static_cast<Property*>(prop);
   if (p->type == PropertyType::Unsigned32)
@@ -681,12 +681,12 @@ static void dolConfig_setInfo5(void* prop, uint32_t value, bool base)
   }
 }
 
-static dolDiscIOLanguage dolConfig_getDefaultLanguage()
+static dol_DiscIO_Language dol_Config_getDefaultLanguage()
 {
-  return static_cast<dolDiscIOLanguage>(Config::GetDefaultLanguage());
+  return static_cast<dol_DiscIO_Language>(Config::GetDefaultLanguage());
 }
 
-static bool dolConfig_getOptionalDefaultCountry(uint8_t* defaultCountry)
+static bool dol_Config_getOptionalDefaultCountry(uint8_t* defaultCountry)
 {
   auto opt = Config::GetOptionalDefaultCountry();
   if (opt.has_value())
@@ -697,17 +697,17 @@ static bool dolConfig_getOptionalDefaultCountry(uint8_t* defaultCountry)
   return false;
 }
 
-static uint8_t dolConfig_getDefaultCountry()
+static uint8_t dol_Config_getDefaultCountry()
 {
   return Config::GetDefaultCountry();
 }
 
-static dolDiscIORegion dolConfig_getDefaultRegion()
+static dol_DiscIO_Region dol_Config_getDefaultRegion()
 {
-  return static_cast<dolDiscIORegion>(Config::GetDefaultRegion());
+  return static_cast<dol_DiscIO_Region>(Config::GetDefaultRegion());
 }
 
-static void* dolConfig_getInfoForMemcardPath(dolExpansionInterfaceSlot slot)
+static void* dol_Config_getInfoForMemcardPath(dol_ExpansionInterface_Slot slot)
 {
   _temp_property.info =
       PropertyEraseType(Config::GetInfoForMemcardPath(static_cast<ExpansionInterface::Slot>(slot)));
@@ -715,7 +715,7 @@ static void* dolConfig_getInfoForMemcardPath(dolExpansionInterfaceSlot slot)
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForAGPCartPath(dolExpansionInterfaceSlot slot)
+static void* dol_Config_getInfoForAGPCartPath(dol_ExpansionInterface_Slot slot)
 {
   _temp_property.info =
       PropertyEraseType(Config::GetInfoForAGPCartPath(static_cast<ExpansionInterface::Slot>(slot)));
@@ -723,7 +723,7 @@ static void* dolConfig_getInfoForAGPCartPath(dolExpansionInterfaceSlot slot)
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForGCIPathOverride(dolExpansionInterfaceSlot slot)
+static void* dol_Config_getInfoForGCIPathOverride(dol_ExpansionInterface_Slot slot)
 {
   _temp_property.info = PropertyEraseType(
       Config::GetInfoForGCIPathOverride(static_cast<ExpansionInterface::Slot>(slot)));
@@ -731,7 +731,7 @@ static void* dolConfig_getInfoForGCIPathOverride(dolExpansionInterfaceSlot slot)
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForEXIDevice(dolExpansionInterfaceSlot slot)
+static void* dol_Config_getInfoForEXIDevice(dol_ExpansionInterface_Slot slot)
 {
   _temp_property.info =
       PropertyEraseType(Config::GetInfoForEXIDevice(static_cast<ExpansionInterface::Slot>(slot)));
@@ -739,38 +739,38 @@ static void* dolConfig_getInfoForEXIDevice(dolExpansionInterfaceSlot slot)
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForSIDevice(int channel)
+static void* dol_Config_getInfoForSIDevice(int channel)
 {
   _temp_property.info = PropertyEraseType(Config::GetInfoForSIDevice(channel));
   _temp_property.type = PropertyType::SerialInterface_SIDevices;
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForAdapterRumble(int channel)
+static void* dol_Config_getInfoForAdapterRumble(int channel)
 {
   _temp_property.info = PropertyEraseType(Config::GetInfoForAdapterRumble(channel));
   _temp_property.type = PropertyType::Boolean;
   return static_cast<void*>(&_temp_property);
 }
 
-static void* dolConfig_getInfoForSimulateKonga(int channel)
+static void* dol_Config_getInfoForSimulateKonga(int channel)
 {
   _temp_property.info = PropertyEraseType(Config::GetInfoForSimulateKonga(channel));
   _temp_property.type = PropertyType::Boolean;
   return static_cast<void*>(&_temp_property);
 }
 
-static dolConfigGPUDeterminismMode dolConfig_getGPUDeterminismMode()
+static dol_Config_GPUDeterminismMode dol_Config_getGPUDeterminismMode()
 {
-  return static_cast<dolConfigGPUDeterminismMode>(Config::GetGPUDeterminismMode());
+  return static_cast<dol_Config_GPUDeterminismMode>(Config::GetGPUDeterminismMode());
 }
 
-static bool dolConfig_shouldUseDPL2Decoder()
+static bool dol_Config_shouldUseDPL2Decoder()
 {
   return Config::ShouldUseDPL2Decoder();
 }
 
-static char** dolConfig_getIsoPaths(int* numPaths)
+static char** dol_Config_getIsoPaths(int* numPaths)
 {
   auto paths = Config::GetIsoPaths();
   auto v = static_cast<char**>(interop_malloc(sizeof(char*) * paths.size()));
@@ -780,7 +780,7 @@ static char** dolConfig_getIsoPaths(int* numPaths)
   return v;
 }
 
-static void dolConfig_setIsoPaths(const char** paths, int numPaths)
+static void dol_Config_setIsoPaths(const char** paths, int numPaths)
 {
   std::vector<std::string> v;
   for (int i{}; i < numPaths; ++i)
@@ -788,8 +788,8 @@ static void dolConfig_setIsoPaths(const char** paths, int numPaths)
   Config::SetIsoPaths(v);
 }
 
-static void dolConfig_getUSBDeviceWhitelist(uint16_t** devices_first, uint16_t** devices_second,
-                                            int* numDevices)
+static void dol_Config_getUSBDeviceWhitelist(uint16_t** devices_first, uint16_t** devices_second,
+                                             int* numDevices)
 {
   auto devices = Config::GetUSBDeviceWhitelist();
   *devices_first = static_cast<uint16_t*>(interop_malloc(sizeof(uint16_t) * devices.size()));
@@ -804,8 +804,8 @@ static void dolConfig_getUSBDeviceWhitelist(uint16_t** devices_first, uint16_t**
   *numDevices = static_cast<int>(devices.size());
 }
 
-static void dolConfig_setUSBDeviceWhitelist(uint16_t* devices_first, uint16_t* devices_second,
-                                            int numDevices)
+static void dol_Config_setUSBDeviceWhitelist(uint16_t* devices_first, uint16_t* devices_second,
+                                             int numDevices)
 {
   std::set<std::pair<u16, u16>> v;
   for (int i{}; i < numDevices; ++i)
@@ -813,91 +813,91 @@ static void dolConfig_setUSBDeviceWhitelist(uint16_t* devices_first, uint16_t* d
   Config::SetUSBDeviceWhitelist(v);
 }
 
-static dolDiscIORegion dolConfig_toGameCubeRegion(dolDiscIORegion region)
+static dol_DiscIO_Region dol_Config_toGameCubeRegion(dol_DiscIO_Region region)
 {
-  return static_cast<dolDiscIORegion>(
+  return static_cast<dol_DiscIO_Region>(
       Config::ToGameCubeRegion(static_cast<DiscIO::Region>(region)));
 }
 
-static char* dolConfig_getDirectoryForRegion(dolDiscIORegion region)
+static char* dol_Config_getDirectoryForRegion(dol_DiscIO_Region region)
 {
   return InteropUtil::dupStdString(
       Config::GetDirectoryForRegion(static_cast<DiscIO::Region>(region)));
 }
 
-static char* dolConfig_getBootROMPath(const char* region_directory)
+static char* dol_Config_getBootROMPath(const char* region_directory)
 {
   return InteropUtil::dupStdString(Config::GetBootROMPath(region_directory));
 }
 
-static char* dolConfig_getMemcardPath1(dolExpansionInterfaceSlot slot, dolDiscIORegion* region,
-                                       uint16_t size_mb)
+static char* dol_Config_getMemcardPath1(dol_ExpansionInterface_Slot slot, dol_DiscIO_Region* region,
+                                        uint16_t size_mb)
 {
   return InteropUtil::dupStdString(Config::GetMemcardPath(
       static_cast<ExpansionInterface::Slot>(slot),
       region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
 }
 
-static char* dolConfig_getMemcardPath2(const char* configured_filename,
-                                       dolExpansionInterfaceSlot slot, dolDiscIORegion* region,
-                                       uint16_t size_mb)
+static char* dol_Config_getMemcardPath2(const char* configured_filename,
+                                        dol_ExpansionInterface_Slot slot, dol_DiscIO_Region* region,
+                                        uint16_t size_mb)
 {
   return InteropUtil::dupStdString(Config::GetMemcardPath(
       configured_filename, static_cast<ExpansionInterface::Slot>(slot),
       region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
 }
 
-static bool dolConfig_isDefaultMemcardPathConfigured(dolExpansionInterfaceSlot slot)
+static bool dol_Config_isDefaultMemcardPathConfigured(dol_ExpansionInterface_Slot slot)
 {
   return Config::IsDefaultMemcardPathConfigured(static_cast<ExpansionInterface::Slot>(slot));
 }
 
-static void* dolConfig_getInfoForWiimoteSource(int index)
+static void* dol_Config_getInfoForWiimoteSource(int index)
 {
   _temp_property.info = PropertyEraseType(Config::GetInfoForWiimoteSource(index));
   _temp_property.type = PropertyType::WiimoteSource;
   return static_cast<void*>(&_temp_property);
 }
 
-EXPORT dolConfig* dolConfig_newInterface()
+EXPORT dol_Config* dol_Config_newInterface()
 {
-  auto iface = static_cast<dolConfig*>(interop_calloc(1, sizeof(dolConfig)));
-  iface->findInfo1 = dolConfig_findInfo1;
-  iface->findInfo2 = dolConfig_findInfo2;
-  iface->getInfo1 = dolConfig_getInfo1;
-  iface->getInfo2 = dolConfig_getInfo2;
-  iface->getInfo3 = dolConfig_getInfo3;
-  iface->getInfo4 = dolConfig_getInfo4;
-  iface->getInfo5 = dolConfig_getInfo5;
-  iface->setInfo1 = dolConfig_setInfo1;
-  iface->setInfo2 = dolConfig_setInfo2;
-  iface->setInfo3 = dolConfig_setInfo3;
-  iface->setInfo4 = dolConfig_setInfo4;
-  iface->setInfo5 = dolConfig_setInfo5;
-  iface->getDefaultLanguage = dolConfig_getDefaultLanguage;
-  iface->getOptionalDefaultCountry = dolConfig_getOptionalDefaultCountry;
-  iface->getDefaultCountry = dolConfig_getDefaultCountry;
-  iface->getDefaultRegion = dolConfig_getDefaultRegion;
-  iface->getInfoForMemcardPath = dolConfig_getInfoForMemcardPath;
-  iface->getInfoForAGPCartPath = dolConfig_getInfoForAGPCartPath;
-  iface->getInfoForGCIPathOverride = dolConfig_getInfoForGCIPathOverride;
-  iface->getInfoForEXIDevice = dolConfig_getInfoForEXIDevice;
-  iface->getInfoForSIDevice = dolConfig_getInfoForSIDevice;
-  iface->getInfoForAdapterRumble = dolConfig_getInfoForAdapterRumble;
-  iface->getInfoForSimulateKonga = dolConfig_getInfoForSimulateKonga;
-  iface->getGPUDeterminismMode = dolConfig_getGPUDeterminismMode;
-  iface->shouldUseDPL2Decoder = dolConfig_shouldUseDPL2Decoder;
-  iface->getIsoPaths = dolConfig_getIsoPaths;
-  iface->setIsoPaths = dolConfig_setIsoPaths;
-  iface->getUSBDeviceWhitelist = dolConfig_getUSBDeviceWhitelist;
-  iface->setUSBDeviceWhitelist = dolConfig_setUSBDeviceWhitelist;
-  iface->toGameCubeRegion = dolConfig_toGameCubeRegion;
-  iface->getDirectoryForRegion = dolConfig_getDirectoryForRegion;
-  iface->getBootROMPath = dolConfig_getBootROMPath;
-  iface->getMemcardPath1 = dolConfig_getMemcardPath1;
-  iface->getMemcardPath2 = dolConfig_getMemcardPath2;
-  iface->isDefaultMemcardPathConfigured = dolConfig_isDefaultMemcardPathConfigured;
-  iface->getInfoForWiimoteSource = dolConfig_getInfoForWiimoteSource;
+  auto iface = static_cast<dol_Config*>(interop_calloc(1, sizeof(dol_Config)));
+  iface->findInfo1 = dol_Config_findInfo1;
+  iface->findInfo2 = dol_Config_findInfo2;
+  iface->getInfo1 = dol_Config_getInfo1;
+  iface->getInfo2 = dol_Config_getInfo2;
+  iface->getInfo3 = dol_Config_getInfo3;
+  iface->getInfo4 = dol_Config_getInfo4;
+  iface->getInfo5 = dol_Config_getInfo5;
+  iface->setInfo1 = dol_Config_setInfo1;
+  iface->setInfo2 = dol_Config_setInfo2;
+  iface->setInfo3 = dol_Config_setInfo3;
+  iface->setInfo4 = dol_Config_setInfo4;
+  iface->setInfo5 = dol_Config_setInfo5;
+  iface->getDefaultLanguage = dol_Config_getDefaultLanguage;
+  iface->getOptionalDefaultCountry = dol_Config_getOptionalDefaultCountry;
+  iface->getDefaultCountry = dol_Config_getDefaultCountry;
+  iface->getDefaultRegion = dol_Config_getDefaultRegion;
+  iface->getInfoForMemcardPath = dol_Config_getInfoForMemcardPath;
+  iface->getInfoForAGPCartPath = dol_Config_getInfoForAGPCartPath;
+  iface->getInfoForGCIPathOverride = dol_Config_getInfoForGCIPathOverride;
+  iface->getInfoForEXIDevice = dol_Config_getInfoForEXIDevice;
+  iface->getInfoForSIDevice = dol_Config_getInfoForSIDevice;
+  iface->getInfoForAdapterRumble = dol_Config_getInfoForAdapterRumble;
+  iface->getInfoForSimulateKonga = dol_Config_getInfoForSimulateKonga;
+  iface->getGPUDeterminismMode = dol_Config_getGPUDeterminismMode;
+  iface->shouldUseDPL2Decoder = dol_Config_shouldUseDPL2Decoder;
+  iface->getIsoPaths = dol_Config_getIsoPaths;
+  iface->setIsoPaths = dol_Config_setIsoPaths;
+  iface->getUSBDeviceWhitelist = dol_Config_getUSBDeviceWhitelist;
+  iface->setUSBDeviceWhitelist = dol_Config_setUSBDeviceWhitelist;
+  iface->toGameCubeRegion = dol_Config_toGameCubeRegion;
+  iface->getDirectoryForRegion = dol_Config_getDirectoryForRegion;
+  iface->getBootROMPath = dol_Config_getBootROMPath;
+  iface->getMemcardPath1 = dol_Config_getMemcardPath1;
+  iface->getMemcardPath2 = dol_Config_getMemcardPath2;
+  iface->isDefaultMemcardPathConfigured = dol_Config_isDefaultMemcardPathConfigured;
+  iface->getInfoForWiimoteSource = dol_Config_getInfoForWiimoteSource;
 
   return iface;
 }

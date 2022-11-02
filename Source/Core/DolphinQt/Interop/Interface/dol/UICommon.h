@@ -6,7 +6,7 @@ extern "C" {
 
 #include <stdint.h>
 
-struct dolUICommon
+struct dol_UICommon
 {
   void (*init)(void);
   void (*shutdown)(void);
@@ -17,7 +17,7 @@ struct dolUICommon
   char* (*formatSize)(uint64_t bytes, int decimals);
 };
 
-typedef dolUICommon* (*dolUICommon_newInterface_t)(void);
+typedef dol_UICommon* (*dol_UICommon_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

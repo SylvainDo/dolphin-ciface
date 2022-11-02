@@ -4,260 +4,260 @@
 extern "C" {
 #endif
 
-enum dolAddressSpaceType
+enum dol_AddressSpace_Type
 {
-  dolAddressSpaceType_Effective,
-  dolAddressSpaceType_Auxiliary,
-  dolAddressSpaceType_Physical,
-  dolAddressSpaceType_Mem1,
-  dolAddressSpaceType_Mem2,
-  dolAddressSpaceType_Fake
+  dol_AddressSpace_Type_Effective,
+  dol_AddressSpace_Type_Auxiliary,
+  dol_AddressSpace_Type_Physical,
+  dol_AddressSpace_Type_Mem1,
+  dol_AddressSpace_Type_Mem2,
+  dol_AddressSpace_Type_Fake
 };
 
-enum dolAspectMode
+enum dol_AspectMode
 {
-  dolAspectMode_Auto,
-  dolAspectMode_AnalogWide,
-  dolAspectMode_Analog,
-  dolAspectMode_Stretch
+  dol_AspectMode_Auto,
+  dol_AspectMode_AnalogWide,
+  dol_AspectMode_Analog,
+  dol_AspectMode_Stretch
 };
 
-enum dolAudioCommonDPL2Quality
+enum dol_AudioCommon_DPL2Quality
 {
-  dolAudioCommonDPL2Quality_Lowest = 0,
-  dolAudioCommonDPL2Quality_Low = 1,
-  dolAudioCommonDPL2Quality_High = 2,
-  dolAudioCommonDPL2Quality_Highest = 3
+  dol_AudioCommon_DPL2Quality_Lowest = 0,
+  dol_AudioCommon_DPL2Quality_Low = 1,
+  dol_AudioCommon_DPL2Quality_High = 2,
+  dol_AudioCommon_DPL2Quality_Highest = 3
 };
 
-enum dolConfigGPUDeterminismMode
+enum dol_Config_GPUDeterminismMode
 {
-  dolConfigGPUDeterminismMode_Auto,
-  dolConfigGPUDeterminismMode_Disabled,
-  dolConfigGPUDeterminismMode_FakeCompletion
+  dol_Config_GPUDeterminismMode_Auto,
+  dol_Config_GPUDeterminismMode_Disabled,
+  dol_Config_GPUDeterminismMode_FakeCompletion
 };
 
-enum dolConfigLayerType
+enum dol_Config_LayerType
 {
-  dolConfigLayerType_Base,
-  dolConfigLayerType_CommandLine,
-  dolConfigLayerType_GlobalGame,
-  dolConfigLayerType_LocalGame,
-  dolConfigLayerType_Movie,
-  dolConfigLayerType_Netplay,
-  dolConfigLayerType_CurrentRun,
-  dolConfigLayerType_Meta
+  dol_Config_LayerType_Base,
+  dol_Config_LayerType_CommandLine,
+  dol_Config_LayerType_GlobalGame,
+  dol_Config_LayerType_LocalGame,
+  dol_Config_LayerType_Movie,
+  dol_Config_LayerType_Netplay,
+  dol_Config_LayerType_CurrentRun,
+  dol_Config_LayerType_Meta
 };
 
-enum dolConfigShowCursor
+enum dol_Config_ShowCursor
 {
-  dolConfigShowCursor_Never,
-  dolConfigShowCursor_Constantly,
-  dolConfigShowCursor_OnMovement
+  dol_Config_ShowCursor_Never,
+  dol_Config_ShowCursor_Constantly,
+  dol_Config_ShowCursor_OnMovement
 };
 
-enum dolConfigSystem
+enum dol_Config_System
 {
-  dolConfigSystem_Main,
-  dolConfigSystem_SYSCONF,
-  dolConfigSystem_GCPad,
-  dolConfigSystem_WiiPad,
-  dolConfigSystem_GCKeyboard,
-  dolConfigSystem_GFX,
-  dolConfigSystem_Logger,
-  dolConfigSystem_Debugger,
-  dolConfigSystem_DualShockUDPClient,
-  dolConfigSystem_FreeLook,
-  dolConfigSystem_Session
+  dol_Config_System_Main,
+  dol_Config_System_SYSCONF,
+  dol_Config_System_GCPad,
+  dol_Config_System_WiiPad,
+  dol_Config_System_GCKeyboard,
+  dol_Config_System_GFX,
+  dol_Config_System_Logger,
+  dol_Config_System_Debugger,
+  dol_Config_System_DualShockUDPClient,
+  dol_Config_System_FreeLook,
+  dol_Config_System_Session
 };
 
-enum dolCoreState
+enum dol_Core_State
 {
-  dolCoreState_Uninitialized,
-  dolCoreState_Paused,
-  dolCoreState_Running,
-  dolCoreState_Stopping,
-  dolCoreState_Starting
+  dol_Core_State_Uninitialized,
+  dol_Core_State_Paused,
+  dol_Core_State_Running,
+  dol_Core_State_Stopping,
+  dol_Core_State_Starting
 };
 
-enum dolDiscIOBlobType
+enum dol_DiscIO_BlobType
 {
-  dolDiscIOBlobType_PLAIN,
-  dolDiscIOBlobType_DRIVE,
-  dolDiscIOBlobType_DIRECTORY,
-  dolDiscIOBlobType_GCZ,
-  dolDiscIOBlobType_CISO,
-  dolDiscIOBlobType_WBFS,
-  dolDiscIOBlobType_TGC,
-  dolDiscIOBlobType_WIA,
-  dolDiscIOBlobType_RVZ,
-  dolDiscIOBlobType_MOD_DESCRIPTOR,
-  dolDiscIOBlobType_NFS
+  dol_DiscIO_BlobType_PLAIN,
+  dol_DiscIO_BlobType_DRIVE,
+  dol_DiscIO_BlobType_DIRECTORY,
+  dol_DiscIO_BlobType_GCZ,
+  dol_DiscIO_BlobType_CISO,
+  dol_DiscIO_BlobType_WBFS,
+  dol_DiscIO_BlobType_TGC,
+  dol_DiscIO_BlobType_WIA,
+  dol_DiscIO_BlobType_RVZ,
+  dol_DiscIO_BlobType_MOD_DESCRIPTOR,
+  dol_DiscIO_BlobType_NFS
 };
 
-enum dolDiscIOCountry
+enum dol_DiscIO_Country
 {
-  dolDiscIOCountry_Europe = 0,
-  dolDiscIOCountry_Japan,
-  dolDiscIOCountry_USA,
-  dolDiscIOCountry_Australia,
-  dolDiscIOCountry_France,
-  dolDiscIOCountry_Germany,
-  dolDiscIOCountry_Italy,
-  dolDiscIOCountry_Korea,
-  dolDiscIOCountry_Netherlands,
-  dolDiscIOCountry_Russia,
-  dolDiscIOCountry_Spain,
-  dolDiscIOCountry_Taiwan,
-  dolDiscIOCountry_World,
-  dolDiscIOCountry_Unknown,
-  dolDiscIOCountry_NumberOfCountries
+  dol_DiscIO_Country_Europe = 0,
+  dol_DiscIO_Country_Japan,
+  dol_DiscIO_Country_USA,
+  dol_DiscIO_Country_Australia,
+  dol_DiscIO_Country_France,
+  dol_DiscIO_Country_Germany,
+  dol_DiscIO_Country_Italy,
+  dol_DiscIO_Country_Korea,
+  dol_DiscIO_Country_Netherlands,
+  dol_DiscIO_Country_Russia,
+  dol_DiscIO_Country_Spain,
+  dol_DiscIO_Country_Taiwan,
+  dol_DiscIO_Country_World,
+  dol_DiscIO_Country_Unknown,
+  dol_DiscIO_Country_NumberOfCountries
 };
 
-enum dolDiscIODataSizeType
+enum dol_DiscIO_DataSizeType
 {
-  dolDiscIODataSizeType_Accurate,
-  dolDiscIODataSizeType_LowerBound,
-  dolDiscIODataSizeType_UpperBound
+  dol_DiscIO_DataSizeType_Accurate,
+  dol_DiscIO_DataSizeType_LowerBound,
+  dol_DiscIO_DataSizeType_UpperBound
 };
 
-enum dolDiscIOLanguage
+enum dol_DiscIO_Language
 {
-  dolDiscIOLanguage_Japanese = 0,
-  dolDiscIOLanguage_English = 1,
-  dolDiscIOLanguage_German = 2,
-  dolDiscIOLanguage_French = 3,
-  dolDiscIOLanguage_Spanish = 4,
-  dolDiscIOLanguage_Italian = 5,
-  dolDiscIOLanguage_Dutch = 6,
-  dolDiscIOLanguage_SimplifiedChinese = 7,
-  dolDiscIOLanguage_TraditionalChinese = 8,
-  dolDiscIOLanguage_Korean = 9,
-  dolDiscIOLanguage_Unknown
+  dol_DiscIO_Language_Japanese = 0,
+  dol_DiscIO_Language_English = 1,
+  dol_DiscIO_Language_German = 2,
+  dol_DiscIO_Language_French = 3,
+  dol_DiscIO_Language_Spanish = 4,
+  dol_DiscIO_Language_Italian = 5,
+  dol_DiscIO_Language_Dutch = 6,
+  dol_DiscIO_Language_SimplifiedChinese = 7,
+  dol_DiscIO_Language_TraditionalChinese = 8,
+  dol_DiscIO_Language_Korean = 9,
+  dol_DiscIO_Language_Unknown
 };
 
-enum dolDiscIOPlatform
+enum dol_DiscIO_Platform
 {
-  dolDiscIOPlatform_GameCubeDisc = 0,
-  dolDiscIOPlatform_WiiDisc,
-  dolDiscIOPlatform_WiiWAD,
-  dolDiscIOPlatform_ELFOrDOL,
-  dolDiscIOPlatform_NumberOfPlatforms
+  dol_DiscIO_Platform_GameCubeDisc = 0,
+  dol_DiscIO_Platform_WiiDisc,
+  dol_DiscIO_Platform_WiiWAD,
+  dol_DiscIO_Platform_ELFOrDOL,
+  dol_DiscIO_Platform_NumberOfPlatforms
 };
 
-enum dolDiscIORegion
+enum dol_DiscIO_Region
 {
-  dolDiscIORegion_NTSC_J = 0,
-  dolDiscIORegion_NTSC_U = 1,
-  dolDiscIORegion_PAL = 2,
-  dolDiscIORegion_Unknown = 3,
-  dolDiscIORegion_NTSC_K = 4
+  dol_DiscIO_Region_NTSC_J = 0,
+  dol_DiscIO_Region_NTSC_U = 1,
+  dol_DiscIO_Region_PAL = 2,
+  dol_DiscIO_Region_Unknown = 3,
+  dol_DiscIO_Region_NTSC_K = 4
 };
 
-enum dolExpansionInterfaceEXIDeviceType
+enum dol_ExpansionInterface_EXIDeviceType
 {
-  dolExpansionInterfaceEXIDeviceType_Dummy,
-  dolExpansionInterfaceEXIDeviceType_MemoryCard,
-  dolExpansionInterfaceEXIDeviceType_MaskROM,
-  dolExpansionInterfaceEXIDeviceType_AD16,
-  dolExpansionInterfaceEXIDeviceType_Microphone,
-  dolExpansionInterfaceEXIDeviceType_Ethernet,
-  dolExpansionInterfaceEXIDeviceType_AMBaseboard,
-  dolExpansionInterfaceEXIDeviceType_Gecko,
-  dolExpansionInterfaceEXIDeviceType_MemoryCardFolder,
-  dolExpansionInterfaceEXIDeviceType_AGP,
-  dolExpansionInterfaceEXIDeviceType_EthernetXLink,
-  dolExpansionInterfaceEXIDeviceType_EthernetTapServer,
-  dolExpansionInterfaceEXIDeviceType_EthernetBuiltIn,
-  dolExpansionInterfaceEXIDeviceType_None = 0xFF
+  dol_ExpansionInterface_EXIDeviceType_Dummy,
+  dol_ExpansionInterface_EXIDeviceType_MemoryCard,
+  dol_ExpansionInterface_EXIDeviceType_MaskROM,
+  dol_ExpansionInterface_EXIDeviceType_AD16,
+  dol_ExpansionInterface_EXIDeviceType_Microphone,
+  dol_ExpansionInterface_EXIDeviceType_Ethernet,
+  dol_ExpansionInterface_EXIDeviceType_AMBaseboard,
+  dol_ExpansionInterface_EXIDeviceType_Gecko,
+  dol_ExpansionInterface_EXIDeviceType_MemoryCardFolder,
+  dol_ExpansionInterface_EXIDeviceType_AGP,
+  dol_ExpansionInterface_EXIDeviceType_EthernetXLink,
+  dol_ExpansionInterface_EXIDeviceType_EthernetTapServer,
+  dol_ExpansionInterface_EXIDeviceType_EthernetBuiltIn,
+  dol_ExpansionInterface_EXIDeviceType_None = 0xFF
 };
 
-enum dolExpansionInterfaceSlot
+enum dol_ExpansionInterface_Slot
 {
-  dolExpansionInterfaceSlot_A,
-  dolExpansionInterfaceSlot_B,
-  dolExpansionInterfaceSlot_SP1
+  dol_ExpansionInterface_Slot_A,
+  dol_ExpansionInterface_Slot_B,
+  dol_ExpansionInterface_Slot_SP1
 };
 
-enum dolFreeLookControlType
+enum dol_FreeLook_ControlType
 {
-  dolFreeLookControlType_SixAxis,
-  dolFreeLookControlType_FPS,
-  dolFreeLookControlType_Orbital
+  dol_FreeLook_ControlType_SixAxis,
+  dol_FreeLook_ControlType_FPS,
+  dol_FreeLook_ControlType_Orbital
 };
 
-enum dolHSPHSPDeviceType
+enum dol_HSP_HSPDeviceType
 {
-  dolHSPHSPDeviceType_None,
-  dolHSPHSPDeviceType_ARAMExpansion
+  dol_HSP_HSPDeviceType_None,
+  dol_HSP_HSPDeviceType_ARAMExpansion
 };
 
-enum dolPadButton
+enum dol_PadButton
 {
-  dolPadButton_PAD_BUTTON_LEFT = 0x0001,
-  dolPadButton_PAD_BUTTON_RIGHT = 0x0002,
-  dolPadButton_PAD_BUTTON_DOWN = 0x0004,
-  dolPadButton_PAD_BUTTON_UP = 0x0008,
-  dolPadButton_PAD_TRIGGER_Z = 0x0010,
-  dolPadButton_PAD_TRIGGER_R = 0x0020,
-  dolPadButton_PAD_TRIGGER_L = 0x0040,
-  dolPadButton_PAD_BUTTON_A = 0x0100,
-  dolPadButton_PAD_BUTTON_B = 0x0200,
-  dolPadButton_PAD_BUTTON_X = 0x0400,
-  dolPadButton_PAD_BUTTON_Y = 0x0800,
-  dolPadButton_PAD_BUTTON_START = 0x1000
+  dol_PadButton_Left = 0x0001,
+  dol_PadButton_Right = 0x0002,
+  dol_PadButton_Down = 0x0004,
+  dol_PadButton_Up = 0x0008,
+  dol_PadTrigger_Z = 0x0010,
+  dol_PadTrigger_R = 0x0020,
+  dol_PadTrigger_L = 0x0040,
+  dol_PadButton_A = 0x0100,
+  dol_PadButton_B = 0x0200,
+  dol_PadButton_X = 0x0400,
+  dol_PadButton_Y = 0x0800,
+  dol_PadButton_Start = 0x1000
 };
 
-enum dolPowerPCCPUCore
+enum dol_PowerPC_CPUCore
 {
-  dolPowerPCCPUCore_Interpreter = 0,
-  dolPowerPCCPUCore_JIT64 = 1,
-  dolPowerPCCPUCore_JITARM64 = 4,
-  dolPowerPCCPUCore_CachedInterpreter = 5
+  dol_PowerPC_CPUCore_Interpreter = 0,
+  dol_PowerPC_CPUCore_JIT64 = 1,
+  dol_PowerPC_CPUCore_JITARM64 = 4,
+  dol_PowerPC_CPUCore_CachedInterpreter = 5
 };
 
-enum dolSerialInterfaceSIDevices
+enum dol_SerialInterface_SIDevices
 {
-  dolSerialInterfaceSIDevices_SIDEVICE_NONE,
-  dolSerialInterfaceSIDevices_SIDEVICE_N64_MIC,
-  dolSerialInterfaceSIDevices_SIDEVICE_N64_KEYBOARD,
-  dolSerialInterfaceSIDevices_SIDEVICE_N64_MOUSE,
-  dolSerialInterfaceSIDevices_SIDEVICE_N64_CONTROLLER,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_GBA,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_CONTROLLER,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_KEYBOARD,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_STEERING,
-  dolSerialInterfaceSIDevices_SIDEVICE_DANCEMAT,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_TARUKONGA,
-  dolSerialInterfaceSIDevices_SIDEVICE_AM_BASEBOARD,
-  dolSerialInterfaceSIDevices_SIDEVICE_WIIU_ADAPTER,
-  dolSerialInterfaceSIDevices_SIDEVICE_GC_GBA_EMULATED,
-  dolSerialInterfaceSIDevices_SIDEVICE_COUNT
+  dol_SerialInterface_SIDevices_None,
+  dol_SerialInterface_SIDevices_N64Mic,
+  dol_SerialInterface_SIDevices_N64Keyboard,
+  dol_SerialInterface_SIDevices_N64Mouse,
+  dol_SerialInterface_SIDevices_N64Controller,
+  dol_SerialInterface_SIDevices_GC_GBA,
+  dol_SerialInterface_SIDevices_GCController,
+  dol_SerialInterface_SIDevices_GCKeyboard,
+  dol_SerialInterface_SIDevices_GCSteering,
+  dol_SerialInterface_SIDevices_DanceMat,
+  dol_SerialInterface_SIDevices_GCTaruKonga,
+  dol_SerialInterface_SIDevices_AMBaseboard,
+  dol_SerialInterface_SIDevices_WiiUAdapter,
+  dol_SerialInterface_SIDevices_GC_GBA_Emulated,
+  dol_SerialInterface_SIDevices_Count
 };
 
-enum dolShaderCompilationMode
+enum dol_ShaderCompilationMode
 {
-  dolShaderCompilationMode_Synchronous,
-  dolShaderCompilationMode_SynchronousUberShaders,
-  dolShaderCompilationMode_AsynchronousUberShaders,
-  dolShaderCompilationMode_AsynchronousSkipRendering
+  dol_ShaderCompilationMode_Synchronous,
+  dol_ShaderCompilationMode_SynchronousUberShaders,
+  dol_ShaderCompilationMode_AsynchronousUberShaders,
+  dol_ShaderCompilationMode_AsynchronousSkipRendering
 };
 
-enum dolStereoMode
+enum dol_StereoMode
 {
-  dolStereoMode_Off,
-  dolStereoMode_SBS,
-  dolStereoMode_TAB,
-  dolStereoMode_Anaglyph,
-  dolStereoMode_QuadBuffer,
-  dolStereoMode_Passive
+  dol_StereoMode_Off,
+  dol_StereoMode_SBS,
+  dol_StereoMode_TAB,
+  dol_StereoMode_Anaglyph,
+  dol_StereoMode_QuadBuffer,
+  dol_StereoMode_Passive
 };
 
-enum dolTriState
+enum dol_TriState
 {
-  Off,
-  On,
-  Auto
+  dol_TriState_Off,
+  dol_TriState_On,
+  dol_TriState_Auto
 };
 
 enum dol_UICommon_GameFile_Variant
@@ -267,11 +267,11 @@ enum dol_UICommon_GameFile_Variant
   dol_UICommon_GameFile_Variant_ShortAndNotCustom
 };
 
-enum dolWiimoteSource
+enum dol_WiimoteSource
 {
-  dolWiimoteSource_None = 0,
-  dolWiimoteSource_Emulated = 1,
-  dolWiimoteSource_Real = 2
+  dol_WiimoteSource_None = 0,
+  dol_WiimoteSource_Emulated = 1,
+  dol_WiimoteSource_Real = 2
 };
 
 #ifdef __cplusplus

@@ -6,7 +6,7 @@ extern "C" {
 
 #include <stdint.h>
 
-struct dolMemory
+struct dol_Memory
 {
   uint8_t* (*getPhysicalBase)(void);
   uint8_t* (*getLogicalBase)(void);
@@ -52,7 +52,7 @@ struct dolMemory
   void (*copyToEmuU64Swap)(uint32_t address, const uint64_t* data, size_t size);
 };
 
-typedef dolMemory* (*dolMemory_newInterface_t)(void);
+typedef dol_Memory* (*dol_Memory_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

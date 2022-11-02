@@ -4,12 +4,12 @@
 extern "C" {
 #endif
 
-struct dolGuiResources
+struct dol_Gui_Resources
 {
   void (*init)(void);
 };
 
-typedef dolGuiResources* (*dolGuiResources_newInterface_t)(void);
+typedef dol_Gui_Resources* (*dol_Gui_Resources_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

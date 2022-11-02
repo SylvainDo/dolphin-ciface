@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-struct dolGuiSettings
+struct dol_Gui_Settings
 {
   void (*unregisterDevicesChangedCallback)(void);
   // UI
@@ -50,8 +50,8 @@ struct dolGuiSettings
   bool (*isUSBKeyboardConnected)(void);
   void (*setUSBKeyboardConnected)(bool connected);
   // Graphics
-  void (*setCursorVisibility)(dolConfigShowCursor hideCursor);
-  dolConfigShowCursor (*getCursorVisibility)(void);
+  void (*setCursorVisibility)(dol_Config_ShowCursor hideCursor);
+  dol_Config_ShowCursor (*getCursorVisibility)(void);
   void (*setLockCursor)(bool lock_cursor);
   bool (*getLockCursor)(void);
   void (*setKeepWindowOnTop)(bool top);
@@ -89,14 +89,14 @@ struct dolGuiSettings
   char* (*getAutoUpdateTrack)(void);
   void (*setAutoUpdateTrack)(const char* mode);
   // Fallback Region
-  dolDiscIORegion (*getFallbackRegion)(void);
-  void (*setFallbackRegion)(dolDiscIORegion region);
+  dol_DiscIO_Region (*getFallbackRegion)(void);
+  void (*setFallbackRegion)(dol_DiscIO_Region region);
   // Analytics
   bool (*isAnalyticsEnabled)(void);
   void (*setAnalyticsEnabled)(bool enabled);
 };
 
-typedef dolGuiSettings* (*dolGuiSettings_newInterface_t)(void);
+typedef dol_Gui_Settings* (*dol_Gui_Settings_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

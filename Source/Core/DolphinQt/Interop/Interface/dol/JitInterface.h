@@ -6,7 +6,7 @@ extern "C" {
 
 #include <stdint.h>
 
-struct dolJitInterface
+struct dol_JitInterface
 {
   void (*clearCache)(void);
   void (*clearSafe)(void);
@@ -15,7 +15,7 @@ struct dolJitInterface
   void (*invalidateICacheLines)(uint32_t address, uint32_t count);
 };
 
-typedef dolJitInterface* (*dolJitInterface_newInterface_t)(void);
+typedef dol_JitInterface* (*dol_JitInterface_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

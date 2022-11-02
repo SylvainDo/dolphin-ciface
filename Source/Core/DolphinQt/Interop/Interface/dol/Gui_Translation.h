@@ -4,12 +4,12 @@
 extern "C" {
 #endif
 
-struct dolGuiTranslation
+struct dol_Gui_Translation
 {
   void (*initialize)(void);
 };
 
-typedef dolGuiTranslation* (*dolGuiTranslation_newInterface_t)(void);
+typedef dol_Gui_Translation* (*dol_Gui_Translation_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

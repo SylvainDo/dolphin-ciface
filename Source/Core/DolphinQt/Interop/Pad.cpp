@@ -8,42 +8,42 @@ extern dol_calloc_t interop_calloc;
 #include "Core/HW/GCPad.h"
 #include "InputCommon/GCPadStatus.h"
 
-static bool dolPad_isInitialized()
+static bool dol_Pad_isInitialized()
 {
   return Pad::IsInitialized();
 }
 
-static dolGCPadStatus dolPad_getStatus(int pad_num)
+static dol_GCPadStatus dol_Pad_getStatus(int pad_num)
 {
   auto status = Pad::GetStatus(pad_num);
-  dolGCPadStatus status2;
+  dol_GCPadStatus status2;
   memcpy(&status2, &status, sizeof status);
   return status2;
 }
 
-static void dolPad_rumble(int pad_num, dolControlState strength)
+static void dol_Pad_rumble(int pad_num, dol_ControlState strength)
 {
   Pad::Rumble(pad_num, strength);
 }
 
-static void dolPad_resetRumble(int pad_num)
+static void dol_Pad_resetRumble(int pad_num)
 {
   Pad::ResetRumble(pad_num);
 }
 
-static bool dolPad_getMicButton(int pad_num)
+static bool dol_Pad_getMicButton(int pad_num)
 {
   return Pad::GetMicButton(pad_num);
 }
 
-EXPORT dolPad* dolPad_newInterface()
+EXPORT dol_Pad* dol_Pad_newInterface()
 {
-  auto iface = static_cast<dolPad*>(interop_calloc(1, sizeof(dolPad)));
-  iface->isInitialized = dolPad_isInitialized;
-  iface->getStatus = dolPad_getStatus;
-  iface->rumble = dolPad_rumble;
-  iface->resetRumble = dolPad_resetRumble;
-  iface->getMicButton = dolPad_getMicButton;
+  auto iface = static_cast<dol_Pad*>(interop_calloc(1, sizeof(dol_Pad)));
+  iface->isInitialized = dol_Pad_isInitialized;
+  iface->getStatus = dol_Pad_getStatus;
+  iface->rumble = dol_Pad_rumble;
+  iface->resetRumble = dol_Pad_resetRumble;
+  iface->getMicButton = dol_Pad_getMicButton;
 
   return iface;
 }

@@ -51,17 +51,17 @@ struct dol_UICommon_GameFile
   char* (*getName1)(dol_UICommon_GameFile* _this, dol_Core_TitleDatabase* title_database);
   char* (*getName2)(dol_UICommon_GameFile* _this, dol_UICommon_GameFile_Variant variant);
   char* (*getMaker)(dol_UICommon_GameFile* _this, dol_UICommon_GameFile_Variant variant);
-  char* (*getShortName1)(dol_UICommon_GameFile* _this, dolDiscIOLanguage l);
+  char* (*getShortName1)(dol_UICommon_GameFile* _this, dol_DiscIO_Language l);
   char* (*getShortName2)(dol_UICommon_GameFile* _this);
-  char* (*getLongName1)(dol_UICommon_GameFile* _this, dolDiscIOLanguage l);
+  char* (*getLongName1)(dol_UICommon_GameFile* _this, dol_DiscIO_Language l);
   char* (*getLongName2)(dol_UICommon_GameFile* _this);
-  char* (*getShortMaker1)(dol_UICommon_GameFile* _this, dolDiscIOLanguage l);
+  char* (*getShortMaker1)(dol_UICommon_GameFile* _this, dol_DiscIO_Language l);
   char* (*getShortMaker2)(dol_UICommon_GameFile* _this);
-  char* (*getLongMaker1)(dol_UICommon_GameFile* _this, dolDiscIOLanguage l);
+  char* (*getLongMaker1)(dol_UICommon_GameFile* _this, dol_DiscIO_Language l);
   char* (*getLongMaker2)(dol_UICommon_GameFile* _this);
-  char* (*getDescription1)(dol_UICommon_GameFile* _this, dolDiscIOLanguage l);
+  char* (*getDescription1)(dol_UICommon_GameFile* _this, dol_DiscIO_Language l);
   char* (*getDescription2)(dol_UICommon_GameFile* _this, dol_UICommon_GameFile_Variant variant);
-  dolDiscIOLanguage* (*getLanguages)(dol_UICommon_GameFile* _this, int* numLanguages);
+  dol_DiscIO_Language* (*getLanguages)(dol_UICommon_GameFile* _this, int* numLanguages);
   char* (*getInternalName)(dol_UICommon_GameFile* _this);
   char* (*getGameID)(dol_UICommon_GameFile* _this);
   char* (*getGameTDBID)(dol_UICommon_GameFile* _this);
@@ -76,10 +76,10 @@ struct dol_UICommon_GameFile
   dol_NetPlay_SyncIdentifierComparison (*compareSyncIdentifier)(
       dol_UICommon_GameFile* _this, dol_NetPlay_SyncIdentifier* sync_identifier);
   char* (*getWiiFSPath)(dol_UICommon_GameFile* _this);
-  dolDiscIORegion (*getRegion)(dol_UICommon_GameFile* _this);
-  dolDiscIOCountry (*getCountry)(dol_UICommon_GameFile* _this);
-  dolDiscIOPlatform (*getPlatform)(dol_UICommon_GameFile* _this);
-  dolDiscIOBlobType (*getBlobType)(dol_UICommon_GameFile* _this);
+  dol_DiscIO_Region (*getRegion)(dol_UICommon_GameFile* _this);
+  dol_DiscIO_Country (*getCountry)(dol_UICommon_GameFile* _this);
+  dol_DiscIO_Platform (*getPlatform)(dol_UICommon_GameFile* _this);
+  dol_DiscIO_BlobType (*getBlobType)(dol_UICommon_GameFile* _this);
   uint64_t (*getBlockSize)(dol_UICommon_GameFile* _this);
   char* (*getCompressionMethod)(dol_UICommon_GameFile* _this);
   bool (*shouldShowFileFormatDetails)(dol_UICommon_GameFile* _this);
@@ -88,7 +88,7 @@ struct dol_UICommon_GameFile
   char* (*getApploaderDate)(dol_UICommon_GameFile* _this);
   uint64_t (*getFileSize)(dol_UICommon_GameFile* _this);
   uint64_t (*getVolumeSize)(dol_UICommon_GameFile* _this);
-  dolDiscIODataSizeType (*getVolumeSizeType)(dol_UICommon_GameFile* _this);
+  dol_DiscIO_DataSizeType (*getVolumeSizeType)(dol_UICommon_GameFile* _this);
   bool (*isDatelDisc)(dol_UICommon_GameFile* _this);
   bool (*isNKit)(dol_UICommon_GameFile* _this);
   bool (*isModDescriptor)(dol_UICommon_GameFile* _this);

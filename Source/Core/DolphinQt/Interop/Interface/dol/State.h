@@ -6,7 +6,7 @@ extern "C" {
 
 #include <stdint.h>
 
-struct dolState_StateHeader
+struct dol_State_StateHeader
 {
   char gameID[6];
   uint16_t reserved1;
@@ -15,10 +15,10 @@ struct dolState_StateHeader
   double time;
 };
 
-struct dolState
+struct dol_State
 {
   void (*enableCompression)(bool compression);
-  bool (*readHeader)(const char* filename, dolState_StateHeader* header);
+  bool (*readHeader)(const char* filename, dol_State_StateHeader* header);
   char* (*getInfoStringOfSlot)(int slot, bool translate);
   uint64_t (*getUnixTimeOfSlot)(int slot);
   void (*save)(int slot, bool wait);
@@ -33,16 +33,16 @@ struct dolState
   void (*undoLoadState)(void);
 };
 
-typedef dolState* (*dolState_newInterface_t)(void);
+typedef dol_State* (*dol_State_newInterface_t)(void);
 
 #ifdef __cplusplus
 }
 
 #include <cstddef>
 
-constexpr size_t STATE_HEADER_SIZE = sizeof(dolState_StateHeader);
-static_assert(STATE_HEADER_SIZE == 24);
-static_assert(offsetof(dolState_StateHeader, size) == 8);
-static_assert(offsetof(dolState_StateHeader, time) == 16);
+constexpr size_t DOL_STATE_HEADER_SIZE = sizeof(dol_State_StateHeader);
+static_assert(DOL_STATE_HEADER_SIZE == 24);
+static_assert(offsetof(dol_State_StateHeader, size) == 8);
+static_assert(offsetof(dol_State_StateHeader, time) == 16);
 
 #endif

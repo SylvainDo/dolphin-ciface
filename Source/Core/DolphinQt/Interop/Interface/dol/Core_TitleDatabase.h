@@ -13,11 +13,11 @@ struct dol_Core_TitleDatabase
   void* data;
   void* (*getUnderlyingInstance)(dol_Core_TitleDatabase* _this);
   char* (*getTitleName)(dol_Core_TitleDatabase* _this, const char* gametdb_id,
-                        dolDiscIOLanguage language);
+                        dol_DiscIO_Language language);
   char* (*getChannelName)(dol_Core_TitleDatabase* _this, uint64_t title_id,
-                          dolDiscIOLanguage language);
+                          dol_DiscIO_Language language);
   char* (*describe)(dol_Core_TitleDatabase* _this, const char* gametdb_id,
-                    dolDiscIOLanguage language);
+                    dol_DiscIO_Language language);
 };
 
 struct dol_Core_TitleDatabase_Factory

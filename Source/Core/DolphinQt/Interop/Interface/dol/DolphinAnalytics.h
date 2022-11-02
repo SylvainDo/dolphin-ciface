@@ -4,13 +4,13 @@
 extern "C" {
 #endif
 
-struct dolDolphinAnalytics
+struct dol_DolphinAnalytics
 {
   void (*reloadConfig)(void);
   void (*generateNewIdentity)(void);
 };
 
-typedef dolDolphinAnalytics* (*dolDolphinAnalytics_newInterface_t)(void);
+typedef dol_DolphinAnalytics* (*dol_DolphinAnalytics_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

@@ -52,7 +52,7 @@ static char* dol_UICommon_GameFile_getMaker(dol_UICommon_GameFile* _this,
       ThisGameFile->GetMaker(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
-static char* dol_UICommon_GameFile_getShortName1(dol_UICommon_GameFile* _this, dolDiscIOLanguage l)
+static char* dol_UICommon_GameFile_getShortName1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetShortName(static_cast<DiscIO::Language>(l)));
 }
@@ -62,7 +62,7 @@ static char* dol_UICommon_GameFile_getShortName2(dol_UICommon_GameFile* _this)
   return InteropUtil::dupStdString(ThisGameFile->GetShortName());
 }
 
-static char* dol_UICommon_GameFile_getLongName1(dol_UICommon_GameFile* _this, dolDiscIOLanguage l)
+static char* dol_UICommon_GameFile_getLongName1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetLongName(static_cast<DiscIO::Language>(l)));
 }
@@ -72,7 +72,7 @@ static char* dol_UICommon_GameFile_getLongName2(dol_UICommon_GameFile* _this)
   return InteropUtil::dupStdString(ThisGameFile->GetLongName());
 }
 
-static char* dol_UICommon_GameFile_getShortMaker1(dol_UICommon_GameFile* _this, dolDiscIOLanguage l)
+static char* dol_UICommon_GameFile_getShortMaker1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetShortMaker(static_cast<DiscIO::Language>(l)));
 }
@@ -82,7 +82,7 @@ static char* dol_UICommon_GameFile_getShortMaker2(dol_UICommon_GameFile* _this)
   return InteropUtil::dupStdString(ThisGameFile->GetShortMaker());
 }
 
-static char* dol_UICommon_GameFile_getLongMaker1(dol_UICommon_GameFile* _this, dolDiscIOLanguage l)
+static char* dol_UICommon_GameFile_getLongMaker1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetLongMaker(static_cast<DiscIO::Language>(l)));
 }
@@ -93,7 +93,7 @@ static char* dol_UICommon_GameFile_getLongMaker2(dol_UICommon_GameFile* _this)
 }
 
 static char* dol_UICommon_GameFile_getDescription1(dol_UICommon_GameFile* _this,
-                                                   dolDiscIOLanguage l)
+                                                   dol_DiscIO_Language l)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetDescription(static_cast<DiscIO::Language>(l)));
 }
@@ -105,12 +105,12 @@ static char* dol_UICommon_GameFile_getDescription2(dol_UICommon_GameFile* _this,
       ThisGameFile->GetDescription(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
-static dolDiscIOLanguage* dol_UICommon_GameFile_getLanguages(dol_UICommon_GameFile* _this,
+static dol_DiscIO_Language* dol_UICommon_GameFile_getLanguages(dol_UICommon_GameFile* _this,
                                                              int* numLanguages)
 {
   const auto langs = ThisGameFile->GetLanguages();
   auto v =
-      static_cast<dolDiscIOLanguage*>(interop_malloc(sizeof(dolDiscIOLanguage) * langs.size()));
+      static_cast<dol_DiscIO_Language*>(interop_malloc(sizeof(dol_DiscIO_Language) * langs.size()));
   memcpy(v, langs.data(), langs.size());
   *numLanguages = static_cast<int>(langs.size());
   return v;
@@ -193,24 +193,24 @@ static char* dol_UICommon_GameFile_getWiiFSPath(dol_UICommon_GameFile* _this)
   return InteropUtil::dupStdString(ThisGameFile->GetWiiFSPath());
 }
 
-static dolDiscIORegion dol_UICommon_GameFile_getRegion(dol_UICommon_GameFile* _this)
+static dol_DiscIO_Region dol_UICommon_GameFile_getRegion(dol_UICommon_GameFile* _this)
 {
-  return static_cast<dolDiscIORegion>(ThisGameFile->GetRegion());
+  return static_cast<dol_DiscIO_Region>(ThisGameFile->GetRegion());
 }
 
-static dolDiscIOCountry dol_UICommon_GameFile_getCountry(dol_UICommon_GameFile* _this)
+static dol_DiscIO_Country dol_UICommon_GameFile_getCountry(dol_UICommon_GameFile* _this)
 {
-  return static_cast<dolDiscIOCountry>(ThisGameFile->GetCountry());
+  return static_cast<dol_DiscIO_Country>(ThisGameFile->GetCountry());
 }
 
-static dolDiscIOPlatform dol_UICommon_GameFile_getPlatform(dol_UICommon_GameFile* _this)
+static dol_DiscIO_Platform dol_UICommon_GameFile_getPlatform(dol_UICommon_GameFile* _this)
 {
-  return static_cast<dolDiscIOPlatform>(ThisGameFile->GetPlatform());
+  return static_cast<dol_DiscIO_Platform>(ThisGameFile->GetPlatform());
 }
 
-static dolDiscIOBlobType dol_UICommon_GameFile_getBlobType(dol_UICommon_GameFile* _this)
+static dol_DiscIO_BlobType dol_UICommon_GameFile_getBlobType(dol_UICommon_GameFile* _this)
 {
-  return static_cast<dolDiscIOBlobType>(ThisGameFile->GetBlobType());
+  return static_cast<dol_DiscIO_BlobType>(ThisGameFile->GetBlobType());
 }
 
 static uint64_t dol_UICommon_GameFile_getBlockSize(dol_UICommon_GameFile* _this)
@@ -253,9 +253,9 @@ static uint64_t dol_UICommon_GameFile_getVolumeSize(dol_UICommon_GameFile* _this
   return ThisGameFile->GetVolumeSize();
 }
 
-static dolDiscIODataSizeType dol_UICommon_GameFile_getVolumeSizeType(dol_UICommon_GameFile* _this)
+static dol_DiscIO_DataSizeType dol_UICommon_GameFile_getVolumeSizeType(dol_UICommon_GameFile* _this)
 {
-  return static_cast<dolDiscIODataSizeType>(ThisGameFile->GetVolumeSizeType());
+  return static_cast<dol_DiscIO_DataSizeType>(ThisGameFile->GetVolumeSizeType());
 }
 
 static bool dol_UICommon_GameFile_isDatelDisc(dol_UICommon_GameFile* _this)

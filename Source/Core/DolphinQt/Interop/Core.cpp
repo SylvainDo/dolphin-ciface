@@ -6,187 +6,188 @@ extern dol_calloc_t interop_calloc;
 
 #include "Core/Core.h"
 
-static bool dolCore_getIsThrottlerTempDisabled()
+static bool dol_Core_getIsThrottlerTempDisabled()
 {
   return Core::GetIsThrottlerTempDisabled();
 }
 
-static void dolCore_setIsThrottlerTempDisabled(bool disable)
+static void dol_Core_setIsThrottlerTempDisabled(bool disable)
 {
   Core::SetIsThrottlerTempDisabled(disable);
 }
 
-static double dolCore_getActualEmulationSpeed()
+static double dol_Core_getActualEmulationSpeed()
 {
   return Core::GetActualEmulationSpeed();
 }
 
-static void dolCore_stop()
+static void dol_Core_stop()
 {
   Core::Stop();
 }
 
-static void dolCore_shutdown()
+static void dol_Core_shutdown()
 {
   Core::Shutdown();
 }
 
-static void dolCore_declareAsCPUThread()
+static void dol_Core_declareAsCPUThread()
 {
   Core::DeclareAsCPUThread();
 }
 
-static void dolCore_undeclareAsCPUThread()
+static void dol_Core_undeclareAsCPUThread()
 {
   Core::UndeclareAsCPUThread();
 }
 
-static void dolCore_declareAsGPUThread()
+static void dol_Core_declareAsGPUThread()
 {
   Core::DeclareAsGPUThread();
 }
 
-static void dolCore_undeclareAsGPUThread()
+static void dol_Core_undeclareAsGPUThread()
 {
   Core::UndeclareAsGPUThread();
 }
 
-static bool dolCore_isRunning()
+static bool dol_Core_isRunning()
 {
   return Core::IsRunning();
 }
 
-static bool dolCore_isRunningAndStarted()
+static bool dol_Core_isRunningAndStarted()
 {
   return Core::IsRunningAndStarted();
 }
 
-static bool dolCore_isRunningInCurrentThread()
+static bool dol_Core_isRunningInCurrentThread()
 {
   return Core::IsRunningInCurrentThread();
 }
 
-static bool dolCore_isCPUThread()
+static bool dol_Core_isCPUThread()
 {
   return Core::IsCPUThread();
 }
 
-static bool dolCore_isGPUThread()
+static bool dol_Core_isGPUThread()
 {
   return Core::IsGPUThread();
 }
 
-static bool dolCore_wantsDeterminism()
+static bool dol_Core_wantsDeterminism()
 {
   return Core::WantsDeterminism();
 }
 
-static void dolCore_setState(dolCoreState state)
+static void dol_Core_setState(dol_Core_State state)
 {
   Core::SetState(static_cast<Core::State>(state));
 }
 
-static dolCoreState dolCore_getState()
+static dol_Core_State dol_Core_getState()
 {
-  return static_cast<dolCoreState>(Core::GetState());
+  return static_cast<dol_Core_State>(Core::GetState());
 }
 
-static void dolCore_saveScreenShot1()
+static void dol_Core_saveScreenShot1()
 {
   Core::SaveScreenShot();
 }
 
-static void dolCore_saveScreenShot2(const char* name)
+static void dol_Core_saveScreenShot2(const char* name)
 {
   Core::SaveScreenShot(name);
 }
 
-static void dolCore_displayMessage(const char* message, int time_in_ms)
+static void dol_Core_displayMessage(const char* message, int time_in_ms)
 {
   Core::DisplayMessage(message, time_in_ms);
 }
 
-static void dolCore_runAsCPUThread(void (*function)(void* userdata), void* userdata)
+static void dol_Core_runAsCPUThread(void (*function)(void* userdata), void* userdata)
 {
   Core::RunAsCPUThread([function, userdata]() { function(userdata); });
 }
 
-static void dolCore_runOnCPUThread(void (*function)(void* userdata), void* userdata,
-                                   bool wait_for_completion)
+static void dol_Core_runOnCPUThread(void (*function)(void* userdata), void* userdata,
+                                    bool wait_for_completion)
 {
   Core::RunOnCPUThread([function, userdata]() { function(userdata); }, wait_for_completion);
 }
 
-static int dolCore_addOnStateChangedCallback(void (*callback)(dolCoreState state, void* userdata),
-                                             void* userdata)
+static int dol_Core_addOnStateChangedCallback(void (*callback)(dol_Core_State state,
+                                                               void* userdata),
+                                              void* userdata)
 {
   return Core::AddOnStateChangedCallback([callback, userdata](Core::State state) {
-    callback(static_cast<dolCoreState>(state), userdata);
+    callback(static_cast<dol_Core_State>(state), userdata);
   });
 }
 
-static bool dolCore_removeOnStateChangedCallback(int* handle)
+static bool dol_Core_removeOnStateChangedCallback(int* handle)
 {
   return Core::RemoveOnStateChangedCallback(handle);
 }
 
-static void dolCore_updateWantDeterminism(bool initial)
+static void dol_Core_updateWantDeterminism(bool initial)
 {
   Core::UpdateWantDeterminism(initial);
 }
 
-static void dolCore_queueHostJob(void (*job)(void* userdata), void* userdata, bool run_during_stop)
+static void dol_Core_queueHostJob(void (*job)(void* userdata), void* userdata, bool run_during_stop)
 {
   Core::QueueHostJob([job, userdata]() { job(userdata); }, run_during_stop);
 }
 
-static void dolCore_hostDispatchJobs()
+static void dol_Core_hostDispatchJobs()
 {
   Core::HostDispatchJobs();
 }
 
-static void dolCore_doFrameStep()
+static void dol_Core_doFrameStep()
 {
   Core::DoFrameStep();
 }
 
-static void dolCore_updateInputGate(bool require_focus, bool require_full_focus)
+static void dol_Core_updateInputGate(bool require_focus, bool require_full_focus)
 {
   Core::UpdateInputGate(require_focus, require_full_focus);
 }
 
-EXPORT dolCore* dolCore_newInterface()
+EXPORT dol_Core* dol_Core_newInterface()
 {
-  auto iface = static_cast<dolCore*>(interop_calloc(1, sizeof(dolCore)));
-  iface->getIsThrottlerTempDisabled = dolCore_getIsThrottlerTempDisabled;
-  iface->setIsThrottlerTempDisabled = dolCore_setIsThrottlerTempDisabled;
-  iface->getActualEmulationSpeed = dolCore_getActualEmulationSpeed;
-  iface->stop = dolCore_stop;
-  iface->shutdown = dolCore_shutdown;
-  iface->declareAsCPUThread = dolCore_declareAsCPUThread;
-  iface->undeclareAsCPUThread = dolCore_undeclareAsCPUThread;
-  iface->declareAsGPUThread = dolCore_declareAsGPUThread;
-  iface->undeclareAsGPUThread = dolCore_undeclareAsGPUThread;
-  iface->isRunning = dolCore_isRunning;
-  iface->isRunningAndStarted = dolCore_isRunningAndStarted;
-  iface->isRunningInCurrentThread = dolCore_isRunningInCurrentThread;
-  iface->isCPUThread = dolCore_isCPUThread;
-  iface->isGPUThread = dolCore_isGPUThread;
-  iface->wantsDeterminism = dolCore_wantsDeterminism;
-  iface->setState = dolCore_setState;
-  iface->getState = dolCore_getState;
-  iface->saveScreenShot1 = dolCore_saveScreenShot1;
-  iface->saveScreenShot2 = dolCore_saveScreenShot2;
-  iface->displayMessage = dolCore_displayMessage;
-  iface->runAsCPUThread = dolCore_runAsCPUThread;
-  iface->runOnCPUThread = dolCore_runOnCPUThread;
-  iface->addOnStateChangedCallback = dolCore_addOnStateChangedCallback;
-  iface->removeOnStateChangedCallback = dolCore_removeOnStateChangedCallback;
-  iface->updateWantDeterminism = dolCore_updateWantDeterminism;
-  iface->queueHostJob = dolCore_queueHostJob;
-  iface->hostDispatchJobs = dolCore_hostDispatchJobs;
-  iface->doFrameStep = dolCore_doFrameStep;
-  iface->updateInputGate = dolCore_updateInputGate;
+  auto iface = static_cast<dol_Core*>(interop_calloc(1, sizeof(dol_Core)));
+  iface->getIsThrottlerTempDisabled = dol_Core_getIsThrottlerTempDisabled;
+  iface->setIsThrottlerTempDisabled = dol_Core_setIsThrottlerTempDisabled;
+  iface->getActualEmulationSpeed = dol_Core_getActualEmulationSpeed;
+  iface->stop = dol_Core_stop;
+  iface->shutdown = dol_Core_shutdown;
+  iface->declareAsCPUThread = dol_Core_declareAsCPUThread;
+  iface->undeclareAsCPUThread = dol_Core_undeclareAsCPUThread;
+  iface->declareAsGPUThread = dol_Core_declareAsGPUThread;
+  iface->undeclareAsGPUThread = dol_Core_undeclareAsGPUThread;
+  iface->isRunning = dol_Core_isRunning;
+  iface->isRunningAndStarted = dol_Core_isRunningAndStarted;
+  iface->isRunningInCurrentThread = dol_Core_isRunningInCurrentThread;
+  iface->isCPUThread = dol_Core_isCPUThread;
+  iface->isGPUThread = dol_Core_isGPUThread;
+  iface->wantsDeterminism = dol_Core_wantsDeterminism;
+  iface->setState = dol_Core_setState;
+  iface->getState = dol_Core_getState;
+  iface->saveScreenShot1 = dol_Core_saveScreenShot1;
+  iface->saveScreenShot2 = dol_Core_saveScreenShot2;
+  iface->displayMessage = dol_Core_displayMessage;
+  iface->runAsCPUThread = dol_Core_runAsCPUThread;
+  iface->runOnCPUThread = dol_Core_runOnCPUThread;
+  iface->addOnStateChangedCallback = dol_Core_addOnStateChangedCallback;
+  iface->removeOnStateChangedCallback = dol_Core_removeOnStateChangedCallback;
+  iface->updateWantDeterminism = dol_Core_updateWantDeterminism;
+  iface->queueHostJob = dol_Core_queueHostJob;
+  iface->hostDispatchJobs = dol_Core_hostDispatchJobs;
+  iface->doFrameStep = dol_Core_doFrameStep;
+  iface->updateInputGate = dol_Core_updateInputGate;
 
   return iface;
 }

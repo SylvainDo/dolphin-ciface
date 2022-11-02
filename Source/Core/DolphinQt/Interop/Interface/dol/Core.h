@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-struct dolCore
+struct dol_Core
 {
   bool (*getIsThrottlerTempDisabled)(void);
   void (*setIsThrottlerTempDisabled)(bool disable);
@@ -23,15 +23,15 @@ struct dolCore
   bool (*isCPUThread)(void);
   bool (*isGPUThread)(void);
   bool (*wantsDeterminism)(void);
-  void (*setState)(dolCoreState state);
-  dolCoreState (*getState)(void);
+  void (*setState)(dol_Core_State state);
+  dol_Core_State (*getState)(void);
   void (*saveScreenShot1)(void);
   void (*saveScreenShot2)(const char* name);
   void (*displayMessage)(const char* message, int time_in_ms);
   void (*runAsCPUThread)(void (*function)(void* userdata), void* userdata);
   void (*runOnCPUThread)(void (*function)(void* userdata), void* userdata,
                          bool wait_for_completion);
-  int (*addOnStateChangedCallback)(void (*callback)(dolCoreState state, void* userdata),
+  int (*addOnStateChangedCallback)(void (*callback)(dol_Core_State state, void* userdata),
                                    void* userdata);
   bool (*removeOnStateChangedCallback)(int* handle);
   void (*updateWantDeterminism)(bool initial);
@@ -41,7 +41,7 @@ struct dolCore
   void (*updateInputGate)(bool require_focus, bool require_full_focus);
 };
 
-typedef dolCore* (*dolCore_newInterface_t)(void);
+typedef dol_Core* (*dol_Core_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

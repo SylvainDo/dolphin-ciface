@@ -4,14 +4,14 @@
 extern "C" {
 #endif
 
-struct dolGuiHost
+struct dol_Gui_Host
 {
   void (*deleteLater)(void);
   void (*declareAsHostThread)(void);
   bool (*isHostThread)(void);
 };
 
-typedef dolGuiHost* (*dolGuiHost_newInterface_t)(void);
+typedef dol_Gui_Host* (*dol_Gui_Host_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

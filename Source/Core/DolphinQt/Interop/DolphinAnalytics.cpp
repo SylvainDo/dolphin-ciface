@@ -6,21 +6,21 @@ extern dol_calloc_t interop_calloc;
 
 #include "Core/DolphinAnalytics.h"
 
-static void dolDolphinAnalytics_reloadConfig()
+static void dol_DolphinAnalytics_reloadConfig()
 {
   DolphinAnalytics::Instance().ReloadConfig();
 }
 
-static void dolDolphinAnalytics_generateNewIdentity()
+static void dol_DolphinAnalytics_generateNewIdentity()
 {
   DolphinAnalytics::Instance().GenerateNewIdentity();
 }
 
-EXPORT dolDolphinAnalytics* dolDolphinAnalytics_newInterface()
+EXPORT dol_DolphinAnalytics* dol_DolphinAnalytics_newInterface()
 {
-  auto iface = static_cast<dolDolphinAnalytics*>(interop_calloc(1, sizeof(dolDolphinAnalytics)));
-  iface->reloadConfig = dolDolphinAnalytics_reloadConfig;
-  iface->generateNewIdentity = dolDolphinAnalytics_generateNewIdentity;
+  auto iface = static_cast<dol_DolphinAnalytics*>(interop_calloc(1, sizeof(dol_DolphinAnalytics)));
+  iface->reloadConfig = dol_DolphinAnalytics_reloadConfig;
+  iface->generateNewIdentity = dol_DolphinAnalytics_generateNewIdentity;
 
   return iface;
 }

@@ -15,21 +15,21 @@ static void* dol_Core_TitleDatabase_getUnderlyingInstance(dol_Core_TitleDatabase
 }
 
 static char* dol_Core_TitleDatabase_getTitleName(dol_Core_TitleDatabase* _this,
-                                                 const char* gametdb_id, dolDiscIOLanguage language)
+                                                 const char* gametdb_id, dol_DiscIO_Language language)
 {
   return InteropUtil::dupStdString(
       ThisTitleDatabase->GetTitleName(gametdb_id, static_cast<DiscIO::Language>(language)));
 }
 
 static char* dol_Core_TitleDatabase_getChannelName(dol_Core_TitleDatabase* _this, uint64_t title_id,
-                                                   dolDiscIOLanguage language)
+                                                   dol_DiscIO_Language language)
 {
   return InteropUtil::dupStdString(
       ThisTitleDatabase->GetChannelName(title_id, static_cast<DiscIO::Language>(language)));
 }
 
 static char* dol_Core_TitleDatabase_describe(dol_Core_TitleDatabase* _this, const char* gametdb_id,
-                                             dolDiscIOLanguage language)
+                                             dol_DiscIO_Language language)
 {
   return InteropUtil::dupStdString(
       ThisTitleDatabase->Describe(gametdb_id, static_cast<DiscIO::Language>(language)));

@@ -8,9 +8,9 @@ extern "C" {
 
 #include <stdint.h>
 
-typedef double dolControlState;
+typedef double dol_ControlState;
 
-struct dolGCPadStatus
+struct dol_GCPadStatus
 {
   uint16_t button;
   uint8_t stickX;
@@ -24,16 +24,16 @@ struct dolGCPadStatus
   bool isConnected;
 };
 
-struct dolPad
+struct dol_Pad
 {
   bool (*isInitialized)(void);
-  dolGCPadStatus (*getStatus)(int pad_num);
-  void (*rumble)(int pad_num, dolControlState strength);
+  dol_GCPadStatus (*getStatus)(int pad_num);
+  void (*rumble)(int pad_num, dol_ControlState strength);
   void (*resetRumble)(int pad_num);
   bool (*getMicButton)(int pad_num);
 };
 
-typedef dolPad* (*dolPad_newInterface_t)(void);
+typedef dol_Pad* (*dol_Pad_newInterface_t)(void);
 
 #ifdef __cplusplus
 }

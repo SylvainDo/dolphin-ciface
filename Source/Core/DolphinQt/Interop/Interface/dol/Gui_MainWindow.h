@@ -4,7 +4,7 @@
 extern "C" {
 #endif
 
-struct dolGuiMainWindow
+struct dol_Gui_MainWindow
 {
   void (*init)(void);
   void (*shutdown)(void);
@@ -13,7 +13,7 @@ struct dolGuiMainWindow
   void (*startGame1)(const char* path);
 };
 
-typedef dolGuiMainWindow* (*dolGuiMainWindow_newInterface_t)(void);
+typedef dol_Gui_MainWindow* (*dol_Gui_MainWindow_newInterface_t)(void);
 
 #ifdef __cplusplus
 }
