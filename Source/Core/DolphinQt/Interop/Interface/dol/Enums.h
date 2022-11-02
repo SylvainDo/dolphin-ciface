@@ -80,6 +80,47 @@ enum dolCoreState
   dolCoreState_Starting
 };
 
+enum dolDiscIOBlobType
+{
+  dolDiscIOBlobType_PLAIN,
+  dolDiscIOBlobType_DRIVE,
+  dolDiscIOBlobType_DIRECTORY,
+  dolDiscIOBlobType_GCZ,
+  dolDiscIOBlobType_CISO,
+  dolDiscIOBlobType_WBFS,
+  dolDiscIOBlobType_TGC,
+  dolDiscIOBlobType_WIA,
+  dolDiscIOBlobType_RVZ,
+  dolDiscIOBlobType_MOD_DESCRIPTOR,
+  dolDiscIOBlobType_NFS
+};
+
+enum dolDiscIOCountry
+{
+  dolDiscIOCountry_Europe = 0,
+  dolDiscIOCountry_Japan,
+  dolDiscIOCountry_USA,
+  dolDiscIOCountry_Australia,
+  dolDiscIOCountry_France,
+  dolDiscIOCountry_Germany,
+  dolDiscIOCountry_Italy,
+  dolDiscIOCountry_Korea,
+  dolDiscIOCountry_Netherlands,
+  dolDiscIOCountry_Russia,
+  dolDiscIOCountry_Spain,
+  dolDiscIOCountry_Taiwan,
+  dolDiscIOCountry_World,
+  dolDiscIOCountry_Unknown,
+  dolDiscIOCountry_NumberOfCountries
+};
+
+enum dolDiscIODataSizeType
+{
+  dolDiscIODataSizeType_Accurate,
+  dolDiscIODataSizeType_LowerBound,
+  dolDiscIODataSizeType_UpperBound
+};
+
 enum dolDiscIOLanguage
 {
   dolDiscIOLanguage_Japanese = 0,
@@ -93,6 +134,15 @@ enum dolDiscIOLanguage
   dolDiscIOLanguage_TraditionalChinese = 8,
   dolDiscIOLanguage_Korean = 9,
   dolDiscIOLanguage_Unknown
+};
+
+enum dolDiscIOPlatform
+{
+  dolDiscIOPlatform_GameCubeDisc = 0,
+  dolDiscIOPlatform_WiiDisc,
+  dolDiscIOPlatform_WiiWAD,
+  dolDiscIOPlatform_ELFOrDOL,
+  dolDiscIOPlatform_NumberOfPlatforms
 };
 
 enum dolDiscIORegion
@@ -208,6 +258,13 @@ enum dolTriState
   Off,
   On,
   Auto
+};
+
+enum dol_UICommon_GameFile_Variant
+{
+  dol_UICommon_GameFile_Variant_LongAndPossiblyCustom,
+  dol_UICommon_GameFile_Variant_LongAndNotCustom,
+  dol_UICommon_GameFile_Variant_ShortAndNotCustom
 };
 
 enum dolWiimoteSource

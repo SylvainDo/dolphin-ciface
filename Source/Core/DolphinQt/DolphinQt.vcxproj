@@ -160,6 +160,7 @@
     <ClCompile Include="HotkeyScheduler.cpp" />
     <ClCompile Include="Interop\AddressSpaceAccessors.cpp" />
     <ClCompile Include="Interop\Alloc.cpp" />
+    <ClCompile Include="Interop\Core_TitleDatabase.cpp" />
     <ClCompile Include="Interop\GuiApplication.cpp" />
     <ClCompile Include="Interop\Config.cpp" />
     <ClCompile Include="Interop\Core.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Interop\State.cpp" />
     <ClCompile Include="Interop\UICommon.cpp" />
     <ClCompile Include="Interop\InteropUtil.cpp" />
+    <ClCompile Include="Interop\UICommon_GameFile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MenuBar.cpp" />
@@ -250,6 +252,7 @@
     <ClInclude Include="Interop\Export.h" />
     <ClInclude Include="Interop\Interface\dol\AddressSpaceAccessors.h" />
     <ClInclude Include="Interop\Interface\dol\Alloc.h" />
+    <ClInclude Include="Interop\Interface\dol\Core_TitleDatabase.h" />
     <ClInclude Include="Interop\Interface\dol\GuiApplication.h" />
     <ClInclude Include="Interop\Interface\dol\Config.h" />
     <ClInclude Include="Interop\Interface\dol\Core.h" />
@@ -266,6 +269,7 @@
     <ClInclude Include="Interop\Interface\dol\GuiTranslation.h" />
     <ClInclude Include="Interop\Interface\dol\State.h" />
     <ClInclude Include="Interop\Interface\dol\UICommon.h" />
+    <ClInclude Include="Interop\Interface\dol\UICommon_GameFile.h" />
     <ClInclude Include="Interop\InteropUtil.h" />
     <ClInclude Include="QtUtils\ActionHelper.h" />
     <ClInclude Include="QtUtils\DolphinFileDialog.h" />

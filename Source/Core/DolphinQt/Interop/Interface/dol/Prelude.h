@@ -4,6 +4,7 @@
 #include "Alloc.h"
 #include "Config.h"
 #include "Core.h"
+#include "Core_TitleDatabase.h"
 #include "DolphinAnalytics.h"
 #include "Enums.h"
 #include "GuiApplication.h"
@@ -17,3 +18,4 @@
 #include "Pad.h"
 #include "State.h"
 #include "UICommon.h"
+#include "UICommon_GameFile.h"
