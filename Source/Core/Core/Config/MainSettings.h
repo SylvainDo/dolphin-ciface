@@ -238,6 +238,7 @@ extern const Info<bool> MAIN_USE_BUILT_IN_TITLE_DATABASE;
 extern const Info<std::string> MAIN_THEME_NAME;
 extern const Info<bool> MAIN_PAUSE_ON_FOCUS_LOST;
 extern const Info<bool> MAIN_ENABLE_DEBUGGING;
+extern const Info<bool> MAIN_HIDE_FPS_INFO;
 
 // Main.Analytics
 

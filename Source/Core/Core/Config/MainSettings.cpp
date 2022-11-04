@@ -380,6 +380,7 @@ const Info<std::string> MAIN_THEME_NAME{{System::Main, "Interface", "ThemeName"}
                                         DEFAULT_THEME_DIR};
 const Info<bool> MAIN_PAUSE_ON_FOCUS_LOST{{System::Main, "Interface", "PauseOnFocusLost"}, false};
 const Info<bool> MAIN_ENABLE_DEBUGGING{{System::Main, "Interface", "DebugModeEnabled"}, false};
+const Info<bool> MAIN_HIDE_FPS_INFO{{System::Main, "Interface", "HideFPSInfo"}, false};
 
 // Main.Analytics
 

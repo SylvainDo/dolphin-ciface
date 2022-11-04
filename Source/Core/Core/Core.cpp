@@ -944,7 +944,9 @@ void UpdateTitle(u64 elapsed_ms)
     }
   }
 
-  std::string message = fmt::format("{} | {} | {}", Common::GetScmRevStr(), SSettings, SFPS);
+  std::string message =
+      fmt::format("{} | {}{}", Common::GetScmRevStr(), SSettings,
+                  Config::Get(Config::MAIN_HIDE_FPS_INFO) ? "" : fmt::format(" | {}", SFPS));
   if (Config::Get(Config::MAIN_SHOW_ACTIVE_TITLE))
   {
     const std::string& title = SConfig::GetInstance().GetTitleDescription();
