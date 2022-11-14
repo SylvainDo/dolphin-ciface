@@ -13,12 +13,10 @@ static bool dol_Pad_isInitialized()
   return Pad::IsInitialized();
 }
 
-static dol_GCPadStatus dol_Pad_getStatus(int pad_num)
+static void dol_Pad_getStatus(int pad_num, dol_GCPadStatus* status)
 {
-  auto status = Pad::GetStatus(pad_num);
-  dol_GCPadStatus status2;
-  memcpy(&status2, &status, sizeof status);
-  return status2;
+  const auto status2 = Pad::GetStatus(pad_num);
+  memcpy(status, &status2, sizeof status2);
 }
 
 static void dol_Pad_rumble(int pad_num, dol_ControlState strength)

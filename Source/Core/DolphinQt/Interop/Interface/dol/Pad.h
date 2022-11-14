@@ -24,10 +24,17 @@ struct dol_GCPadStatus
   bool isConnected;
 };
 
+const uint8_t dol_GCPadStatus_MainStickCenterX = 0x80;
+const uint8_t dol_GCPadStatus_MainStickCenterY = 0x80;
+const uint8_t dol_GCPadStatus_MainStickRadius = 0x7f;
+const uint8_t dol_GCPadStatus_CStickCenterX = 0x80;
+const uint8_t dol_GCPadStatus_CStickCenterY = 0x80;
+const uint8_t dol_GCPadStatus_CStickRadius = 0x7f;
+
 struct dol_Pad
 {
   bool (*isInitialized)(void);
-  dol_GCPadStatus (*getStatus)(int pad_num);
+  void (*getStatus)(int pad_num, dol_GCPadStatus* status);
   void (*rumble)(int pad_num, dol_ControlState strength);
   void (*resetRumble)(int pad_num);
   bool (*getMicButton)(int pad_num);
