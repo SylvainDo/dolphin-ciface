@@ -6,6 +6,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 struct dol_UICommon_GameBanner
 {
   const uint32_t* buffer;
