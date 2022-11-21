@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_calloc_t interop_calloc;
@@ -29,7 +29,7 @@ static void dol_UICommon_setUserDirectory(const char* custom_path)
 
 static char* dol_UICommon_formatSize(uint64_t bytes, int decimals)
 {
-  return InteropUtil::dupStdString(UICommon::FormatSize(bytes, decimals));
+  return PluginUtil::dupStdString(UICommon::FormatSize(bytes, decimals));
 }
 
 EXPORT dol_UICommon* dol_UICommon_newInterface()

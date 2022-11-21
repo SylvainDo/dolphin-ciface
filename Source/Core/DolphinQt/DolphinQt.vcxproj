@@ -174,7 +174,7 @@
     <ClCompile Include="Plugin\Pad.cpp" />
     <ClCompile Include="Plugin\State.cpp" />
     <ClCompile Include="Plugin\UICommon.cpp" />
-    <ClCompile Include="Plugin\InteropUtil.cpp" />
+    <ClCompile Include="Plugin\PluginUtil.cpp" />
     <ClCompile Include="Plugin\UICommon_GameFile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -268,7 +268,7 @@
     <ClInclude Include="Plugin\Interface\dol\State.h" />
     <ClInclude Include="Plugin\Interface\dol\UICommon.h" />
     <ClInclude Include="Plugin\Interface\dol\UICommon_GameFile.h" />
-    <ClInclude Include="Plugin\InteropUtil.h" />
+    <ClInclude Include="Plugin\PluginUtil.h" />
     <ClInclude Include="QtUtils\ActionHelper.h" />
     <ClInclude Include="QtUtils\DolphinFileDialog.h" />
     <ClInclude Include="QtUtils\FlowLayout.h" />

@@ -1,9 +1,9 @@
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
 
-namespace InteropUtil
+namespace PluginUtil
 {
 
 char* dupStdString(const std::string& src)
@@ -13,4 +13,4 @@ char* dupStdString(const std::string& src)
   return static_cast<char*>(v);
 }
 
-}  // namespace InteropUtil
+}  // namespace PluginUtil

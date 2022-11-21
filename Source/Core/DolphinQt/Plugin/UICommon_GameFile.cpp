@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
@@ -22,27 +22,27 @@ static bool dol_UICommon_GameFile_isValid(dol_UICommon_GameFile* _this)
 
 static char* dol_UICommon_GameFile_getFilePath(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetFilePath());
+  return PluginUtil::dupStdString(ThisGameFile->GetFilePath());
 }
 
 static char* dol_UICommon_GameFile_getName(dol_UICommon_GameFile* _this,
                                            dol_UICommon_GameFile_Variant variant)
 {
-  return InteropUtil::dupStdString(
+  return PluginUtil::dupStdString(
       ThisGameFile->GetName(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
 static char* dol_UICommon_GameFile_getMaker(dol_UICommon_GameFile* _this,
                                             dol_UICommon_GameFile_Variant variant)
 {
-  return InteropUtil::dupStdString(
+  return PluginUtil::dupStdString(
       ThisGameFile->GetMaker(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
 static char* dol_UICommon_GameFile_getDescription(dol_UICommon_GameFile* _this,
                                                   dol_UICommon_GameFile_Variant variant)
 {
-  return InteropUtil::dupStdString(
+  return PluginUtil::dupStdString(
       ThisGameFile->GetDescription(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
@@ -59,17 +59,17 @@ static dol_DiscIO_Language* dol_UICommon_GameFile_getLanguages(dol_UICommon_Game
 
 static char* dol_UICommon_GameFile_getInternalName(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetInternalName());
+  return PluginUtil::dupStdString(ThisGameFile->GetInternalName());
 }
 
 static char* dol_UICommon_GameFile_getGameID(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetGameID());
+  return PluginUtil::dupStdString(ThisGameFile->GetGameID());
 }
 
 static char* dol_UICommon_GameFile_getGameTDBID(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetGameTDBID());
+  return PluginUtil::dupStdString(ThisGameFile->GetGameTDBID());
 }
 
 static uint64_t dol_UICommon_GameFile_getTitleID(dol_UICommon_GameFile* _this)
@@ -79,7 +79,7 @@ static uint64_t dol_UICommon_GameFile_getTitleID(dol_UICommon_GameFile* _this)
 
 static char* dol_UICommon_GameFile_getMakerID(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetMakerID());
+  return PluginUtil::dupStdString(ThisGameFile->GetMakerID());
 }
 
 static uint16_t dol_UICommon_GameFile_getRevision(dol_UICommon_GameFile* _this)
@@ -100,7 +100,7 @@ static void dol_UICommon_GameFile_getSyncHash(dol_UICommon_GameFile* _this, uint
 
 static char* dol_UICommon_GameFile_getWiiFSPath(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetWiiFSPath());
+  return PluginUtil::dupStdString(ThisGameFile->GetWiiFSPath());
 }
 
 static dol_DiscIO_Region dol_UICommon_GameFile_getRegion(dol_UICommon_GameFile* _this)
@@ -130,17 +130,17 @@ static uint64_t dol_UICommon_GameFile_getBlockSize(dol_UICommon_GameFile* _this)
 
 static char* dol_UICommon_GameFile_getCompressionMethod(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetCompressionMethod());
+  return PluginUtil::dupStdString(ThisGameFile->GetCompressionMethod());
 }
 
 static char* dol_UICommon_GameFile_getFileFormatName(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetFileFormatName());
+  return PluginUtil::dupStdString(ThisGameFile->GetFileFormatName());
 }
 
 static char* dol_UICommon_GameFile_getApploaderDate(dol_UICommon_GameFile* _this)
 {
-  return InteropUtil::dupStdString(ThisGameFile->GetApploaderDate());
+  return PluginUtil::dupStdString(ThisGameFile->GetApploaderDate());
 }
 
 static uint64_t dol_UICommon_GameFile_getFileSize(dol_UICommon_GameFile* _this)

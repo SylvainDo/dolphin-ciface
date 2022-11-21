@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_calloc_t interop_calloc;
@@ -109,7 +109,7 @@ static void dol_Memory_clear()
 
 static char* dol_Memory_getString(uint32_t em_address, size_t size)
 {
-  return InteropUtil::dupStdString(Memory::GetString(em_address, size));
+  return PluginUtil::dupStdString(Memory::GetString(em_address, size));
 }
 
 static uint8_t* dol_Memory_getPointer(uint32_t address)

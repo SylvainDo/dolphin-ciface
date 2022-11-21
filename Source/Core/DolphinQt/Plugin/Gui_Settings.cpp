@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
@@ -27,7 +27,7 @@ static void dol_Gui_Settings_setCurrentUserStyle(const char* stylesheet_name)
 
 static char* dol_Gui_Settings_getCurrentUserStyle()
 {
-  return InteropUtil::dupStdString(Settings::Instance().GetCurrentUserStyle().toStdString());
+  return PluginUtil::dupStdString(Settings::Instance().GetCurrentUserStyle().toStdString());
 }
 
 static void dol_Gui_Settings_setUserStylesEnabled(bool enabled)
@@ -92,7 +92,7 @@ static char** dol_Gui_Settings_getPaths(int* numPaths)
   auto paths = Settings::Instance().GetPaths();
   auto v = static_cast<char**>(interop_malloc(sizeof(char*) * paths.size()));
   for (qsizetype i{}; i < paths.size(); ++i)
-    v[i] = InteropUtil::dupStdString(paths[i].toStdString());
+    v[i] = PluginUtil::dupStdString(paths[i].toStdString());
   *numPaths = static_cast<int>(paths.size());
   return v;
 }
@@ -119,7 +119,7 @@ static void dol_Gui_Settings_setPreferredView(bool list)
 
 static char* dol_Gui_Settings_getDefaultGame()
 {
-  return InteropUtil::dupStdString(Settings::Instance().GetDefaultGame().toStdString());
+  return PluginUtil::dupStdString(Settings::Instance().GetDefaultGame().toStdString());
 }
 
 static void dol_Gui_Settings_setDefaultGame(const char* path)
@@ -381,7 +381,7 @@ static bool dol_Gui_Settings_isJITVisible()
 
 static char* dol_Gui_Settings_getAutoUpdateTrack()
 {
-  return InteropUtil::dupStdString(Settings::Instance().GetAutoUpdateTrack().toStdString());
+  return PluginUtil::dupStdString(Settings::Instance().GetAutoUpdateTrack().toStdString());
 }
 
 static void dol_Gui_Settings_setAutoUpdateTrack(const char* mode)

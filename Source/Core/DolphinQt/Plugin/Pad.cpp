@@ -1,5 +1,4 @@
 #include "Export.h"
-#include "InteropUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_calloc_t interop_calloc;

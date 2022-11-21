@@ -1,5 +1,5 @@
 #include "Export.h"
-#include "InteropUtil.h"
+#include "PluginUtil.h"
 
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
@@ -20,7 +20,7 @@ static bool dol_State_readHeader(const char* filename, dol_State_StateHeader* he
 
 static char* dol_State_getInfoStringOfSlot(int slot, bool translate)
 {
-  return InteropUtil::dupStdString(State::GetInfoStringOfSlot(slot, translate));
+  return PluginUtil::dupStdString(State::GetInfoStringOfSlot(slot, translate));
 }
 
 static uint64_t dol_State_getUnixTimeOfSlot(int slot)

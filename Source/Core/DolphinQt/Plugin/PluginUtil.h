@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace InteropUtil
+namespace PluginUtil
 {
 
 char* dupStdString(const std::string& src);
