@@ -10,10 +10,8 @@ struct dol_UICommon
 {
   void (*init)(void);
   void (*shutdown)(void);
-  void (*setLocale)(const char* locale_name);
   void (*createDirectories)(void);
   void (*setUserDirectory)(const char* custom_path);
-  bool (*triggerSTMPowerEvent)(void);
   char* (*formatSize)(uint64_t bytes, int decimals);
 };
 

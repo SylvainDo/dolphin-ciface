@@ -25,21 +25,8 @@ static char* dol_UICommon_GameFile_getFilePath(dol_UICommon_GameFile* _this)
   return InteropUtil::dupStdString(ThisGameFile->GetFilePath());
 }
 
-static char* dol_UICommon_GameFile_getFileName(dol_UICommon_GameFile* _this)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetFileName());
-}
-
-static char* dol_UICommon_GameFile_getName1(dol_UICommon_GameFile* _this,
-                                            dol_Core_TitleDatabase* title_database)
-{
-  const auto& title_database_ref =
-      *static_cast<Core::TitleDatabase*>(title_database->getUnderlyingInstance(title_database));
-  return InteropUtil::dupStdString(ThisGameFile->GetName(title_database_ref));
-}
-
-static char* dol_UICommon_GameFile_getName2(dol_UICommon_GameFile* _this,
-                                            dol_UICommon_GameFile_Variant variant)
+static char* dol_UICommon_GameFile_getName(dol_UICommon_GameFile* _this,
+                                           dol_UICommon_GameFile_Variant variant)
 {
   return InteropUtil::dupStdString(
       ThisGameFile->GetName(static_cast<UICommon::GameFile::Variant>(variant)));
@@ -52,66 +39,20 @@ static char* dol_UICommon_GameFile_getMaker(dol_UICommon_GameFile* _this,
       ThisGameFile->GetMaker(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
-static char* dol_UICommon_GameFile_getShortName1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetShortName(static_cast<DiscIO::Language>(l)));
-}
-
-static char* dol_UICommon_GameFile_getShortName2(dol_UICommon_GameFile* _this)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetShortName());
-}
-
-static char* dol_UICommon_GameFile_getLongName1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetLongName(static_cast<DiscIO::Language>(l)));
-}
-
-static char* dol_UICommon_GameFile_getLongName2(dol_UICommon_GameFile* _this)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetLongName());
-}
-
-static char* dol_UICommon_GameFile_getShortMaker1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetShortMaker(static_cast<DiscIO::Language>(l)));
-}
-
-static char* dol_UICommon_GameFile_getShortMaker2(dol_UICommon_GameFile* _this)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetShortMaker());
-}
-
-static char* dol_UICommon_GameFile_getLongMaker1(dol_UICommon_GameFile* _this, dol_DiscIO_Language l)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetLongMaker(static_cast<DiscIO::Language>(l)));
-}
-
-static char* dol_UICommon_GameFile_getLongMaker2(dol_UICommon_GameFile* _this)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetLongMaker());
-}
-
-static char* dol_UICommon_GameFile_getDescription1(dol_UICommon_GameFile* _this,
-                                                   dol_DiscIO_Language l)
-{
-  return InteropUtil::dupStdString(ThisGameFile->GetDescription(static_cast<DiscIO::Language>(l)));
-}
-
-static char* dol_UICommon_GameFile_getDescription2(dol_UICommon_GameFile* _this,
-                                                   dol_UICommon_GameFile_Variant variant)
+static char* dol_UICommon_GameFile_getDescription(dol_UICommon_GameFile* _this,
+                                                  dol_UICommon_GameFile_Variant variant)
 {
   return InteropUtil::dupStdString(
       ThisGameFile->GetDescription(static_cast<UICommon::GameFile::Variant>(variant)));
 }
 
 static dol_DiscIO_Language* dol_UICommon_GameFile_getLanguages(dol_UICommon_GameFile* _this,
-                                                             int* numLanguages)
+                                                               int* numLanguages)
 {
   const auto langs = ThisGameFile->GetLanguages();
   auto v =
       static_cast<dol_DiscIO_Language*>(interop_malloc(sizeof(dol_DiscIO_Language) * langs.size()));
-  memcpy(v, langs.data(), langs.size());
+  memcpy(v, langs.data(), sizeof(dol_DiscIO_Language) * langs.size());
   *numLanguages = static_cast<int>(langs.size());
   return v;
 }
@@ -151,41 +92,10 @@ static uint8_t dol_UICommon_GameFile_getDiscNumber(dol_UICommon_GameFile* _this)
   return ThisGameFile->GetDiscNumber();
 }
 
-static char* dol_UICommon_GameFile_getNetPlayName(dol_UICommon_GameFile* _this,
-                                                  dol_Core_TitleDatabase* title_database)
-{
-  const auto& title_database_ref =
-      *static_cast<Core::TitleDatabase*>(title_database->getUnderlyingInstance(title_database));
-  return InteropUtil::dupStdString(ThisGameFile->GetNetPlayName(title_database_ref));
-}
-
 static void dol_UICommon_GameFile_getSyncHash(dol_UICommon_GameFile* _this, uint8_t* sync_hash)
 {
   const auto hash = ThisGameFile->GetSyncHash();
   memcpy(sync_hash, hash.data(), hash.size());
-}
-
-static void dol_UICommon_GameFile_getSyncIdentifier(dol_UICommon_GameFile* _this,
-                                                    dol_NetPlay_SyncIdentifier* sync_identifier)
-{
-  const auto id = ThisGameFile->GetSyncIdentifier();
-  sync_identifier->dol_elf_size = id.dol_elf_size;
-  sync_identifier->game_id = InteropUtil::dupStdString(id.game_id);
-  sync_identifier->revision = id.revision;
-  sync_identifier->disc_number = id.disc_number;
-  sync_identifier->is_datel = id.is_datel;
-  memcpy(sync_identifier->sync_hash, id.sync_hash.data(), id.sync_hash.size());
-}
-
-static dol_NetPlay_SyncIdentifierComparison
-dol_UICommon_GameFile_compareSyncIdentifier(dol_UICommon_GameFile* _this,
-                                            dol_NetPlay_SyncIdentifier* sync_identifier)
-{
-  NetPlay::SyncIdentifier id = {sync_identifier->dol_elf_size, sync_identifier->game_id,
-                                sync_identifier->revision, sync_identifier->disc_number,
-                                sync_identifier->is_datel};
-  memcpy(id.sync_hash.data(), sync_identifier->sync_hash, id.sync_hash.size());
-  return static_cast<dol_NetPlay_SyncIdentifierComparison>(ThisGameFile->CompareSyncIdentifier(id));
 }
 
 static char* dol_UICommon_GameFile_getWiiFSPath(dol_UICommon_GameFile* _this)
@@ -223,19 +133,9 @@ static char* dol_UICommon_GameFile_getCompressionMethod(dol_UICommon_GameFile* _
   return InteropUtil::dupStdString(ThisGameFile->GetCompressionMethod());
 }
 
-static bool dol_UICommon_GameFile_shouldShowFileFormatDetails(dol_UICommon_GameFile* _this)
-{
-  return ThisGameFile->ShouldShowFileFormatDetails();
-}
-
 static char* dol_UICommon_GameFile_getFileFormatName(dol_UICommon_GameFile* _this)
 {
   return InteropUtil::dupStdString(ThisGameFile->GetFileFormatName());
-}
-
-static bool dol_UICommon_GameFile_shouldAllowConversion(dol_UICommon_GameFile* _this)
-{
-  return ThisGameFile->ShouldAllowConversion();
 }
 
 static char* dol_UICommon_GameFile_getApploaderDate(dol_UICommon_GameFile* _this)
@@ -283,14 +183,6 @@ static void dol_UICommon_GameFile_getBannerImage(dol_UICommon_GameFile* _this,
   banner->height = v.height;
 }
 
-static void dol_UICommon_GameFile_getCoverImage(dol_UICommon_GameFile* _this,
-                                                dol_UICommon_GameCover* cover)
-{
-  const auto& v = ThisGameFile->GetCoverImage();
-  cover->buffer = v.buffer.data();
-  cover->size = v.buffer.size();
-}
-
 static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* path)
 {
   auto iface =
@@ -299,20 +191,9 @@ static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* p
   iface->getUnderlyingInstance = dol_UICommon_GameFile_getUnderlyingInstance;
   iface->isValid = dol_UICommon_GameFile_isValid;
   iface->getFilePath = dol_UICommon_GameFile_getFilePath;
-  iface->getFileName = dol_UICommon_GameFile_getFileName;
-  iface->getName1 = dol_UICommon_GameFile_getName1;
-  iface->getName2 = dol_UICommon_GameFile_getName2;
+  iface->getName = dol_UICommon_GameFile_getName;
   iface->getMaker = dol_UICommon_GameFile_getMaker;
-  iface->getShortName1 = dol_UICommon_GameFile_getShortName1;
-  iface->getShortName2 = dol_UICommon_GameFile_getShortName2;
-  iface->getLongName1 = dol_UICommon_GameFile_getLongName1;
-  iface->getLongName2 = dol_UICommon_GameFile_getLongName2;
-  iface->getShortMaker1 = dol_UICommon_GameFile_getShortMaker1;
-  iface->getShortMaker2 = dol_UICommon_GameFile_getShortMaker2;
-  iface->getLongMaker1 = dol_UICommon_GameFile_getLongMaker1;
-  iface->getLongMaker2 = dol_UICommon_GameFile_getLongMaker2;
-  iface->getDescription1 = dol_UICommon_GameFile_getDescription1;
-  iface->getDescription2 = dol_UICommon_GameFile_getDescription2;
+  iface->getDescription = dol_UICommon_GameFile_getDescription;
   iface->getLanguages = dol_UICommon_GameFile_getLanguages;
   iface->getInternalName = dol_UICommon_GameFile_getInternalName;
   iface->getGameID = dol_UICommon_GameFile_getGameID;
@@ -321,10 +202,7 @@ static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* p
   iface->getMakerID = dol_UICommon_GameFile_getMakerID;
   iface->getRevision = dol_UICommon_GameFile_getRevision;
   iface->getDiscNumber = dol_UICommon_GameFile_getDiscNumber;
-  iface->getNetPlayName = dol_UICommon_GameFile_getNetPlayName;
   iface->getSyncHash = dol_UICommon_GameFile_getSyncHash;
-  iface->getSyncIdentifier = dol_UICommon_GameFile_getSyncIdentifier;
-  iface->compareSyncIdentifier = dol_UICommon_GameFile_compareSyncIdentifier;
   iface->getWiiFSPath = dol_UICommon_GameFile_getWiiFSPath;
   iface->getRegion = dol_UICommon_GameFile_getRegion;
   iface->getCountry = dol_UICommon_GameFile_getCountry;
@@ -332,9 +210,7 @@ static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* p
   iface->getBlobType = dol_UICommon_GameFile_getBlobType;
   iface->getBlockSize = dol_UICommon_GameFile_getBlockSize;
   iface->getCompressionMethod = dol_UICommon_GameFile_getCompressionMethod;
-  iface->shouldShowFileFormatDetails = dol_UICommon_GameFile_shouldShowFileFormatDetails;
   iface->getFileFormatName = dol_UICommon_GameFile_getFileFormatName;
-  iface->shouldAllowConversion = dol_UICommon_GameFile_shouldAllowConversion;
   iface->getApploaderDate = dol_UICommon_GameFile_getApploaderDate;
   iface->getFileSize = dol_UICommon_GameFile_getFileSize;
   iface->getVolumeSize = dol_UICommon_GameFile_getVolumeSize;
@@ -343,7 +219,6 @@ static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* p
   iface->isNKit = dol_UICommon_GameFile_isNKit;
   iface->isModDescriptor = dol_UICommon_GameFile_isModDescriptor;
   iface->getBannerImage = dol_UICommon_GameFile_getBannerImage;
-  iface->getCoverImage = dol_UICommon_GameFile_getCoverImage;
 
   return iface;
 }

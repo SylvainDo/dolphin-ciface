@@ -4,7 +4,6 @@
 #include "Alloc.h"
 #include "Config.h"
 #include "Core.h"
-#include "Core_TitleDatabase.h"
 #include "DolphinAnalytics.h"
 #include "Enums.h"
 #include "Gui_Application.h"

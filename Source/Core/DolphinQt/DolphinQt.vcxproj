@@ -160,7 +160,6 @@
     <ClCompile Include="HotkeyScheduler.cpp" />
     <ClCompile Include="Interop\AddressSpace_Accessors.cpp" />
     <ClCompile Include="Interop\Alloc.cpp" />
-    <ClCompile Include="Interop\Core_TitleDatabase.cpp" />
     <ClCompile Include="Interop\Gui_Application.cpp" />
     <ClCompile Include="Interop\Config.cpp" />
     <ClCompile Include="Interop\Core.cpp" />
@@ -252,7 +251,6 @@
     <ClInclude Include="Interop\Export.h" />
     <ClInclude Include="Interop\Interface\dol\AddressSpace_Accessors.h" />
     <ClInclude Include="Interop\Interface\dol\Alloc.h" />
-    <ClInclude Include="Interop\Interface\dol\Core_TitleDatabase.h" />
     <ClInclude Include="Interop\Interface\dol\Gui_Application.h" />
     <ClInclude Include="Interop\Interface\dol\Config.h" />
     <ClInclude Include="Interop\Interface\dol\Core.h" />
