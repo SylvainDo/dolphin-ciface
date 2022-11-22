@@ -6,6 +6,7 @@ extern dol_malloc_t interop_malloc;
 extern dol_calloc_t interop_calloc;
 #include "Interface/dol/UICommon_GameFile.h"
 
+#include "Common/FileUtil.h"
 #include "UICommon/GameFile.h"
 
 #define ThisGameFile static_cast<UICommon::GameFile*>(_this->data)
@@ -183,6 +184,12 @@ static void dol_UICommon_GameFile_getBannerImage(dol_UICommon_GameFile* _this,
   banner->height = v.height;
 }
 
+static char* dol_UICommon_GameFile_getLocalIniPath(dol_UICommon_GameFile* _this)
+{
+  return PluginUtil::dupStdString(File::GetUserPath(D_GAMESETTINGS_IDX) +
+                                  ThisGameFile->GetGameID() + ".ini");
+}
+
 static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* path)
 {
   auto iface =
@@ -219,6 +226,7 @@ static dol_UICommon_GameFile* dol_UICommon_GameFile_Factory_create(const char* p
   iface->isNKit = dol_UICommon_GameFile_isNKit;
   iface->isModDescriptor = dol_UICommon_GameFile_isModDescriptor;
   iface->getBannerImage = dol_UICommon_GameFile_getBannerImage;
+  iface->getLocalIniPath = dol_UICommon_GameFile_getLocalIniPath;
 
   return iface;
 }

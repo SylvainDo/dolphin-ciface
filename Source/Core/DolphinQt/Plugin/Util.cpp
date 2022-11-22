@@ -4,6 +4,13 @@
 extern dol_calloc_t interop_calloc;
 #include "Interface/dol/Util.h"
 
+#include "Common/FileUtil.h"
+#include "Common/IniFile.h"
+#include "Core/ActionReplay.h"
+#include "Core/ConfigManager.h"
+#include "Core/GeckoCode.h"
+#include "Core/GeckoCodeConfig.h"
+#include "Core/PatchEngine.h"
 #include "DiscIO/DiscExtractor.h"
 #include "DiscIO/DiscUtils.h"
 #include "DiscIO/Filesystem.h"
@@ -14,6 +21,85 @@ extern dol_calloc_t interop_calloc;
 #include <iostream>
 
 #include <QString>
+
+static bool dol_Util_enablePatch(dol_UICommon_GameFile* game, const char* name)
+{
+  auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
+  std::vector<PatchEngine::Patch> patches;
+
+  IniFile game_ini_local;
+  game_ini_local.Load(ini_path);
+
+  IniFile game_ini_default =
+      SConfig::GetInstance().LoadDefaultGameIni(_game->GetGameID(), _game->GetRevision());
+  PatchEngine::LoadPatchSection("OnFrame", &patches, game_ini_default, game_ini_local);
+
+  auto it = std::find_if(patches.begin(), patches.end(),
+                         [name](PatchEngine::Patch& i) { return i.name == name; });
+  if (it == patches.end())
+    return false;
+  it->enabled = true;
+
+  PatchEngine::SavePatchSection(&game_ini_local, patches);
+  game_ini_local.Save(ini_path);
+
+  return true;
+}
+
+static bool dol_Util_enableARCode(dol_UICommon_GameFile* game, const char* name)
+{
+  auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
+  std::vector<ActionReplay::ARCode> ar_codes;
+
+  IniFile game_ini_local;
+  game_ini_local.Load(ini_path);
+
+  const IniFile game_ini_default =
+      SConfig::LoadDefaultGameIni(_game->GetGameID(), _game->GetRevision());
+  ar_codes = ActionReplay::LoadCodes(game_ini_default, game_ini_local);
+
+  auto it = std::find_if(ar_codes.begin(), ar_codes.end(),
+                         [name](ActionReplay::ARCode& i) { return i.name == name; });
+  if (it == ar_codes.end())
+    return false;
+  it->enabled = true;
+
+  ActionReplay::ApplyCodes(ar_codes);
+
+  ActionReplay::SaveCodes(&game_ini_local, ar_codes);
+  game_ini_local.Save(ini_path);
+
+  return true;
+}
+
+static bool dol_Util_enableGeckoCode(dol_UICommon_GameFile* game, const char* name)
+{
+  auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
+  std::vector<Gecko::GeckoCode> gecko_codes;
+
+  IniFile game_ini_local;
+  game_ini_local.Load(ini_path);
+
+  const IniFile game_ini_default =
+      SConfig::LoadDefaultGameIni(_game->GetGameID(), _game->GetRevision());
+  gecko_codes = Gecko::LoadCodes(game_ini_default, game_ini_local);
+
+  auto it = std::find_if(gecko_codes.begin(), gecko_codes.end(),
+                         [name](Gecko::GeckoCode& i) { return i.name == name; });
+  if (it == gecko_codes.end())
+    return false;
+  it->enabled = true;
+
+  Gecko::SetActiveCodes(gecko_codes);
+
+  Gecko::SaveCodes(game_ini_local, gecko_codes);
+  game_ini_local.Save(ini_path);
+
+  return true;
+}
 
 namespace VerifyDiscDetails
 {
@@ -157,6 +243,9 @@ static bool dol_Util_extractDisc(dol_UICommon_GameFile* game, const char* path)
 EXPORT dol_Util* dol_Util_newInterface()
 {
   auto iface = static_cast<dol_Util*>(interop_calloc(1, sizeof(dol_Util)));
+  iface->enablePatch = dol_Util_enablePatch;
+  iface->enableARCode = dol_Util_enableARCode;
+  iface->enableGeckoCode = dol_Util_enableGeckoCode;
   iface->verifyDisc = dol_Util_verifyDisc;
   iface->extractDisc = dol_Util_extractDisc;
 

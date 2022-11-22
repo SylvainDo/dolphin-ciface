@@ -8,6 +8,9 @@ extern "C" {
 
 struct dol_Util
 {
+  bool (*enablePatch)(dol_UICommon_GameFile* game, const char* name);
+  bool (*enableARCode)(dol_UICommon_GameFile* game, const char* name);
+  bool (*enableGeckoCode)(dol_UICommon_GameFile* game, const char* name);
   bool (*verifyDisc)(dol_UICommon_GameFile* game, uint8_t* sha1, bool* goodDump);
   bool (*extractDisc)(dol_UICommon_GameFile* game, const char* path);
 };

@@ -50,6 +50,7 @@ struct dol_UICommon_GameFile
   bool (*isNKit)(dol_UICommon_GameFile* _this);
   bool (*isModDescriptor)(dol_UICommon_GameFile* _this);
   void (*getBannerImage)(dol_UICommon_GameFile* _this, dol_UICommon_GameBanner* banner);
+  char* (*getLocalIniPath)(dol_UICommon_GameFile* _this);
 };
 
 struct dol_UICommon_GameFile_Factory
