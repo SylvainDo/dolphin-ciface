@@ -243,7 +243,7 @@ static T ReadFromHardware(u32 em_address)
     return bswap(value);
   }
 
-  PanicAlertFmt("Unable to resolve read address {:x} PC {:x}", em_address, PC);
+  // PanicAlertFmt("Unable to resolve read address {:x} PC {:x}", em_address, PC);
   if (Core::System::GetInstance().IsPauseOnPanicMode())
   {
     CPU::Break();
@@ -410,7 +410,7 @@ static void WriteToHardware(u32 em_address, const u32 data, const u32 size)
     return;
   }
 
-  PanicAlertFmt("Unable to resolve write address {:x} PC {:x}", em_address, PC);
+  // PanicAlertFmt("Unable to resolve write address {:x} PC {:x}", em_address, PC);
   if (Core::System::GetInstance().IsPauseOnPanicMode())
   {
     CPU::Break();
