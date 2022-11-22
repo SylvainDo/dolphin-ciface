@@ -30,10 +30,6 @@ AboutDialog::AboutDialog(QWidget* parent) : QDialog(parent)
 </p>
 
 <p>
-%CHECK_FOR_UPDATES%: <a href='https://dolphin-emu.org/download'>dolphin-emu.org/download</a>
-</p>
-
-<p>
 %ABOUT_DOLPHIN%
 </p>
 

@@ -565,6 +565,7 @@ void MenuBar::AddHelpMenu()
 {
   QMenu* help_menu = addMenu(tr("&Help"));
 
+#if 0
   QAction* website = help_menu->addAction(tr("&Website"));
   connect(website, &QAction::triggered, this,
           []() { QDesktopServices::openUrl(QUrl(QStringLiteral("https://dolphin-emu.org/"))); });
@@ -591,6 +592,7 @@ void MenuBar::AddHelpMenu()
 
 #ifndef __APPLE__
   help_menu->addSeparator();
+#endif
 #endif
 
   help_menu->addAction(tr("&About"), this, &MenuBar::ShowAboutDialog);
