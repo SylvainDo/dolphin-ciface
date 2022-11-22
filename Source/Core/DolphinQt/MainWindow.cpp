@@ -940,6 +940,9 @@ void MainWindow::Reset()
   if (Movie::IsRecordingInput())
     Movie::SetReset(true);
   ProcessorInterface::ResetButton_Tap();
+
+  if (m_reset_callback)
+    m_reset_callback();
 }
 
 void MainWindow::FrameAdvance()
@@ -1872,4 +1875,9 @@ void MainWindow::Show()
     StartGame(std::move(m_pending_boot));
     m_pending_boot.reset();
   }
+}
+
+void MainWindow::SetResetCallback(std::function<void()> callback)
+{
+  m_reset_callback = std::move(callback);
 }

@@ -11,6 +11,7 @@ struct dol_Gui_MainWindow
   void (*show)(void);
   bool (*requestStop)(void);
   void (*startGame1)(const char* path);
+  void (*setResetCallback)(void (*callback)(void* userdata), void* userdata);
 };
 
 typedef dol_Gui_MainWindow* (*dol_Gui_MainWindow_newInterface_t)(void);

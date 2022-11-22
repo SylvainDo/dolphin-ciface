@@ -33,6 +33,11 @@ static void dol_Gui_MainWindow_startGame1(const char* path)
   _instance->StartGame(BootParameters::GenerateFromFile(path));
 }
 
+static void dol_Gui_MainWindow_setResetCallback(void (*callback)(void* userdata), void* userdata)
+{
+  _instance->SetResetCallback([callback, userdata]() { callback(userdata); });
+}
+
 EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
 {
   auto iface = static_cast<dol_Gui_MainWindow*>(interop_calloc(1, sizeof(dol_Gui_MainWindow)));
@@ -41,6 +46,7 @@ EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
   iface->show = dol_Gui_MainWindow_show;
   iface->requestStop = dol_Gui_MainWindow_requestStop;
   iface->startGame1 = dol_Gui_MainWindow_startGame1;
+  iface->setResetCallback = dol_Gui_MainWindow_setResetCallback;
 
   return iface;
 }

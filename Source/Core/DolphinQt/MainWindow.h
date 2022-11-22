@@ -79,6 +79,8 @@ public:
   bool RequestStop();
   void StartGame(std::unique_ptr<BootParameters>&& parameters);
 
+  void SetResetCallback(std::function<void()> callback);
+
 signals:
   void ReadOnlyModeChanged(bool read_only);
   void RecordingStatusChanged(bool recording);
@@ -244,4 +246,6 @@ private:
   WatchWidget* m_watch_widget;
   CheatsManager* m_cheats_manager;
   QByteArray m_render_widget_geometry;
+
+  std::function<void()> m_reset_callback;
 };
