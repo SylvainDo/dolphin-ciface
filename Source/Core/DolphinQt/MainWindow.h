@@ -47,6 +47,11 @@ class ToolBar;
 class WatchWidget;
 class WiiTASInputWindow;
 
+namespace Core
+{
+enum class State;
+}
+
 namespace DiscIO
 {
 enum class Region;
@@ -80,6 +85,7 @@ public:
   void StartGame(std::unique_ptr<BootParameters>&& parameters);
 
   void SetResetCallback(std::function<void()> callback);
+  void SetEmulationStateChangedCallback(std::function<void(Core::State state)> callback);
 
 signals:
   void ReadOnlyModeChanged(bool read_only);
@@ -248,4 +254,5 @@ private:
   QByteArray m_render_widget_geometry;
 
   std::function<void()> m_reset_callback;
+  std::function<void(Core::State state)> m_emulation_state_changed_callback;
 };

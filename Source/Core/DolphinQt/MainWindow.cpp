@@ -368,6 +368,9 @@ void MainWindow::InitCoreCallbacks()
       FullScreen();
       m_fullscreen_requested = false;
     }
+
+    if (m_emulation_state_changed_callback)
+      m_emulation_state_changed_callback(state);
   });
   installEventFilter(this);
   m_render_widget->installEventFilter(this);
@@ -1880,4 +1883,9 @@ void MainWindow::Show()
 void MainWindow::SetResetCallback(std::function<void()> callback)
 {
   m_reset_callback = std::move(callback);
+}
+
+void MainWindow::SetEmulationStateChangedCallback(std::function<void(Core::State state)> callback)
+{
+  m_emulation_state_changed_callback = std::move(callback);
 }
