@@ -30,6 +30,7 @@
 #include "Core/IOS/USB/Bluetooth/BTBase.h"
 #include "Core/IOS/USB/Bluetooth/BTReal.h"
 #include "Core/State.h"
+#include "Core/System.h"
 #include "Core/WiiUtils.h"
 
 #ifdef HAS_LIBMGBA
@@ -365,7 +366,7 @@ void HotkeyScheduler::Run()
 
       if (IsHotkey(HK_VOLUME_TOGGLE_MUTE))
       {
-        AudioCommon::ToggleMuteVolume();
+        AudioCommon::ToggleMuteVolume(Core::System::GetInstance());
         ShowVolume();
       }
 
