@@ -170,17 +170,20 @@ void HotkeyScheduler::Run()
 
       HotkeyManagerEmu::GetStatus(true);
 
-      // Open
-      if (IsHotkey(HK_OPEN))
-        emit Open();
+      if (!Config::Get(Config::MAIN_PLAY_MODE))
+      {
+        // Open
+        if (IsHotkey(HK_OPEN))
+          emit Open();
 
-      // Refresh Game List
-      if (IsHotkey(HK_REFRESH_LIST))
-        emit RefreshGameListHotkey();
+        // Refresh Game List
+        if (IsHotkey(HK_REFRESH_LIST))
+          emit RefreshGameListHotkey();
 
-      // Recording
-      if (IsHotkey(HK_START_RECORDING))
-        emit StartRecording();
+        // Recording
+        if (IsHotkey(HK_START_RECORDING))
+          emit StartRecording();
+      }
 
       // Exit
       if (IsHotkey(HK_EXIT))
@@ -189,7 +192,7 @@ void HotkeyScheduler::Run()
       if (!Core::IsRunningAndStarted())
       {
         // Only check for Play Recording hotkey when no game is running
-        if (IsHotkey(HK_PLAY_RECORDING))
+        if (!Config::Get(Config::MAIN_PLAY_MODE) && IsHotkey(HK_PLAY_RECORDING))
           emit PlayRecording();
 
         continue;
@@ -212,20 +215,26 @@ void HotkeyScheduler::Run()
         Common::SleepCurrentThread(100);
       }
 
-      // Pause and Unpause
-      if (IsHotkey(HK_PLAY_PAUSE))
-        emit TogglePauseHotkey();
+      if (!Config::Get(Config::MAIN_PLAY_MODE))
+      {
+        // Pause and Unpause
+        if (IsHotkey(HK_PLAY_PAUSE))
+          emit TogglePauseHotkey();
 
-      // Stop
-      if (IsHotkey(HK_STOP))
-        emit StopHotkey();
+        // Stop
+        if (IsHotkey(HK_STOP))
+          emit StopHotkey();
+      }
 
       // Reset
       if (IsHotkey(HK_RESET))
         emit ResetHotkey();
 
-      // Frame advance
-      HandleFrameStepHotkeys();
+      if (!Config::Get(Config::MAIN_PLAY_MODE))
+      {
+        // Frame advance
+        HandleFrameStepHotkeys();
+      }
 
       // Screenshot
       if (IsHotkey(HK_SCREENSHOT))
@@ -240,18 +249,21 @@ void HotkeyScheduler::Run()
 
       auto& settings = Settings::Instance();
 
-      // Toggle Chat
-      if (IsHotkey(HK_ACTIVATE_CHAT))
-        emit ActivateChat();
+      if (!Config::Get(Config::MAIN_PLAY_MODE))
+      {
+        // Toggle Chat
+        if (IsHotkey(HK_ACTIVATE_CHAT))
+          emit ActivateChat();
 
-      if (IsHotkey(HK_REQUEST_GOLF_CONTROL))
-        emit RequestGolfControl();
+        if (IsHotkey(HK_REQUEST_GOLF_CONTROL))
+          emit RequestGolfControl();
 
-      if (IsHotkey(HK_EXPORT_RECORDING))
-        emit ExportRecording();
+        if (IsHotkey(HK_EXPORT_RECORDING))
+          emit ExportRecording();
 
-      if (IsHotkey(HK_READ_ONLY_MODE))
-        emit ToggleReadOnlyMode();
+        if (IsHotkey(HK_READ_ONLY_MODE))
+          emit ToggleReadOnlyMode();
+      }
 
       // Wiimote
       if (auto bt = WiiUtils::GetBluetoothRealDevice())
@@ -483,18 +495,21 @@ void HotkeyScheduler::Run()
         ShowEmulationSpeed();
       }
 
-      // Slot Saving / Loading
-      if (IsHotkey(HK_SAVE_STATE_SLOT_SELECTED))
-        emit StateSaveSlotHotkey();
+      if (!Config::Get(Config::MAIN_PLAY_MODE))
+      {
+        // Slot Saving / Loading
+        if (IsHotkey(HK_SAVE_STATE_SLOT_SELECTED))
+          emit StateSaveSlotHotkey();
 
-      if (IsHotkey(HK_LOAD_STATE_SLOT_SELECTED))
-        emit StateLoadSlotHotkey();
+        if (IsHotkey(HK_LOAD_STATE_SLOT_SELECTED))
+          emit StateLoadSlotHotkey();
 
-      if (IsHotkey(HK_INCREMENT_SELECTED_STATE_SLOT))
-        emit IncrementSelectedStateSlotHotkey();
+        if (IsHotkey(HK_INCREMENT_SELECTED_STATE_SLOT))
+          emit IncrementSelectedStateSlotHotkey();
 
-      if (IsHotkey(HK_DECREMENT_SELECTED_STATE_SLOT))
-        emit DecrementSelectedStateSlotHotkey();
+        if (IsHotkey(HK_DECREMENT_SELECTED_STATE_SLOT))
+          emit DecrementSelectedStateSlotHotkey();
+      }
 
       // Stereoscopy
       if (IsHotkey(HK_TOGGLE_STEREO_SBS))
@@ -572,36 +587,39 @@ void HotkeyScheduler::Run()
       OSD::AddMessage(fmt::format("Free Look: {}", new_value ? "Enabled" : "Disabled"));
     }
 
-    // Savestates
-    for (u32 i = 0; i < State::NUM_STATES; i++)
+    if (!Config::Get(Config::MAIN_PLAY_MODE))
     {
-      if (IsHotkey(HK_LOAD_STATE_SLOT_1 + i))
-        emit StateLoadSlot(i + 1);
+      // Savestates
+      for (u32 i = 0; i < State::NUM_STATES; i++)
+      {
+        if (IsHotkey(HK_LOAD_STATE_SLOT_1 + i))
+          emit StateLoadSlot(i + 1);
 
-      if (IsHotkey(HK_SAVE_STATE_SLOT_1 + i))
-        emit StateSaveSlot(i + 1);
+        if (IsHotkey(HK_SAVE_STATE_SLOT_1 + i))
+          emit StateSaveSlot(i + 1);
 
-      if (IsHotkey(HK_LOAD_LAST_STATE_1 + i))
-        emit StateLoadLastSaved(i + 1);
+        if (IsHotkey(HK_LOAD_LAST_STATE_1 + i))
+          emit StateLoadLastSaved(i + 1);
 
-      if (IsHotkey(HK_SELECT_STATE_SLOT_1 + i))
-        emit SetStateSlotHotkey(i + 1);
+        if (IsHotkey(HK_SELECT_STATE_SLOT_1 + i))
+          emit SetStateSlotHotkey(i + 1);
+      }
+
+      if (IsHotkey(HK_SAVE_FIRST_STATE))
+        emit StateSaveOldest();
+
+      if (IsHotkey(HK_UNDO_LOAD_STATE))
+        emit StateLoadUndo();
+
+      if (IsHotkey(HK_UNDO_SAVE_STATE))
+        emit StateSaveUndo();
+
+      if (IsHotkey(HK_LOAD_STATE_FILE))
+        emit StateLoadFile();
+
+      if (IsHotkey(HK_SAVE_STATE_FILE))
+        emit StateSaveFile();
     }
-
-    if (IsHotkey(HK_SAVE_FIRST_STATE))
-      emit StateSaveOldest();
-
-    if (IsHotkey(HK_UNDO_LOAD_STATE))
-      emit StateLoadUndo();
-
-    if (IsHotkey(HK_UNDO_SAVE_STATE))
-      emit StateSaveUndo();
-
-    if (IsHotkey(HK_LOAD_STATE_FILE))
-      emit StateLoadFile();
-
-    if (IsHotkey(HK_SAVE_STATE_FILE))
-      emit StateSaveFile();
   }
 }
 

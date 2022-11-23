@@ -77,7 +77,8 @@ MenuBar::MenuBar(QWidget* parent) : QMenuBar(parent)
 
   AddFileMenu();
   AddEmulationMenu();
-  AddMovieMenu();
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    AddMovieMenu();
   AddOptionsMenu();
   AddToolsMenu();
   AddViewMenu();
@@ -108,28 +109,38 @@ void MenuBar::OnEmulationStateChanged(Core::State state)
   m_change_disc->setEnabled(running);
 
   // Emulation
-  m_play_action->setEnabled(!playing);
-  m_play_action->setVisible(!playing);
-  m_pause_action->setEnabled(playing);
-  m_pause_action->setVisible(playing);
-  m_stop_action->setEnabled(running);
-  m_stop_action->setVisible(running);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_play_action->setEnabled(!playing);
+    m_play_action->setVisible(!playing);
+    m_pause_action->setEnabled(playing);
+    m_pause_action->setVisible(playing);
+    m_stop_action->setEnabled(running);
+    m_stop_action->setVisible(running);
+  }
   m_reset_action->setEnabled(running);
   m_fullscreen_action->setEnabled(running);
-  m_frame_advance_action->setEnabled(running);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    m_frame_advance_action->setEnabled(running);
   m_screenshot_action->setEnabled(running);
-  m_state_load_menu->setEnabled(running);
-  m_state_save_menu->setEnabled(running);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_state_load_menu->setEnabled(running);
+    m_state_save_menu->setEnabled(running);
+  }
 
   // Movie
-  m_recording_read_only->setEnabled(running);
-  if (!running)
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
   {
-    m_recording_stop->setEnabled(false);
-    m_recording_export->setEnabled(false);
+    m_recording_read_only->setEnabled(running);
+    if (!running)
+    {
+      m_recording_stop->setEnabled(false);
+      m_recording_export->setEnabled(false);
+    }
+    m_recording_play->setEnabled(m_game_selected && !running);
+    m_recording_start->setEnabled((m_game_selected || running) && !Movie::IsPlayingInput());
   }
-  m_recording_play->setEnabled(m_game_selected && !running);
-  m_recording_start->setEnabled((m_game_selected || running) && !Movie::IsPlayingInput());
 
   // JIT
   m_jit_interpreter_core->setEnabled(running);
@@ -152,7 +163,8 @@ void MenuBar::OnEmulationStateChanged(Core::State state)
   // Symbols
   m_symbols->setEnabled(running);
 
-  UpdateStateSlotMenu();
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    UpdateStateSlotMenu();
   UpdateToolsMenu(running);
 
   OnDebugModeToggled(Settings::Instance().IsDebugModeEnabled());
@@ -204,14 +216,18 @@ void MenuBar::AddDVDBackupMenu(QMenu* file_menu)
 void MenuBar::AddFileMenu()
 {
   QMenu* file_menu = addMenu(tr("&File"));
-  m_open_action = file_menu->addAction(tr("&Open..."), this, &MenuBar::Open, QKeySequence::Open);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_open_action = file_menu->addAction(tr("&Open..."), this, &MenuBar::Open, QKeySequence::Open);
 
-  file_menu->addSeparator();
+    file_menu->addSeparator();
+  }
 
   m_change_disc = file_menu->addAction(tr("Change &Disc..."), this, &MenuBar::ChangeDisc);
   m_eject_disc = file_menu->addAction(tr("&Eject Disc"), this, &MenuBar::EjectDisc);
 
-  AddDVDBackupMenu(file_menu);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    AddDVDBackupMenu(file_menu);
 
   file_menu->addSeparator();
 
@@ -228,59 +244,66 @@ void MenuBar::AddToolsMenu()
 
   tools_menu->addAction(tr("&Cheats Manager"), this, [this] { emit ShowCheatsManager(); });
 
-  tools_menu->addAction(tr("FIFO Player"), this, &MenuBar::ShowFIFOPlayer);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    tools_menu->addAction(tr("FIFO Player"), this, &MenuBar::ShowFIFOPlayer);
 
   tools_menu->addSeparator();
 
-  tools_menu->addAction(tr("Start &NetPlay..."), this, &MenuBar::StartNetPlay);
-  tools_menu->addAction(tr("Browse &NetPlay Sessions...."), this, &MenuBar::BrowseNetPlay);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    tools_menu->addAction(tr("Start &NetPlay..."), this, &MenuBar::StartNetPlay);
+    tools_menu->addAction(tr("Browse &NetPlay Sessions...."), this, &MenuBar::BrowseNetPlay);
 
-  tools_menu->addSeparator();
+    tools_menu->addSeparator();
 
-  QMenu* gc_ipl = tools_menu->addMenu(tr("Load GameCube Main Menu"));
+    QMenu* gc_ipl = tools_menu->addMenu(tr("Load GameCube Main Menu"));
 
-  m_ntscj_ipl = gc_ipl->addAction(tr("NTSC-J"), this,
-                                  [this] { emit BootGameCubeIPL(DiscIO::Region::NTSC_J); });
-  m_ntscu_ipl = gc_ipl->addAction(tr("NTSC-U"), this,
-                                  [this] { emit BootGameCubeIPL(DiscIO::Region::NTSC_U); });
-  m_pal_ipl =
-      gc_ipl->addAction(tr("PAL"), this, [this] { emit BootGameCubeIPL(DiscIO::Region::PAL); });
+    m_ntscj_ipl = gc_ipl->addAction(tr("NTSC-J"), this,
+                                    [this] { emit BootGameCubeIPL(DiscIO::Region::NTSC_J); });
+    m_ntscu_ipl = gc_ipl->addAction(tr("NTSC-U"), this,
+                                    [this] { emit BootGameCubeIPL(DiscIO::Region::NTSC_U); });
+    m_pal_ipl =
+        gc_ipl->addAction(tr("PAL"), this, [this] { emit BootGameCubeIPL(DiscIO::Region::PAL); });
 
-  tools_menu->addAction(tr("Memory Card Manager"), this, [this] { emit ShowMemcardManager(); });
+    tools_menu->addAction(tr("Memory Card Manager"), this, [this] { emit ShowMemcardManager(); });
 
-  tools_menu->addSeparator();
+    tools_menu->addSeparator();
 
-  // Label will be set by a NANDRefresh later
-  m_boot_sysmenu = tools_menu->addAction(QString{}, this, [this] { emit BootWiiSystemMenu(); });
-  m_wad_install_action = tools_menu->addAction(tr("Install WAD..."), this, &MenuBar::InstallWAD);
-  m_manage_nand_menu = tools_menu->addMenu(tr("Manage NAND"));
-  m_import_backup = m_manage_nand_menu->addAction(tr("Import BootMii NAND Backup..."), this,
-                                                  [this] { emit ImportNANDBackup(); });
-  m_check_nand = m_manage_nand_menu->addAction(tr("Check NAND..."), this, &MenuBar::CheckNAND);
-  m_extract_certificates = m_manage_nand_menu->addAction(tr("Extract Certificates from NAND"), this,
-                                                         &MenuBar::NANDExtractCertificates);
+    // Label will be set by a NANDRefresh later
+    m_boot_sysmenu = tools_menu->addAction(QString{}, this, [this] { emit BootWiiSystemMenu(); });
+    m_wad_install_action = tools_menu->addAction(tr("Install WAD..."), this, &MenuBar::InstallWAD);
+    m_manage_nand_menu = tools_menu->addMenu(tr("Manage NAND"));
+    m_import_backup = m_manage_nand_menu->addAction(tr("Import BootMii NAND Backup..."), this,
+                                                    [this] { emit ImportNANDBackup(); });
+    m_check_nand = m_manage_nand_menu->addAction(tr("Check NAND..."), this, &MenuBar::CheckNAND);
+    m_extract_certificates = m_manage_nand_menu->addAction(tr("Extract Certificates from NAND"),
+                                                           this, &MenuBar::NANDExtractCertificates);
 
-  m_boot_sysmenu->setEnabled(false);
+    m_boot_sysmenu->setEnabled(false);
+  }
 
   connect(&Settings::Instance(), &Settings::NANDRefresh, this, [this] { UpdateToolsMenu(false); });
 
-  m_perform_online_update_menu = tools_menu->addMenu(tr("Perform Online System Update"));
-  m_perform_online_update_for_current_region = m_perform_online_update_menu->addAction(
-      tr("Current Region"), this, [this] { emit PerformOnlineUpdate(""); });
-  m_perform_online_update_menu->addSeparator();
-  m_perform_online_update_menu->addAction(tr("Europe"), this,
-                                          [this] { emit PerformOnlineUpdate("EUR"); });
-  m_perform_online_update_menu->addAction(tr("Japan"), this,
-                                          [this] { emit PerformOnlineUpdate("JPN"); });
-  m_perform_online_update_menu->addAction(tr("Korea"), this,
-                                          [this] { emit PerformOnlineUpdate("KOR"); });
-  m_perform_online_update_menu->addAction(tr("United States"), this,
-                                          [this] { emit PerformOnlineUpdate("USA"); });
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_perform_online_update_menu = tools_menu->addMenu(tr("Perform Online System Update"));
+    m_perform_online_update_for_current_region = m_perform_online_update_menu->addAction(
+        tr("Current Region"), this, [this] { emit PerformOnlineUpdate(""); });
+    m_perform_online_update_menu->addSeparator();
+    m_perform_online_update_menu->addAction(tr("Europe"), this,
+                                            [this] { emit PerformOnlineUpdate("EUR"); });
+    m_perform_online_update_menu->addAction(tr("Japan"), this,
+                                            [this] { emit PerformOnlineUpdate("JPN"); });
+    m_perform_online_update_menu->addAction(tr("Korea"), this,
+                                            [this] { emit PerformOnlineUpdate("KOR"); });
+    m_perform_online_update_menu->addAction(tr("United States"), this,
+                                            [this] { emit PerformOnlineUpdate("USA"); });
 
-  tools_menu->addSeparator();
+    tools_menu->addSeparator();
 
-  tools_menu->addAction(tr("Import Wii Save..."), this, &MenuBar::ImportWiiSave);
-  tools_menu->addAction(tr("Export All Wii Saves"), this, &MenuBar::ExportWiiSaves);
+    tools_menu->addAction(tr("Import Wii Save..."), this, &MenuBar::ImportWiiSave);
+    tools_menu->addAction(tr("Export All Wii Saves"), this, &MenuBar::ExportWiiSaves);
+  }
 
   QMenu* menu = new QMenu(tr("Connect Wii Remotes"), tools_menu);
 
@@ -304,24 +327,33 @@ void MenuBar::AddToolsMenu()
 void MenuBar::AddEmulationMenu()
 {
   QMenu* emu_menu = addMenu(tr("&Emulation"));
-  m_play_action = emu_menu->addAction(tr("&Play"), this, &MenuBar::Play);
-  m_pause_action = emu_menu->addAction(tr("&Pause"), this, &MenuBar::Pause);
-  m_stop_action = emu_menu->addAction(tr("&Stop"), this, &MenuBar::Stop);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_play_action = emu_menu->addAction(tr("&Play"), this, &MenuBar::Play);
+    m_pause_action = emu_menu->addAction(tr("&Pause"), this, &MenuBar::Pause);
+    m_stop_action = emu_menu->addAction(tr("&Stop"), this, &MenuBar::Stop);
+  }
   m_reset_action = emu_menu->addAction(tr("&Reset"), this, &MenuBar::Reset);
   m_fullscreen_action = emu_menu->addAction(tr("Toggle &Fullscreen"), this, &MenuBar::Fullscreen);
-  m_frame_advance_action = emu_menu->addAction(tr("&Frame Advance"), this, &MenuBar::FrameAdvance);
-
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_frame_advance_action =
+        emu_menu->addAction(tr("&Frame Advance"), this, &MenuBar::FrameAdvance);
+  }
   m_screenshot_action = emu_menu->addAction(tr("Take Screenshot"), this, &MenuBar::Screenshot);
 
-  emu_menu->addSeparator();
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    emu_menu->addSeparator();
 
-  AddStateLoadMenu(emu_menu);
-  AddStateSaveMenu(emu_menu);
-  AddStateSlotMenu(emu_menu);
-  UpdateStateSlotMenu();
+    AddStateLoadMenu(emu_menu);
+    AddStateSaveMenu(emu_menu);
+    AddStateSlotMenu(emu_menu);
+    UpdateStateSlotMenu();
 
-  for (QMenu* menu : {m_state_load_menu, m_state_save_menu, m_state_slot_menu})
-    connect(menu, &QMenu::aboutToShow, this, &MenuBar::UpdateStateSlotMenu);
+    for (QMenu* menu : {m_state_load_menu, m_state_save_menu, m_state_slot_menu})
+      connect(menu, &QMenu::aboutToShow, this, &MenuBar::UpdateStateSlotMenu);
+  }
 }
 
 void MenuBar::AddStateLoadMenu(QMenu* emu_menu)
@@ -376,6 +408,9 @@ void MenuBar::AddStateSlotMenu(QMenu* emu_menu)
 
 void MenuBar::UpdateStateSlotMenu()
 {
+  if (Config::Get(Config::MAIN_PLAY_MODE))
+    return;
+
   QList<QAction*> actions_slot = m_state_slots->actions();
   QList<QAction*> actions_load = m_state_load_slots_menu->actions();
   QList<QAction*> actions_save = m_state_save_slots_menu->actions();
@@ -491,25 +526,28 @@ void MenuBar::AddViewMenu()
   connect(m_show_jit, &QAction::toggled, &Settings::Instance(), &Settings::SetJITVisible);
   connect(&Settings::Instance(), &Settings::JITVisibilityChanged, m_show_jit, &QAction::setChecked);
 
-  view_menu->addSeparator();
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    view_menu->addSeparator();
 
-  AddGameListTypeSection(view_menu);
-  view_menu->addSeparator();
-  AddListColumnsMenu(view_menu);
-  view_menu->addSeparator();
-  AddShowPlatformsMenu(view_menu);
-  AddShowRegionsMenu(view_menu);
+    AddGameListTypeSection(view_menu);
+    view_menu->addSeparator();
+    AddListColumnsMenu(view_menu);
+    view_menu->addSeparator();
+    AddShowPlatformsMenu(view_menu);
+    AddShowRegionsMenu(view_menu);
 
-  view_menu->addSeparator();
-  QAction* const purge_action =
-      view_menu->addAction(tr("Purge Game List Cache"), this, &MenuBar::PurgeGameListCache);
-  purge_action->setEnabled(false);
-  connect(&Settings::Instance(), &Settings::GameListRefreshRequested, purge_action,
-          [purge_action] { purge_action->setEnabled(false); });
-  connect(&Settings::Instance(), &Settings::GameListRefreshStarted, purge_action,
-          [purge_action] { purge_action->setEnabled(true); });
-  view_menu->addSeparator();
-  view_menu->addAction(tr("Search"), this, &MenuBar::ShowSearch, QKeySequence::Find);
+    view_menu->addSeparator();
+    QAction* const purge_action =
+        view_menu->addAction(tr("Purge Game List Cache"), this, &MenuBar::PurgeGameListCache);
+    purge_action->setEnabled(false);
+    connect(&Settings::Instance(), &Settings::GameListRefreshRequested, purge_action,
+            [purge_action] { purge_action->setEnabled(false); });
+    connect(&Settings::Instance(), &Settings::GameListRefreshStarted, purge_action,
+            [purge_action] { purge_action->setEnabled(true); });
+    view_menu->addSeparator();
+    view_menu->addAction(tr("Search"), this, &MenuBar::ShowSearch, QKeySequence::Find);
+  }
 }
 
 void MenuBar::AddOptionsMenu()
@@ -993,15 +1031,18 @@ void MenuBar::AddSymbolsMenu()
 
 void MenuBar::UpdateToolsMenu(bool emulation_started)
 {
-  m_boot_sysmenu->setEnabled(!emulation_started);
-  m_perform_online_update_menu->setEnabled(!emulation_started);
-  m_ntscj_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(JAP_DIR)));
-  m_ntscu_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(USA_DIR)));
-  m_pal_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(EUR_DIR)));
-  m_import_backup->setEnabled(!emulation_started);
-  m_check_nand->setEnabled(!emulation_started);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_boot_sysmenu->setEnabled(!emulation_started);
+    m_perform_online_update_menu->setEnabled(!emulation_started);
+    m_ntscj_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(JAP_DIR)));
+    m_ntscu_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(USA_DIR)));
+    m_pal_ipl->setEnabled(!emulation_started && File::Exists(Config::GetBootROMPath(EUR_DIR)));
+    m_import_backup->setEnabled(!emulation_started);
+    m_check_nand->setEnabled(!emulation_started);
+  }
 
-  if (!emulation_started)
+  if (!Config::Get(Config::MAIN_PLAY_MODE) && !emulation_started)
   {
     IOS::HLE::Kernel ios;
     const auto tmd = ios.GetES()->FindInstalledTMD(Titles::SYSTEM_MENU);
@@ -1155,12 +1196,19 @@ void MenuBar::OnSelectionChanged(std::shared_ptr<const UICommon::GameFile> game_
 {
   m_game_selected = !!game_file;
 
-  m_recording_play->setEnabled(m_game_selected && !Core::IsRunning());
-  m_recording_start->setEnabled((m_game_selected || Core::IsRunning()) && !Movie::IsPlayingInput());
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_recording_play->setEnabled(m_game_selected && !Core::IsRunning());
+    m_recording_start->setEnabled((m_game_selected || Core::IsRunning()) &&
+                                  !Movie::IsPlayingInput());
+  }
 }
 
 void MenuBar::OnRecordingStatusChanged(bool recording)
 {
+  if (Config::Get(Config::MAIN_PLAY_MODE))
+    return;
+
   m_recording_start->setEnabled(!recording && (m_game_selected || Core::IsRunning()));
   m_recording_stop->setEnabled(recording);
   m_recording_export->setEnabled(recording);

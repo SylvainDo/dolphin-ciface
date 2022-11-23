@@ -238,7 +238,6 @@ extern const Info<bool> MAIN_USE_BUILT_IN_TITLE_DATABASE;
 extern const Info<std::string> MAIN_THEME_NAME;
 extern const Info<bool> MAIN_PAUSE_ON_FOCUS_LOST;
 extern const Info<bool> MAIN_ENABLE_DEBUGGING;
-extern const Info<bool> MAIN_HIDE_FPS_INFO;
 
 // Main.Analytics
 
@@ -353,4 +352,7 @@ std::string GetMemcardPath(ExpansionInterface::Slot slot, std::optional<DiscIO::
 std::string GetMemcardPath(std::string configured_filename, ExpansionInterface::Slot slot,
                            std::optional<DiscIO::Region> region, u16 size_mb = 0x80);
 bool IsDefaultMemcardPathConfigured(ExpansionInterface::Slot slot);
+
+extern const Info<bool> MAIN_HIDE_FPS_INFO;
+extern const Info<bool> MAIN_PLAY_MODE;
 }  // namespace Config

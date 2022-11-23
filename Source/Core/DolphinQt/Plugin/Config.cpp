@@ -302,7 +302,6 @@ static std::unordered_map<std::string_view, Property> _properties
   PropertyDeclare(MAIN_THEME_NAME, String),
   PropertyDeclare(MAIN_PAUSE_ON_FOCUS_LOST, Boolean),
   PropertyDeclare(MAIN_ENABLE_DEBUGGING, Boolean),
-  PropertyDeclare(MAIN_HIDE_FPS_INFO, Boolean),
   // Main.Analytics
   PropertyDeclare(MAIN_ANALYTICS_ID, String),
   PropertyDeclare(MAIN_ANALYTICS_ENABLED, Boolean),
@@ -380,6 +379,9 @@ static std::unordered_map<std::string_view, Property> _properties
   PropertyDeclare(MAIN_BLUETOOTH_PASSTHROUGH_LINK_KEYS, String),
   // Main.USBPassthrough
   PropertyDeclare(MAIN_USB_PASSTHROUGH_DEVICES, String),
+
+  PropertyDeclare(MAIN_HIDE_FPS_INFO, Boolean),
+  PropertyDeclare(MAIN_PLAY_MODE, Boolean),
 
   // NetplaySettings
   // Main.NetPlay

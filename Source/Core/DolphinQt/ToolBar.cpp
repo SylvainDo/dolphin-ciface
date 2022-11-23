@@ -46,10 +46,13 @@ ToolBar::ToolBar(QWidget* parent) : QToolBar(parent)
   connect(&Settings::Instance(), &Settings::WidgetLockChanged, this,
           [this](bool locked) { setMovable(!locked); });
 
-  connect(&Settings::Instance(), &Settings::GameListRefreshRequested, this,
-          [this] { m_refresh_action->setEnabled(false); });
-  connect(&Settings::Instance(), &Settings::GameListRefreshStarted, this,
-          [this] { m_refresh_action->setEnabled(true); });
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(&Settings::Instance(), &Settings::GameListRefreshRequested, this,
+            [this] { m_refresh_action->setEnabled(false); });
+    connect(&Settings::Instance(), &Settings::GameListRefreshStarted, this,
+            [this] { m_refresh_action->setEnabled(true); });
+  }
 
   OnEmulationStateChanged(Core::GetState());
   OnDebugModeToggled(Settings::Instance().IsDebugModeEnabled());
@@ -58,12 +61,16 @@ ToolBar::ToolBar(QWidget* parent) : QToolBar(parent)
 void ToolBar::OnEmulationStateChanged(Core::State state)
 {
   bool running = state != Core::State::Uninitialized;
-  m_stop_action->setEnabled(running);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    m_stop_action->setEnabled(running);
   m_fullscreen_action->setEnabled(running);
   m_screenshot_action->setEnabled(running);
 
-  bool playing = running && state != Core::State::Paused;
-  UpdatePausePlayButtonState(playing);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    bool playing = running && state != Core::State::Paused;
+    UpdatePausePlayButtonState(playing);
+  }
 
   bool paused = Core::GetState() == Core::State::Paused;
   m_step_action->setEnabled(paused);
@@ -112,15 +119,23 @@ void ToolBar::MakeActions()
   // i18n: Here, PC is an acronym for program counter, not personal computer.
   m_set_pc_action = addAction(tr("Set PC"), this, &ToolBar::SetPCPressed);
 
-  m_open_action = addAction(tr("Open"), this, &ToolBar::OpenPressed);
-  m_refresh_action = addAction(tr("Refresh"), [this] { emit RefreshPressed(); });
-  m_refresh_action->setEnabled(false);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_open_action = addAction(tr("Open"), this, &ToolBar::OpenPressed);
+    m_refresh_action = addAction(tr("Refresh"), [this] { emit RefreshPressed(); });
+    m_refresh_action->setEnabled(false);
 
-  addSeparator();
+    addSeparator();
+  }
+  else if (Config::Get(Config::MAIN_ENABLE_DEBUGGING))
+    addSeparator();
 
-  m_pause_play_action = addAction(tr("Play"), this, &ToolBar::PlayPressed);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_pause_play_action = addAction(tr("Play"), this, &ToolBar::PlayPressed);
 
-  m_stop_action = addAction(tr("Stop"), this, &ToolBar::StopPressed);
+    m_stop_action = addAction(tr("Stop"), this, &ToolBar::StopPressed);
+  }
   m_fullscreen_action = addAction(tr("FullScr"), this, &ToolBar::FullScreenPressed);
   m_screenshot_action = addAction(tr("ScrShot"), this, &ToolBar::ScreenShotPressed);
 
@@ -132,13 +147,26 @@ void ToolBar::MakeActions()
 
   // Ensure every button has about the same width
   std::vector<QWidget*> items;
-  for (const auto& action :
-       {m_open_action, m_pause_play_action, m_stop_action, m_stop_action, m_fullscreen_action,
-        m_screenshot_action, m_config_action, m_graphics_action, m_controllers_action,
-        m_step_action, m_step_over_action, m_step_out_action, m_skip_action, m_show_pc_action,
-        m_set_pc_action})
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
   {
-    items.emplace_back(widgetForAction(action));
+    for (const auto& action :
+         {m_open_action, m_pause_play_action, m_stop_action, m_stop_action, m_fullscreen_action,
+          m_screenshot_action, m_config_action, m_graphics_action, m_controllers_action,
+          m_step_action, m_step_over_action, m_step_out_action, m_skip_action, m_show_pc_action,
+          m_set_pc_action})
+    {
+      items.emplace_back(widgetForAction(action));
+    }
+  }
+  else
+  {
+    for (const auto& action :
+         {m_fullscreen_action, m_screenshot_action, m_config_action, m_graphics_action,
+          m_controllers_action, m_step_action, m_step_over_action, m_step_out_action, m_skip_action,
+          m_show_pc_action, m_set_pc_action})
+    {
+      items.emplace_back(widgetForAction(action));
+    }
   }
 
   std::vector<int> widths;
@@ -152,6 +180,9 @@ void ToolBar::MakeActions()
 
 void ToolBar::UpdatePausePlayButtonState(const bool playing_state)
 {
+  if (Config::Get(Config::MAIN_PLAY_MODE))
+    return;
+
   if (playing_state)
   {
     disconnect(m_pause_play_action, 0, 0, 0);
@@ -177,17 +208,20 @@ void ToolBar::UpdateIcons()
   m_show_pc_action->setIcon(Resources::GetScaledThemeIcon("debugger_show_pc"));
   m_set_pc_action->setIcon(Resources::GetScaledThemeIcon("debugger_set_pc"));
 
-  m_open_action->setIcon(Resources::GetScaledThemeIcon("open"));
-  m_refresh_action->setIcon(Resources::GetScaledThemeIcon("refresh"));
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    m_open_action->setIcon(Resources::GetScaledThemeIcon("open"));
+    m_refresh_action->setIcon(Resources::GetScaledThemeIcon("refresh"));
 
-  const Core::State state = Core::GetState();
-  const bool playing = state != Core::State::Uninitialized && state != Core::State::Paused;
-  if (!playing)
-    m_pause_play_action->setIcon(Resources::GetScaledThemeIcon("play"));
-  else
-    m_pause_play_action->setIcon(Resources::GetScaledThemeIcon("pause"));
+    const Core::State state = Core::GetState();
+    const bool playing = state != Core::State::Uninitialized && state != Core::State::Paused;
+    if (!playing)
+      m_pause_play_action->setIcon(Resources::GetScaledThemeIcon("play"));
+    else
+      m_pause_play_action->setIcon(Resources::GetScaledThemeIcon("pause"));
 
-  m_stop_action->setIcon(Resources::GetScaledThemeIcon("stop"));
+    m_stop_action->setIcon(Resources::GetScaledThemeIcon("stop"));
+  }
   m_fullscreen_action->setIcon(Resources::GetScaledThemeIcon("fullscreen"));
   m_screenshot_action->setIcon(Resources::GetScaledThemeIcon("screenshot"));
   m_config_action->setIcon(Resources::GetScaledThemeIcon("config"));

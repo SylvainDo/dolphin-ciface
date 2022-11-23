@@ -472,31 +472,42 @@ void MainWindow::ConnectMenuBar()
 {
   setMenuBar(m_menu_bar);
   // File
-  connect(m_menu_bar, &MenuBar::Open, this, &MainWindow::Open);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    connect(m_menu_bar, &MenuBar::Open, this, &MainWindow::Open);
   connect(m_menu_bar, &MenuBar::Exit, this, &MainWindow::close);
   connect(m_menu_bar, &MenuBar::EjectDisc, this, &MainWindow::EjectDisc);
   connect(m_menu_bar, &MenuBar::ChangeDisc, this, &MainWindow::ChangeDisc);
-  connect(m_menu_bar, &MenuBar::BootDVDBackup, this,
-          [this](const QString& drive) { StartGame(drive, ScanForSecondDisc::No); });
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::BootDVDBackup, this,
+            [this](const QString& drive) { StartGame(drive, ScanForSecondDisc::No); });
+  }
 
   // Emulation
-  connect(m_menu_bar, &MenuBar::Pause, this, &MainWindow::Pause);
-  connect(m_menu_bar, &MenuBar::Play, this, [this]() { Play(); });
-  connect(m_menu_bar, &MenuBar::Stop, this, &MainWindow::RequestStop);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::Pause, this, &MainWindow::Pause);
+    connect(m_menu_bar, &MenuBar::Play, this, [this]() { Play(); });
+    connect(m_menu_bar, &MenuBar::Stop, this, &MainWindow::RequestStop);
+  }
   connect(m_menu_bar, &MenuBar::Reset, this, &MainWindow::Reset);
   connect(m_menu_bar, &MenuBar::Fullscreen, this, &MainWindow::FullScreen);
-  connect(m_menu_bar, &MenuBar::FrameAdvance, this, &MainWindow::FrameAdvance);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    connect(m_menu_bar, &MenuBar::FrameAdvance, this, &MainWindow::FrameAdvance);
   connect(m_menu_bar, &MenuBar::Screenshot, this, &MainWindow::ScreenShot);
-  connect(m_menu_bar, &MenuBar::StateLoad, this, &MainWindow::StateLoad);
-  connect(m_menu_bar, &MenuBar::StateSave, this, &MainWindow::StateSave);
-  connect(m_menu_bar, &MenuBar::StateLoadSlot, this, &MainWindow::StateLoadSlot);
-  connect(m_menu_bar, &MenuBar::StateSaveSlot, this, &MainWindow::StateSaveSlot);
-  connect(m_menu_bar, &MenuBar::StateLoadSlotAt, this, &MainWindow::StateLoadSlotAt);
-  connect(m_menu_bar, &MenuBar::StateSaveSlotAt, this, &MainWindow::StateSaveSlotAt);
-  connect(m_menu_bar, &MenuBar::StateLoadUndo, this, &MainWindow::StateLoadUndo);
-  connect(m_menu_bar, &MenuBar::StateSaveUndo, this, &MainWindow::StateSaveUndo);
-  connect(m_menu_bar, &MenuBar::StateSaveOldest, this, &MainWindow::StateSaveOldest);
-  connect(m_menu_bar, &MenuBar::SetStateSlot, this, &MainWindow::SetStateSlot);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::StateLoad, this, &MainWindow::StateLoad);
+    connect(m_menu_bar, &MenuBar::StateSave, this, &MainWindow::StateSave);
+    connect(m_menu_bar, &MenuBar::StateLoadSlot, this, &MainWindow::StateLoadSlot);
+    connect(m_menu_bar, &MenuBar::StateSaveSlot, this, &MainWindow::StateSaveSlot);
+    connect(m_menu_bar, &MenuBar::StateLoadSlotAt, this, &MainWindow::StateLoadSlotAt);
+    connect(m_menu_bar, &MenuBar::StateSaveSlotAt, this, &MainWindow::StateSaveSlotAt);
+    connect(m_menu_bar, &MenuBar::StateLoadUndo, this, &MainWindow::StateLoadUndo);
+    connect(m_menu_bar, &MenuBar::StateSaveUndo, this, &MainWindow::StateSaveUndo);
+    connect(m_menu_bar, &MenuBar::StateSaveOldest, this, &MainWindow::StateSaveOldest);
+    connect(m_menu_bar, &MenuBar::SetStateSlot, this, &MainWindow::SetStateSlot);
+  }
 
   // Options
   connect(m_menu_bar, &MenuBar::Configure, this, &MainWindow::ShowSettingsWindow);
@@ -507,45 +518,59 @@ void MainWindow::ConnectMenuBar()
   connect(m_menu_bar, &MenuBar::ConfigureFreelook, this, &MainWindow::ShowFreeLookWindow);
 
   // Tools
-  connect(m_menu_bar, &MenuBar::ShowMemcardManager, this, &MainWindow::ShowMemcardManager);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    connect(m_menu_bar, &MenuBar::ShowMemcardManager, this, &MainWindow::ShowMemcardManager);
   connect(m_menu_bar, &MenuBar::ShowResourcePackManager, this,
           &MainWindow::ShowResourcePackManager);
   connect(m_menu_bar, &MenuBar::ShowCheatsManager, this, &MainWindow::ShowCheatsManager);
-  connect(m_menu_bar, &MenuBar::BootGameCubeIPL, this, &MainWindow::OnBootGameCubeIPL);
-  connect(m_menu_bar, &MenuBar::ImportNANDBackup, this, &MainWindow::OnImportNANDBackup);
-  connect(m_menu_bar, &MenuBar::PerformOnlineUpdate, this, &MainWindow::PerformOnlineUpdate);
-  connect(m_menu_bar, &MenuBar::BootWiiSystemMenu, this, &MainWindow::BootWiiSystemMenu);
-  connect(m_menu_bar, &MenuBar::StartNetPlay, this, &MainWindow::ShowNetPlaySetupDialog);
-  connect(m_menu_bar, &MenuBar::BrowseNetPlay, this, &MainWindow::ShowNetPlayBrowser);
-  connect(m_menu_bar, &MenuBar::ShowFIFOPlayer, this, &MainWindow::ShowFIFOPlayer);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::BootGameCubeIPL, this, &MainWindow::OnBootGameCubeIPL);
+    connect(m_menu_bar, &MenuBar::ImportNANDBackup, this, &MainWindow::OnImportNANDBackup);
+    connect(m_menu_bar, &MenuBar::PerformOnlineUpdate, this, &MainWindow::PerformOnlineUpdate);
+    connect(m_menu_bar, &MenuBar::BootWiiSystemMenu, this, &MainWindow::BootWiiSystemMenu);
+    connect(m_menu_bar, &MenuBar::StartNetPlay, this, &MainWindow::ShowNetPlaySetupDialog);
+    connect(m_menu_bar, &MenuBar::BrowseNetPlay, this, &MainWindow::ShowNetPlayBrowser);
+    connect(m_menu_bar, &MenuBar::ShowFIFOPlayer, this, &MainWindow::ShowFIFOPlayer);
+  }
   connect(m_menu_bar, &MenuBar::ConnectWiiRemote, this, &MainWindow::OnConnectWiiRemote);
 
   // Movie
-  connect(m_menu_bar, &MenuBar::PlayRecording, this, &MainWindow::OnPlayRecording);
-  connect(m_menu_bar, &MenuBar::StartRecording, this, &MainWindow::OnStartRecording);
-  connect(m_menu_bar, &MenuBar::StopRecording, this, &MainWindow::OnStopRecording);
-  connect(m_menu_bar, &MenuBar::ExportRecording, this, &MainWindow::OnExportRecording);
-  connect(m_menu_bar, &MenuBar::ShowTASInput, this, &MainWindow::ShowTASInput);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::PlayRecording, this, &MainWindow::OnPlayRecording);
+    connect(m_menu_bar, &MenuBar::StartRecording, this, &MainWindow::OnStartRecording);
+    connect(m_menu_bar, &MenuBar::StopRecording, this, &MainWindow::OnStopRecording);
+    connect(m_menu_bar, &MenuBar::ExportRecording, this, &MainWindow::OnExportRecording);
+    connect(m_menu_bar, &MenuBar::ShowTASInput, this, &MainWindow::ShowTASInput);
+  }
 
   // View
-  connect(m_menu_bar, &MenuBar::ShowList, m_game_list, &GameList::SetListView);
-  connect(m_menu_bar, &MenuBar::ShowGrid, m_game_list, &GameList::SetGridView);
-  connect(m_menu_bar, &MenuBar::PurgeGameListCache, m_game_list, &GameList::PurgeCache);
-  connect(m_menu_bar, &MenuBar::ShowSearch, m_search_bar, &SearchBar::Show);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_menu_bar, &MenuBar::ShowList, m_game_list, &GameList::SetListView);
+    connect(m_menu_bar, &MenuBar::ShowGrid, m_game_list, &GameList::SetGridView);
+    connect(m_menu_bar, &MenuBar::PurgeGameListCache, m_game_list, &GameList::PurgeCache);
+    connect(m_menu_bar, &MenuBar::ShowSearch, m_search_bar, &SearchBar::Show);
 
-  connect(m_menu_bar, &MenuBar::ColumnVisibilityToggled, m_game_list,
-          &GameList::OnColumnVisibilityToggled);
+    connect(m_menu_bar, &MenuBar::ColumnVisibilityToggled, m_game_list,
+            &GameList::OnColumnVisibilityToggled);
 
-  connect(m_menu_bar, &MenuBar::GameListPlatformVisibilityToggled, m_game_list,
-          &GameList::OnGameListVisibilityChanged);
-  connect(m_menu_bar, &MenuBar::GameListRegionVisibilityToggled, m_game_list,
-          &GameList::OnGameListVisibilityChanged);
+    connect(m_menu_bar, &MenuBar::GameListPlatformVisibilityToggled, m_game_list,
+            &GameList::OnGameListVisibilityChanged);
+    connect(m_menu_bar, &MenuBar::GameListRegionVisibilityToggled, m_game_list,
+            &GameList::OnGameListVisibilityChanged);
+  }
 
   connect(m_menu_bar, &MenuBar::ShowAboutDialog, this, &MainWindow::ShowAboutDialog);
 
-  connect(m_game_list, &GameList::SelectionChanged, m_menu_bar, &MenuBar::SelectionChanged);
-  connect(this, &MainWindow::ReadOnlyModeChanged, m_menu_bar, &MenuBar::ReadOnlyModeChanged);
-  connect(this, &MainWindow::RecordingStatusChanged, m_menu_bar, &MenuBar::RecordingStatusChanged);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_game_list, &GameList::SelectionChanged, m_menu_bar, &MenuBar::SelectionChanged);
+    connect(this, &MainWindow::ReadOnlyModeChanged, m_menu_bar, &MenuBar::ReadOnlyModeChanged);
+    connect(this, &MainWindow::RecordingStatusChanged, m_menu_bar,
+            &MenuBar::RecordingStatusChanged);
+  }
 
   // Symbols
   connect(m_menu_bar, &MenuBar::NotifySymbolsUpdated, [this] {
@@ -556,55 +581,69 @@ void MainWindow::ConnectMenuBar()
 
 void MainWindow::ConnectHotkeys()
 {
-  connect(m_hotkey_scheduler, &HotkeyScheduler::Open, this, &MainWindow::Open);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    connect(m_hotkey_scheduler, &HotkeyScheduler::Open, this, &MainWindow::Open);
   connect(m_hotkey_scheduler, &HotkeyScheduler::ChangeDisc, this, &MainWindow::ChangeDisc);
   connect(m_hotkey_scheduler, &HotkeyScheduler::EjectDisc, this, &MainWindow::EjectDisc);
   connect(m_hotkey_scheduler, &HotkeyScheduler::ExitHotkey, this, &MainWindow::close);
   connect(m_hotkey_scheduler, &HotkeyScheduler::UnlockCursor, this, &MainWindow::UnlockCursor);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::TogglePauseHotkey, this, &MainWindow::TogglePause);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::ActivateChat, this, &MainWindow::OnActivateChat);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::RequestGolfControl, this,
-          &MainWindow::OnRequestGolfControl);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::RefreshGameListHotkey, this,
-          &MainWindow::RefreshGameList);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StopHotkey, this, &MainWindow::RequestStop);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_hotkey_scheduler, &HotkeyScheduler::TogglePauseHotkey, this,
+            &MainWindow::TogglePause);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::ActivateChat, this, &MainWindow::OnActivateChat);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::RequestGolfControl, this,
+            &MainWindow::OnRequestGolfControl);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::RefreshGameListHotkey, this,
+            &MainWindow::RefreshGameList);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StopHotkey, this, &MainWindow::RequestStop);
+  }
   connect(m_hotkey_scheduler, &HotkeyScheduler::ResetHotkey, this, &MainWindow::Reset);
   connect(m_hotkey_scheduler, &HotkeyScheduler::ScreenShotHotkey, this, &MainWindow::ScreenShot);
   connect(m_hotkey_scheduler, &HotkeyScheduler::FullScreenHotkey, this, &MainWindow::FullScreen);
 
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadSlot, this, &MainWindow::StateLoadSlotAt);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveSlot, this, &MainWindow::StateSaveSlotAt);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadLastSaved, this,
-          &MainWindow::StateLoadLastSavedAt);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadUndo, this, &MainWindow::StateLoadUndo);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveUndo, this, &MainWindow::StateSaveUndo);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveOldest, this,
-          &MainWindow::StateSaveOldest);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveFile, this, &MainWindow::StateSave);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadFile, this, &MainWindow::StateLoad);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadSlot, this,
+            &MainWindow::StateLoadSlotAt);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveSlot, this,
+            &MainWindow::StateSaveSlotAt);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadLastSaved, this,
+            &MainWindow::StateLoadLastSavedAt);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadUndo, this, &MainWindow::StateLoadUndo);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveUndo, this, &MainWindow::StateSaveUndo);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveOldest, this,
+            &MainWindow::StateSaveOldest);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveFile, this, &MainWindow::StateSave);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadFile, this, &MainWindow::StateLoad);
 
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadSlotHotkey, this,
-          &MainWindow::StateLoadSlot);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveSlotHotkey, this,
-          &MainWindow::StateSaveSlot);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::SetStateSlotHotkey, this,
-          &MainWindow::SetStateSlot);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::IncrementSelectedStateSlotHotkey, this,
-          &MainWindow::IncrementSelectedStateSlot);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::DecrementSelectedStateSlotHotkey, this,
-          &MainWindow::DecrementSelectedStateSlot);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::StartRecording, this,
-          &MainWindow::OnStartRecording);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::PlayRecording, this, &MainWindow::OnPlayRecording);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::ExportRecording, this,
-          &MainWindow::OnExportRecording);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateLoadSlotHotkey, this,
+            &MainWindow::StateLoadSlot);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StateSaveSlotHotkey, this,
+            &MainWindow::StateSaveSlot);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::SetStateSlotHotkey, this,
+            &MainWindow::SetStateSlot);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::IncrementSelectedStateSlotHotkey, this,
+            &MainWindow::IncrementSelectedStateSlot);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::DecrementSelectedStateSlotHotkey, this,
+            &MainWindow::DecrementSelectedStateSlot);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::StartRecording, this,
+            &MainWindow::OnStartRecording);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::PlayRecording, this,
+            &MainWindow::OnPlayRecording);
+    connect(m_hotkey_scheduler, &HotkeyScheduler::ExportRecording, this,
+            &MainWindow::OnExportRecording);
+  }
   connect(m_hotkey_scheduler, &HotkeyScheduler::ConnectWiiRemote, this,
           &MainWindow::OnConnectWiiRemote);
-  connect(m_hotkey_scheduler, &HotkeyScheduler::ToggleReadOnlyMode, [this] {
-    bool read_only = !Movie::IsReadOnly();
-    Movie::SetReadOnly(read_only);
-    emit ReadOnlyModeChanged(read_only);
-  });
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_hotkey_scheduler, &HotkeyScheduler::ToggleReadOnlyMode, [this] {
+      bool read_only = !Movie::IsReadOnly();
+      Movie::SetReadOnly(read_only);
+      emit ReadOnlyModeChanged(read_only);
+    });
+  }
 
   connect(m_hotkey_scheduler, &HotkeyScheduler::Step, m_code_widget, &CodeWidget::Step);
   connect(m_hotkey_scheduler, &HotkeyScheduler::StepOver, m_code_widget, &CodeWidget::StepOver);
@@ -624,12 +663,15 @@ void MainWindow::ConnectToolBar()
 {
   addToolBar(m_tool_bar);
 
-  connect(m_tool_bar, &ToolBar::OpenPressed, this, &MainWindow::Open);
-  connect(m_tool_bar, &ToolBar::RefreshPressed, this, &MainWindow::RefreshGameList);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+  {
+    connect(m_tool_bar, &ToolBar::OpenPressed, this, &MainWindow::Open);
+    connect(m_tool_bar, &ToolBar::RefreshPressed, this, &MainWindow::RefreshGameList);
 
-  connect(m_tool_bar, &ToolBar::PlayPressed, this, [this]() { Play(); });
-  connect(m_tool_bar, &ToolBar::PausePressed, this, &MainWindow::Pause);
-  connect(m_tool_bar, &ToolBar::StopPressed, this, &MainWindow::RequestStop);
+    connect(m_tool_bar, &ToolBar::PlayPressed, this, [this]() { Play(); });
+    connect(m_tool_bar, &ToolBar::PausePressed, this, &MainWindow::Pause);
+    connect(m_tool_bar, &ToolBar::StopPressed, this, &MainWindow::RequestStop);
+  }
   connect(m_tool_bar, &ToolBar::FullScreenPressed, this, &MainWindow::FullScreen);
   connect(m_tool_bar, &ToolBar::ScreenShotPressed, this, &MainWindow::ScreenShot);
   connect(m_tool_bar, &ToolBar::SettingsPressed, this, &MainWindow::ShowSettingsWindow);
@@ -646,6 +688,9 @@ void MainWindow::ConnectToolBar()
 
 void MainWindow::ConnectGameList()
 {
+  if (Config::Get(Config::MAIN_PLAY_MODE))
+    return;
+
   connect(m_game_list, &GameList::GameSelected, this, [this]() { Play(); });
   connect(m_game_list, &GameList::NetPlayHost, this, &MainWindow::NetPlayHost);
   connect(m_game_list, &GameList::OnStartWithRiivolution, this,
@@ -678,10 +723,13 @@ void MainWindow::ConnectStack()
   widget->setLayout(layout);
 
   layout->addWidget(m_game_list);
+  if (Config::Get(Config::MAIN_PLAY_MODE))
+    m_game_list->hide();
   layout->addWidget(m_search_bar);
   layout->setContentsMargins(0, 0, 0, 0);
 
-  connect(m_search_bar, &SearchBar::Search, m_game_list, &GameList::SetSearchTerm);
+  if (!Config::Get(Config::MAIN_PLAY_MODE))
+    connect(m_search_bar, &SearchBar::Search, m_game_list, &GameList::SetSearchTerm);
 
   m_stack->addWidget(widget);
 
