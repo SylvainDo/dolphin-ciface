@@ -39,6 +39,9 @@ struct dol_Core
   void (*hostDispatchJobs)(void);
   void (*doFrameStep)(void);
   void (*updateInputGate)(bool require_focus, bool require_full_focus);
+  void (*setFrameHandlerEnabled)(bool enabled);
+  bool (*getFrameHandlerToken)(void);
+  void (*setFrameHandlerToken)(bool token);
 };
 
 typedef dol_Core* (*dol_Core_newInterface_t)(void);

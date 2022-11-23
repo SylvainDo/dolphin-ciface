@@ -132,6 +132,9 @@ static Common::Event s_cpu_thread_job_finished;
 static thread_local bool tls_is_cpu_thread = false;
 static thread_local bool tls_is_gpu_thread = false;
 
+static std::atomic<bool> s_enable_frame_handler;
+static std::atomic<bool> s_frame_handler_token;
+
 static void EmuThread(std::unique_ptr<BootParameters> boot, WindowSystemInfo wsi);
 
 bool GetIsThrottlerTempDisabled()
@@ -161,6 +164,14 @@ void OnFrameEnd()
   if (s_memory_watcher)
     s_memory_watcher->Step();
 #endif
+
+  if (s_enable_frame_handler)
+  {
+    s_frame_handler_token = true;
+    while (s_frame_handler_token)
+    {
+    }
+  }
 }
 
 // Display messages and return values
@@ -1105,6 +1116,21 @@ void UpdateInputGate(bool require_focus, bool require_full_focus)
   const bool full_focus_passes =
       !require_focus || !require_full_focus || (focus_passes && Host_RendererHasFullFocus());
   ControlReference::SetInputGate(focus_passes && full_focus_passes);
+}
+
+void SetFrameHandlerEnabled(bool enabled)
+{
+  s_enable_frame_handler = enabled;
+}
+
+bool GetFrameHandlerToken()
+{
+  return s_frame_handler_token;
+}
+
+void SetFrameHandlerToken(bool token)
+{
+  s_frame_handler_token = token;
 }
 
 }  // namespace Core

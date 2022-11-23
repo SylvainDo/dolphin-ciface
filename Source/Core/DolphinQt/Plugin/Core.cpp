@@ -156,6 +156,21 @@ static void dol_Core_updateInputGate(bool require_focus, bool require_full_focus
   Core::UpdateInputGate(require_focus, require_full_focus);
 }
 
+static void dol_Core_setFrameHandlerEnabled(bool enabled)
+{
+  Core::SetFrameHandlerEnabled(enabled);
+}
+
+static bool dol_Core_getFrameHandlerToken()
+{
+  return Core::GetFrameHandlerToken();
+}
+
+static void dol_Core_setFrameHandlerToken(bool token)
+{
+  Core::SetFrameHandlerToken(token);
+}
+
 EXPORT dol_Core* dol_Core_newInterface()
 {
   auto iface = static_cast<dol_Core*>(interop_calloc(1, sizeof(dol_Core)));
@@ -188,6 +203,9 @@ EXPORT dol_Core* dol_Core_newInterface()
   iface->hostDispatchJobs = dol_Core_hostDispatchJobs;
   iface->doFrameStep = dol_Core_doFrameStep;
   iface->updateInputGate = dol_Core_updateInputGate;
+  iface->setFrameHandlerEnabled = dol_Core_setFrameHandlerEnabled;
+  iface->getFrameHandlerToken = dol_Core_getFrameHandlerToken;
+  iface->setFrameHandlerToken = dol_Core_setFrameHandlerToken;
 
   return iface;
 }

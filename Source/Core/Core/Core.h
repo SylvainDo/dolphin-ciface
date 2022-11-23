@@ -171,4 +171,8 @@ void DoFrameStep();
 
 void UpdateInputGate(bool require_focus, bool require_full_focus = false);
 
+void SetFrameHandlerEnabled(bool enabled);
+bool GetFrameHandlerToken();
+void SetFrameHandlerToken(bool token);
+
 }  // namespace Core
