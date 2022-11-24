@@ -27,6 +27,7 @@ struct dol_Core
   dol_Core_State (*getState)(void);
   void (*saveScreenShot1)(void);
   void (*saveScreenShot2)(const char* name);
+  void (*saveScreenShotAs)(const char* filename);
   void (*displayMessage)(const char* message, int time_in_ms);
   void (*runAsCPUThread)(void (*function)(void* userdata), void* userdata);
   void (*runOnCPUThread)(void (*function)(void* userdata), void* userdata,

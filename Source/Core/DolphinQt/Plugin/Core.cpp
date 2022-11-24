@@ -101,6 +101,11 @@ static void dol_Core_saveScreenShot2(const char* name)
   Core::SaveScreenShot(name);
 }
 
+static void dol_Core_saveScreenShotAs(const char* filename)
+{
+  Core::SaveScreenShotAs(filename);
+}
+
 static void dol_Core_displayMessage(const char* message, int time_in_ms)
 {
   Core::DisplayMessage(message, time_in_ms);
@@ -193,6 +198,7 @@ EXPORT dol_Core* dol_Core_newInterface()
   iface->getState = dol_Core_getState;
   iface->saveScreenShot1 = dol_Core_saveScreenShot1;
   iface->saveScreenShot2 = dol_Core_saveScreenShot2;
+  iface->saveScreenShotAs = dol_Core_saveScreenShotAs;
   iface->displayMessage = dol_Core_displayMessage;
   iface->runAsCPUThread = dol_Core_runAsCPUThread;
   iface->runOnCPUThread = dol_Core_runOnCPUThread;

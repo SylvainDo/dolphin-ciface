@@ -755,6 +755,11 @@ void SaveScreenShot(std::string_view name)
   });
 }
 
+void SaveScreenShotAs(const std::string& filename)
+{
+  Core::RunAsCPUThread([&] { g_renderer->SaveScreenshot(filename); });
+}
+
 static bool PauseAndLock(bool do_lock, bool unpause_on_unlock)
 {
   // WARNING: PauseAndLock is not fully threadsafe so is only valid on the Host Thread

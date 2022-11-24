@@ -117,6 +117,7 @@ State GetState();
 
 void SaveScreenShot();
 void SaveScreenShot(std::string_view name);
+void SaveScreenShotAs(const std::string& filename);
 
 // This displays messages in a user-visible way.
 void DisplayMessage(std::string message, int time_in_ms);
