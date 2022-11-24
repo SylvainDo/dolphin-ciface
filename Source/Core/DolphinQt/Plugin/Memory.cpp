@@ -7,26 +7,6 @@ extern dol_calloc_t interop_calloc;
 
 #include "Core/HW/Memmap.h"
 
-static uint8_t* dol_Memory_getPhysicalBase()
-{
-  return Memory::physical_base;
-}
-
-static uint8_t* dol_Memory_getLogicalBase()
-{
-  return Memory::logical_base;
-}
-
-static uint8_t* dol_Memory_getPhysicalPageMappingsBase()
-{
-  return Memory::physical_page_mappings_base;
-}
-
-static uint8_t* dol_Memory_getLogicalPageMappingsBase()
-{
-  return Memory::logical_page_mappings_base;
-}
-
 static uint8_t* dol_Memory_getRAMPointer()
 {
   return Memory::m_pRAM;
@@ -95,16 +75,6 @@ static uint32_t dol_Memory_getExRamSize()
 static uint32_t dol_Memory_getExRamMask()
 {
   return Memory::GetExRamMask();
-}
-
-static bool dol_Memory_isInitialized()
-{
-  return Memory::IsInitialized();
-}
-
-static void dol_Memory_clear()
-{
-  return Memory::Clear();
 }
 
 static char* dol_Memory_getString(uint32_t em_address, size_t size)
@@ -220,10 +190,6 @@ static void dol_Memory_copyToEmuU64Swap(uint32_t address, const uint64_t* data, 
 EXPORT dol_Memory* dol_Memory_newInterface()
 {
   auto iface = static_cast<dol_Memory*>(interop_calloc(1, sizeof(dol_Memory)));
-  iface->getPhysicalBase = dol_Memory_getPhysicalBase;
-  iface->getLogicalBase = dol_Memory_getLogicalBase;
-  iface->getPhysicalPageMappingsBase = dol_Memory_getPhysicalPageMappingsBase;
-  iface->getLogicalPageMappingsBase = dol_Memory_getLogicalPageMappingsBase;
   iface->getRAMPointer = dol_Memory_getRAMPointer;
   iface->getEXRAMPointer = dol_Memory_getEXRAMPointer;
   iface->getL1CachePointer = dol_Memory_getL1CachePointer;
@@ -238,8 +204,6 @@ EXPORT dol_Memory* dol_Memory_newInterface()
   iface->getExRamSizeReal = dol_Memory_getExRamSizeReal;
   iface->getExRamSize = dol_Memory_getExRamSize;
   iface->getExRamMask = dol_Memory_getExRamMask;
-  iface->isInitialized = dol_Memory_isInitialized;
-  iface->clear = dol_Memory_clear;
   iface->getString = dol_Memory_getString;
   iface->getPointer = dol_Memory_getPointer;
   iface->getPointerForRange = dol_Memory_getPointerForRange;

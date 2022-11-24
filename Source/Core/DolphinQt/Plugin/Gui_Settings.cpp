@@ -8,11 +8,6 @@ extern dol_calloc_t interop_calloc;
 
 #include "DolphinQt/Settings.h"
 
-static void dol_Gui_Settings_unregisterDevicesChangedCallback()
-{
-  Settings::Instance().UnregisterDevicesChangedCallback();
-}
-
 // UI
 
 static void dol_Gui_Settings_setThemeName(const char* theme_name)
@@ -132,24 +127,9 @@ static void dol_Gui_Settings_refreshGameList()
   Settings::Instance().RefreshGameList();
 }
 
-static void dol_Gui_Settings_notifyRefreshGameListStarted()
-{
-  Settings::Instance().NotifyRefreshGameListStarted();
-}
-
-static void dol_Gui_Settings_notifyRefreshGameListComplete()
-{
-  Settings::Instance().NotifyRefreshGameListComplete();
-}
-
 static void dol_Gui_Settings_refreshMetadata()
 {
   Settings::Instance().RefreshMetadata();
-}
-
-static void dol_Gui_Settings_notifyMetadataRefreshComplete()
-{
-  Settings::Instance().NotifyMetadataRefreshComplete();
 }
 
 static void dol_Gui_Settings_reloadTitleDB()
@@ -377,18 +357,6 @@ static bool dol_Gui_Settings_isJITVisible()
   return Settings::Instance().IsJITVisible();
 }
 
-// Auto-Update
-
-static char* dol_Gui_Settings_getAutoUpdateTrack()
-{
-  return PluginUtil::dupStdString(Settings::Instance().GetAutoUpdateTrack().toStdString());
-}
-
-static void dol_Gui_Settings_setAutoUpdateTrack(const char* mode)
-{
-  Settings::Instance().SetAutoUpdateTrack(QString::fromUtf8(mode));
-}
-
 // Fallback Region
 
 static dol_DiscIO_Region dol_Gui_Settings_getFallbackRegion()
@@ -403,11 +371,6 @@ static void dol_Gui_Settings_setFallbackRegion(dol_DiscIO_Region region)
 
 // Analytics
 
-static bool dol_Gui_Settings_isAnalyticsEnabled()
-{
-  return Settings::Instance().IsAnalyticsEnabled();
-}
-
 static void dol_Gui_Settings_setAnalyticsEnabled(bool enabled)
 {
   Settings::Instance().SetAnalyticsEnabled(enabled);
@@ -416,7 +379,6 @@ static void dol_Gui_Settings_setAnalyticsEnabled(bool enabled)
 EXPORT dol_Gui_Settings* dol_Gui_Settings_newInterface()
 {
   auto iface = static_cast<dol_Gui_Settings*>(interop_calloc(1, sizeof(dol_Gui_Settings)));
-  iface->unregisterDevicesChangedCallback = dol_Gui_Settings_unregisterDevicesChangedCallback;
   // UI
   iface->setThemeName = dol_Gui_Settings_setThemeName;
   iface->setCurrentUserStyle = dol_Gui_Settings_setCurrentUserStyle;
@@ -441,10 +403,7 @@ EXPORT dol_Gui_Settings* dol_Gui_Settings_newInterface()
   iface->getDefaultGame = dol_Gui_Settings_getDefaultGame;
   iface->setDefaultGame = dol_Gui_Settings_setDefaultGame;
   iface->refreshGameList = dol_Gui_Settings_refreshGameList;
-  iface->notifyRefreshGameListStarted = dol_Gui_Settings_notifyRefreshGameListStarted;
-  iface->notifyRefreshGameListComplete = dol_Gui_Settings_notifyRefreshGameListComplete;
   iface->refreshMetadata = dol_Gui_Settings_refreshMetadata;
-  iface->notifyMetadataRefreshComplete = dol_Gui_Settings_notifyMetadataRefreshComplete;
   iface->reloadTitleDB = dol_Gui_Settings_reloadTitleDB;
   iface->isAutoRefreshEnabled = dol_Gui_Settings_isAutoRefreshEnabled;
   iface->setAutoRefreshEnabled = dol_Gui_Settings_setAutoRefreshEnabled;
@@ -493,14 +452,10 @@ EXPORT dol_Gui_Settings* dol_Gui_Settings_newInterface()
   iface->isNetworkVisible = dol_Gui_Settings_isNetworkVisible;
   iface->setJITVisible = dol_Gui_Settings_setJITVisible;
   iface->isJITVisible = dol_Gui_Settings_isJITVisible;
-  // Auto-Update
-  iface->getAutoUpdateTrack = dol_Gui_Settings_getAutoUpdateTrack;
-  iface->setAutoUpdateTrack = dol_Gui_Settings_setAutoUpdateTrack;
   // Fallback Region
   iface->getFallbackRegion = dol_Gui_Settings_getFallbackRegion;
   iface->setFallbackRegion = dol_Gui_Settings_setFallbackRegion;
   // Analytics
-  iface->isAnalyticsEnabled = dol_Gui_Settings_isAnalyticsEnabled;
   iface->setAnalyticsEnabled = dol_Gui_Settings_setAnalyticsEnabled;
 
   return iface;

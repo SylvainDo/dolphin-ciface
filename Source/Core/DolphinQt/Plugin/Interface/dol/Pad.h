@@ -33,11 +33,9 @@ const uint8_t dol_GCPadStatus_CStickRadius = 0x7f;
 
 struct dol_Pad
 {
-  bool (*isInitialized)(void);
   void (*getStatus)(int pad_num, dol_GCPadStatus* status);
   void (*rumble)(int pad_num, dol_ControlState strength);
   void (*resetRumble)(int pad_num);
-  bool (*getMicButton)(int pad_num);
 };
 
 typedef dol_Pad* (*dol_Pad_newInterface_t)(void);

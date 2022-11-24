@@ -690,32 +690,6 @@ static void dol_Config_setInfo5(void* prop, uint32_t value, bool base)
   }
 }
 
-static dol_DiscIO_Language dol_Config_getDefaultLanguage()
-{
-  return static_cast<dol_DiscIO_Language>(Config::GetDefaultLanguage());
-}
-
-static bool dol_Config_getOptionalDefaultCountry(uint8_t* defaultCountry)
-{
-  auto opt = Config::GetOptionalDefaultCountry();
-  if (opt.has_value())
-  {
-    *defaultCountry = opt.value();
-    return true;
-  }
-  return false;
-}
-
-static uint8_t dol_Config_getDefaultCountry()
-{
-  return Config::GetDefaultCountry();
-}
-
-static dol_DiscIO_Region dol_Config_getDefaultRegion()
-{
-  return static_cast<dol_DiscIO_Region>(Config::GetDefaultRegion());
-}
-
 static void* dol_Config_getInfoForMemcardPath(dol_ExpansionInterface_Slot slot)
 {
   _temp_property.info =
@@ -769,98 +743,6 @@ static void* dol_Config_getInfoForSimulateKonga(int channel)
   return static_cast<void*>(&_temp_property);
 }
 
-static dol_Config_GPUDeterminismMode dol_Config_getGPUDeterminismMode()
-{
-  return static_cast<dol_Config_GPUDeterminismMode>(Config::GetGPUDeterminismMode());
-}
-
-static bool dol_Config_shouldUseDPL2Decoder()
-{
-  return Config::ShouldUseDPL2Decoder();
-}
-
-static char** dol_Config_getIsoPaths(int* numPaths)
-{
-  auto paths = Config::GetIsoPaths();
-  auto v = static_cast<char**>(interop_malloc(sizeof(char*) * paths.size()));
-  for (size_t i{}; i < paths.size(); ++i)
-    v[i] = PluginUtil::dupStdString(paths[i]);
-  *numPaths = static_cast<int>(paths.size());
-  return v;
-}
-
-static void dol_Config_setIsoPaths(const char** paths, int numPaths)
-{
-  std::vector<std::string> v;
-  for (int i{}; i < numPaths; ++i)
-    v.push_back(paths[i]);
-  Config::SetIsoPaths(v);
-}
-
-static void dol_Config_getUSBDeviceWhitelist(uint16_t** devices_first, uint16_t** devices_second,
-                                             int* numDevices)
-{
-  auto devices = Config::GetUSBDeviceWhitelist();
-  *devices_first = static_cast<uint16_t*>(interop_malloc(sizeof(uint16_t) * devices.size()));
-  *devices_second = static_cast<uint16_t*>(interop_malloc(sizeof(uint16_t) * devices.size()));
-  size_t i{};
-  for (const auto& p : devices)
-  {
-    (*devices_first)[i] = p.first;
-    (*devices_second)[i] = p.second;
-    ++i;
-  }
-  *numDevices = static_cast<int>(devices.size());
-}
-
-static void dol_Config_setUSBDeviceWhitelist(uint16_t* devices_first, uint16_t* devices_second,
-                                             int numDevices)
-{
-  std::set<std::pair<u16, u16>> v;
-  for (int i{}; i < numDevices; ++i)
-    v.insert({devices_first[i], devices_second[i]});
-  Config::SetUSBDeviceWhitelist(v);
-}
-
-static dol_DiscIO_Region dol_Config_toGameCubeRegion(dol_DiscIO_Region region)
-{
-  return static_cast<dol_DiscIO_Region>(
-      Config::ToGameCubeRegion(static_cast<DiscIO::Region>(region)));
-}
-
-static char* dol_Config_getDirectoryForRegion(dol_DiscIO_Region region)
-{
-  return PluginUtil::dupStdString(
-      Config::GetDirectoryForRegion(static_cast<DiscIO::Region>(region)));
-}
-
-static char* dol_Config_getBootROMPath(const char* region_directory)
-{
-  return PluginUtil::dupStdString(Config::GetBootROMPath(region_directory));
-}
-
-static char* dol_Config_getMemcardPath1(dol_ExpansionInterface_Slot slot, dol_DiscIO_Region* region,
-                                        uint16_t size_mb)
-{
-  return PluginUtil::dupStdString(Config::GetMemcardPath(
-      static_cast<ExpansionInterface::Slot>(slot),
-      region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
-}
-
-static char* dol_Config_getMemcardPath2(const char* configured_filename,
-                                        dol_ExpansionInterface_Slot slot, dol_DiscIO_Region* region,
-                                        uint16_t size_mb)
-{
-  return PluginUtil::dupStdString(Config::GetMemcardPath(
-      configured_filename, static_cast<ExpansionInterface::Slot>(slot),
-      region ? std::optional(static_cast<DiscIO::Region>(*region)) : std::nullopt, size_mb));
-}
-
-static bool dol_Config_isDefaultMemcardPathConfigured(dol_ExpansionInterface_Slot slot)
-{
-  return Config::IsDefaultMemcardPathConfigured(static_cast<ExpansionInterface::Slot>(slot));
-}
-
 static void* dol_Config_getInfoForWiimoteSource(int index)
 {
   _temp_property.info = PropertyEraseType(Config::GetInfoForWiimoteSource(index));
@@ -883,10 +765,6 @@ EXPORT dol_Config* dol_Config_newInterface()
   iface->setInfo3 = dol_Config_setInfo3;
   iface->setInfo4 = dol_Config_setInfo4;
   iface->setInfo5 = dol_Config_setInfo5;
-  iface->getDefaultLanguage = dol_Config_getDefaultLanguage;
-  iface->getOptionalDefaultCountry = dol_Config_getOptionalDefaultCountry;
-  iface->getDefaultCountry = dol_Config_getDefaultCountry;
-  iface->getDefaultRegion = dol_Config_getDefaultRegion;
   iface->getInfoForMemcardPath = dol_Config_getInfoForMemcardPath;
   iface->getInfoForAGPCartPath = dol_Config_getInfoForAGPCartPath;
   iface->getInfoForGCIPathOverride = dol_Config_getInfoForGCIPathOverride;
@@ -894,18 +772,6 @@ EXPORT dol_Config* dol_Config_newInterface()
   iface->getInfoForSIDevice = dol_Config_getInfoForSIDevice;
   iface->getInfoForAdapterRumble = dol_Config_getInfoForAdapterRumble;
   iface->getInfoForSimulateKonga = dol_Config_getInfoForSimulateKonga;
-  iface->getGPUDeterminismMode = dol_Config_getGPUDeterminismMode;
-  iface->shouldUseDPL2Decoder = dol_Config_shouldUseDPL2Decoder;
-  iface->getIsoPaths = dol_Config_getIsoPaths;
-  iface->setIsoPaths = dol_Config_setIsoPaths;
-  iface->getUSBDeviceWhitelist = dol_Config_getUSBDeviceWhitelist;
-  iface->setUSBDeviceWhitelist = dol_Config_setUSBDeviceWhitelist;
-  iface->toGameCubeRegion = dol_Config_toGameCubeRegion;
-  iface->getDirectoryForRegion = dol_Config_getDirectoryForRegion;
-  iface->getBootROMPath = dol_Config_getBootROMPath;
-  iface->getMemcardPath1 = dol_Config_getMemcardPath1;
-  iface->getMemcardPath2 = dol_Config_getMemcardPath2;
-  iface->isDefaultMemcardPathConfigured = dol_Config_isDefaultMemcardPathConfigured;
   iface->getInfoForWiimoteSource = dol_Config_getInfoForWiimoteSource;
 
   return iface;

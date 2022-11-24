@@ -11,16 +11,10 @@ static void dol_DolphinAnalytics_reloadConfig()
   DolphinAnalytics::Instance().ReloadConfig();
 }
 
-static void dol_DolphinAnalytics_generateNewIdentity()
-{
-  DolphinAnalytics::Instance().GenerateNewIdentity();
-}
-
 EXPORT dol_DolphinAnalytics* dol_DolphinAnalytics_newInterface()
 {
   auto iface = static_cast<dol_DolphinAnalytics*>(interop_calloc(1, sizeof(dol_DolphinAnalytics)));
   iface->reloadConfig = dol_DolphinAnalytics_reloadConfig;
-  iface->generateNewIdentity = dol_DolphinAnalytics_generateNewIdentity;
 
   return iface;
 }

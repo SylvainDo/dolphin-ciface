@@ -22,10 +22,6 @@ struct dol_Config
   void (*setInfo3)(void* prop, float value, bool base);
   void (*setInfo4)(void* prop, uint16_t value, bool base);
   void (*setInfo5)(void* prop, uint32_t value, bool base);
-  dol_DiscIO_Language (*getDefaultLanguage)(void);
-  bool (*getOptionalDefaultCountry)(uint8_t* defaultCountry);
-  uint8_t (*getDefaultCountry)(void);
-  dol_DiscIO_Region (*getDefaultRegion)(void);
   void* (*getInfoForMemcardPath)(dol_ExpansionInterface_Slot slot);
   void* (*getInfoForAGPCartPath)(dol_ExpansionInterface_Slot slot);
   void* (*getInfoForGCIPathOverride)(dol_ExpansionInterface_Slot slot);
@@ -33,21 +29,6 @@ struct dol_Config
   void* (*getInfoForSIDevice)(int channel);
   void* (*getInfoForAdapterRumble)(int channel);
   void* (*getInfoForSimulateKonga)(int channel);
-  dol_Config_GPUDeterminismMode (*getGPUDeterminismMode)(void);
-  bool (*shouldUseDPL2Decoder)(void);
-  char** (*getIsoPaths)(int* numPaths);
-  void (*setIsoPaths)(const char** paths, int numPaths);
-  void (*getUSBDeviceWhitelist)(uint16_t** devices_first, uint16_t** devices_second,
-                                int* numDevices);
-  void (*setUSBDeviceWhitelist)(uint16_t* devices_first, uint16_t* devices_second, int numDevices);
-  dol_DiscIO_Region (*toGameCubeRegion)(dol_DiscIO_Region region);
-  char* (*getDirectoryForRegion)(dol_DiscIO_Region region);
-  char* (*getBootROMPath)(const char* region_directory);
-  char* (*getMemcardPath1)(dol_ExpansionInterface_Slot slot, dol_DiscIO_Region* region,
-                           uint16_t size_mb);
-  char* (*getMemcardPath2)(const char* configured_filename, dol_ExpansionInterface_Slot slot,
-                           dol_DiscIO_Region* region, uint16_t size_mb);
-  bool (*isDefaultMemcardPathConfigured)(dol_ExpansionInterface_Slot slot);
   void* (*getInfoForWiimoteSource)(int index);
 };
 

@@ -8,7 +8,6 @@ extern "C" {
 
 struct dol_Gui_Settings
 {
-  void (*unregisterDevicesChangedCallback)(void);
   // UI
   void (*setThemeName)(const char* theme_name);
   void (*setCurrentUserStyle)(const char* stylesheet_name);
@@ -33,10 +32,7 @@ struct dol_Gui_Settings
   char* (*getDefaultGame)(void);
   void (*setDefaultGame)(const char* path);
   void (*refreshGameList)(void);
-  void (*notifyRefreshGameListStarted)(void);
-  void (*notifyRefreshGameListComplete)(void);
   void (*refreshMetadata)(void);
-  void (*notifyMetadataRefreshComplete)(void);
   void (*reloadTitleDB)(void);
   bool (*isAutoRefreshEnabled)(void);
   void (*setAutoRefreshEnabled)(bool enabled);
@@ -85,14 +81,10 @@ struct dol_Gui_Settings
   bool (*isNetworkVisible)(void);
   void (*setJITVisible)(bool enabled);
   bool (*isJITVisible)(void);
-  // Auto-Update
-  char* (*getAutoUpdateTrack)(void);
-  void (*setAutoUpdateTrack)(const char* mode);
   // Fallback Region
   dol_DiscIO_Region (*getFallbackRegion)(void);
   void (*setFallbackRegion)(dol_DiscIO_Region region);
   // Analytics
-  bool (*isAnalyticsEnabled)(void);
   void (*setAnalyticsEnabled)(bool enabled);
 };
 

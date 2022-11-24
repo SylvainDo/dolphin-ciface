@@ -9,9 +9,7 @@ extern "C" {
 struct dol_JitInterface
 {
   void (*clearCache)(void);
-  void (*clearSafe)(void);
   void (*invalidateICache)(uint32_t address, uint32_t size, bool forced);
-  void (*invalidateICacheLine)(uint32_t address);
   void (*invalidateICacheLines)(uint32_t address, uint32_t count);
 };
 

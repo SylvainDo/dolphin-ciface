@@ -24,11 +24,6 @@ static void dol_Gui_MainWindow_show()
   _instance->Show();
 }
 
-static bool dol_Gui_MainWindow_requestStop()
-{
-  return _instance->RequestStop();
-}
-
 static void dol_Gui_MainWindow_startGame1(const char* path)
 {
   _instance->StartGame(BootParameters::GenerateFromFile(path));
@@ -53,7 +48,6 @@ EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
   iface->init = dol_Gui_MainWindow_init;
   iface->shutdown = dol_Gui_MainWindow_shutdown;
   iface->show = dol_Gui_MainWindow_show;
-  iface->requestStop = dol_Gui_MainWindow_requestStop;
   iface->startGame1 = dol_Gui_MainWindow_startGame1;
   iface->setResetCallback = dol_Gui_MainWindow_setResetCallback;
   iface->setEmulationStateChangedCallback = dol_Gui_MainWindow_setEmulationStateChangedCallback;

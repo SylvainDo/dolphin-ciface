@@ -90,21 +90,6 @@ static bool dol_Gui_Application_hasExited()
   return _instance.hasExited;
 }
 
-static int dol_Gui_Application_exec()
-{
-  return QApplication::exec();
-}
-
-static void dol_Gui_Application_processEvents1()
-{
-  QApplication::processEvents(QEventLoop::AllEvents);
-}
-
-static void dol_Gui_Application_processEvents2(int maxtime)
-{
-  QApplication::processEvents(QEventLoop::AllEvents, maxtime);
-}
-
 static bool dol_Gui_Application_processEvents3()
 {
   return QApplication::eventDispatcher()->processEvents(QEventLoop::AllEvents);
@@ -123,9 +108,6 @@ EXPORT dol_Gui_Application* dol_Gui_Application_newInterface()
   iface->init = dol_Gui_Application_init;
   iface->shutdown = dol_Gui_Application_shutdown;
   iface->hasExited = dol_Gui_Application_hasExited;
-  iface->exec = dol_Gui_Application_exec;
-  iface->processEvents1 = dol_Gui_Application_processEvents1;
-  iface->processEvents2 = dol_Gui_Application_processEvents2;
   iface->processEvents3 = dol_Gui_Application_processEvents3;
 
   return iface;

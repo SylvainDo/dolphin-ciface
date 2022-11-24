@@ -8,10 +8,6 @@ extern "C" {
 
 struct dol_Memory
 {
-  uint8_t* (*getPhysicalBase)(void);
-  uint8_t* (*getLogicalBase)(void);
-  uint8_t* (*getPhysicalPageMappingsBase)(void);
-  uint8_t* (*getLogicalPageMappingsBase)(void);
   uint8_t* (*getRAMPointer)(void);
   uint8_t* (*getEXRAMPointer)(void);
   uint8_t* (*getL1CachePointer)(void);
@@ -26,8 +22,6 @@ struct dol_Memory
   uint32_t (*getExRamSizeReal)(void);
   uint32_t (*getExRamSize)(void);
   uint32_t (*getExRamMask)(void);
-  bool (*isInitialized)(void);
-  void (*clear)(void);
   char* (*getString)(uint32_t em_address, size_t size);
   uint8_t* (*getPointer)(uint32_t address);
   uint8_t* (*getPointerForRange)(uint32_t address, size_t size);

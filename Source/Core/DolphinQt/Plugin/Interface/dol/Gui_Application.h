@@ -16,9 +16,6 @@ struct dol_Gui_Application
   void (*init)(void);
   void (*shutdown)(void);
   bool (*hasExited)(void);
-  int (*exec)(void);
-  void (*processEvents1)(void);
-  void (*processEvents2)(int maxtime);
   bool (*processEvents3)(void);
 };
 
