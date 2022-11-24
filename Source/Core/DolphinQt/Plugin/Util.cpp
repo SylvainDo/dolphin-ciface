@@ -25,6 +25,9 @@ extern dol_calloc_t interop_calloc;
 static bool dol_Util_enablePatch(dol_UICommon_GameFile* game, const char* name)
 {
   auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  if (!_game->IsValid())
+    return false;
+
   const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
   std::vector<PatchEngine::Patch> patches;
 
@@ -50,6 +53,9 @@ static bool dol_Util_enablePatch(dol_UICommon_GameFile* game, const char* name)
 static bool dol_Util_enableARCode(dol_UICommon_GameFile* game, const char* name)
 {
   auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  if (!_game->IsValid())
+    return false;
+
   const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
   std::vector<ActionReplay::ARCode> ar_codes;
 
@@ -77,6 +83,9 @@ static bool dol_Util_enableARCode(dol_UICommon_GameFile* game, const char* name)
 static bool dol_Util_enableGeckoCode(dol_UICommon_GameFile* game, const char* name)
 {
   auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
+  if (!_game->IsValid())
+    return false;
+
   const std::string ini_path = File::GetUserPath(D_GAMESETTINGS_IDX) + _game->GetGameID() + ".ini";
   std::vector<Gecko::GeckoCode> gecko_codes;
 
@@ -106,7 +115,7 @@ namespace VerifyDiscDetails
 
 bool Verify(UICommon::GameFile& game, uint8_t* sha1, bool* goodDump)
 {
-  if (game.GetPlatform() == DiscIO::Platform::ELFOrDOL)
+  if (!game.IsValid() || game.GetPlatform() == DiscIO::Platform::ELFOrDOL)
     return false;
 
   auto volume = DiscIO::CreateVolume(game.GetFilePath());
@@ -187,11 +196,10 @@ void ExtractPartition(std::unique_ptr<DiscIO::Volume>& volume, const DiscIO::Par
 
 bool Extract(UICommon::GameFile& game, const char* path)
 {
-  if (game.GetPlatform() == DiscIO::Platform::ELFOrDOL)
+  if (!game.IsValid() || game.GetPlatform() == DiscIO::Platform::ELFOrDOL)
     return false;
 
-  if (!std::filesystem::create_directories(path))
-    return false;
+  std::filesystem::create_directories(path);
 
   auto folder = QString::fromUtf8(path);
   auto volume = DiscIO::CreateVolume(game.GetFilePath());
