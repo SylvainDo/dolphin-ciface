@@ -24,7 +24,7 @@ message(STATUS "Found Qt version ${QT_VERSION}")
 
 set_property(TARGET Qt${QT_VERSION_MAJOR}::Core PROPERTY INTERFACE_COMPILE_FEATURES "")
 
-add_executable(dolphin-emu
+add_library(dolphin-emu SHARED
   AboutDialog.cpp
   AboutDialog.h
   CheatSearchFactoryWidget.cpp
@@ -349,6 +349,47 @@ add_executable(dolphin-emu
   Updater.h
   WiiUpdate.cpp
   WiiUpdate.h
+  Plugin/Interface/dol/AddressSpace_Accessors.h
+  Plugin/Interface/dol/Alloc.h
+  Plugin/Interface/dol/Config.h
+  Plugin/Interface/dol/Core.h
+  Plugin/Interface/dol/DolphinAnalytics.h
+  Plugin/Interface/dol/Enums.h
+  Plugin/Interface/dol/Gui_Application.h
+  Plugin/Interface/dol/Gui_Host.h
+  Plugin/Interface/dol/Gui_MainWindow.h
+  Plugin/Interface/dol/Gui_Resources.h
+  Plugin/Interface/dol/Gui_Settings.h
+  Plugin/Interface/dol/Gui_Translation.h
+  Plugin/Interface/dol/JitInterface.h
+  Plugin/Interface/dol/Memory.h
+  Plugin/Interface/dol/Pad.h
+  Plugin/Interface/dol/Prelude.h
+  Plugin/Interface/dol/State.h
+  Plugin/Interface/dol/UICommon_GameFile.h
+  Plugin/Interface/dol/UICommon.h
+  Plugin/Interface/dol/Util.h
+  Plugin/AddressSpace_Accessors.cpp
+  Plugin/Alloc.cpp
+  Plugin/Config.cpp
+  Plugin/Core.cpp
+  Plugin/DolphinAnalytics.cpp
+  Plugin/Export.h
+  Plugin/Gui_Application.cpp
+  Plugin/Gui_Host.cpp
+  Plugin/Gui_MainWindow.cpp
+  Plugin/Gui_Resources.cpp
+  Plugin/Gui_Settings.cpp
+  Plugin/Gui_Translation.cpp
+  Plugin/JitInterface.cpp
+  Plugin/Memory.cpp
+  Plugin/Pad.cpp
+  Plugin/PluginUtil.cpp
+  Plugin/PluginUtil.h
+  Plugin/State.cpp
+  Plugin/UICommon_GameFile.cpp
+  Plugin/UICommon.cpp
+  Plugin/Util.cpp
 )
 
 if (NOT WIN32)

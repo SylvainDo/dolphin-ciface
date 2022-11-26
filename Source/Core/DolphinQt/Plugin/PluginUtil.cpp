@@ -3,6 +3,8 @@
 #include "Interface/dol/Alloc.h"
 extern dol_malloc_t interop_malloc;
 
+#include <cstring>
+
 namespace PluginUtil
 {
 

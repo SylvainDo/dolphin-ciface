@@ -4,12 +4,14 @@
 extern dol_calloc_t interop_calloc;
 #include "Interface/dol/Gui_Application.h"
 
-#include <QAbstractEventDispatcher>
-#include <QApplication>
-
 #include "Common/FileUtil.h"
 #include "Common/MsgHandler.h"
 #include "Core/Core.h"
+
+#include <filesystem>
+
+#include <QAbstractEventDispatcher>
+#include <QApplication>
 
 bool QtMsgAlertHandler(const char* caption, const char* text, bool yes_no, Common::MsgType style);
 
@@ -72,7 +74,14 @@ static void dol_Gui_Application_init()
 {
   QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Round);
 
+#ifdef _WIN32
   _instance.app = new QApplication(__argc, __argv);
+#else
+  static int argc = 1;
+  static auto argv0 = (std::filesystem::current_path() / "dolphin-emu").generic_string();
+  static char* argv[] = { argv0.data() };
+  _instance.app = new QApplication(argc, argv);
+#endif
   _instance.app->installEventFilter(new QuitEventFilter);
 
   Common::RegisterMsgAlertHandler(QtMsgAlertHandler);

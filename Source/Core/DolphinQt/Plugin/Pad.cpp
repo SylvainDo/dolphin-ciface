@@ -7,6 +7,8 @@ extern dol_calloc_t interop_calloc;
 #include "Core/HW/GCPad.h"
 #include "InputCommon/GCPadStatus.h"
 
+#include <cstring>
+
 static void dol_Pad_getStatus(int pad_num, dol_GCPadStatus* status)
 {
   const auto status2 = Pad::GetStatus(pad_num);

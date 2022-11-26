@@ -477,8 +477,8 @@ static void* dol_Config_findInfo2(dol_Config_System system, const char* section,
     { \
       auto i = static_cast<Config::Info<t2>*>(p.second.info); \
       auto l = i->GetLocation(); \
-      return system == static_cast<dol_Config_System>(-1) && l.section == section && l.key == key \
-        || l.system == static_cast<Config::System>(system) && l.section == section && l.key == key; \
+      return (system == static_cast<dol_Config_System>(-1) && l.section == section && l.key == key) \
+        || (l.system == static_cast<Config::System>(system) && l.section == section && l.key == key); \
     }
 
     HandleCase(Boolean, bool)
@@ -500,7 +500,7 @@ static void* dol_Config_findInfo2(dol_Config_System system, const char* section,
     else HandleCase(Float, float)
     else HandleCase(Unsigned16, uint16_t)
     else HandleCase(Unsigned32, uint32_t)
-    
+
     return false;
   });
 

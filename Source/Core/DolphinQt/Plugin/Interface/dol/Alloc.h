@@ -4,6 +4,8 @@
 extern "C" {
 #endif
 
+#include <stddef.h>
+
 typedef void* (*dol_malloc_t)(size_t);
 typedef void* (*dol_calloc_t)(size_t, size_t);
 typedef void (*dol_free_t)(void*);

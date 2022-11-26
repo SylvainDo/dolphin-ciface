@@ -7,6 +7,8 @@ extern dol_calloc_t interop_calloc;
 
 #include "Core/State.h"
 
+#include <cstring>
+
 static void dol_State_enableCompression(bool compression)
 {
   State::EnableCompression(compression);

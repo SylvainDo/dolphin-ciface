@@ -6,6 +6,7 @@
 extern "C" {
 #endif
 
+#include <stddef.h>
 #include <stdint.h>
 
 struct dol_UICommon_GameBanner

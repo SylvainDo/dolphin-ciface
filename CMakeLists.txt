@@ -54,7 +54,7 @@ endif()
 
 option(USE_SHARED_ENET "Use shared libenet if found rather than Dolphin's soon-to-compatibly-diverge version" OFF)
 option(USE_UPNP "Enables UPnP port mapping support" ON)
-option(ENABLE_NOGUI "Enable NoGUI frontend" ON)
+option(ENABLE_NOGUI "Enable NoGUI frontend" OFF)
 option(ENABLE_QT "Enable Qt (Default)" ON)
 option(ENABLE_LTO "Enables Link Time Optimization" OFF)
 option(ENABLE_GENERIC "Enables generic build that should run on any little-endian host" OFF)
@@ -64,9 +64,9 @@ option(ENABLE_PULSEAUDIO "Enables PulseAudio sound backend" ON)
 option(ENABLE_LLVM "Enables LLVM support, for disassembly" ON)
 option(ENABLE_TESTS "Enables building the unit tests" ON)
 option(ENABLE_VULKAN "Enables vulkan video backend" ON)
-option(USE_DISCORD_PRESENCE "Enables Discord Rich Presence, show the current game on Discord" ON)
+option(USE_DISCORD_PRESENCE "Enables Discord Rich Presence, show the current game on Discord" OFF)
 option(USE_MGBA "Enables GBA controllers emulation using libmgba" ON)
-option(ENABLE_AUTOUPDATE "Enables support for automatic updates" ON)
+option(ENABLE_AUTOUPDATE "Enables support for automatic updates" OFF)
 option(STEAM "Creates a build for Steam" OFF)
 
 # Maintainers: if you consider blanket disabling this for your users, please
@@ -75,7 +75,7 @@ option(STEAM "Creates a build for Steam" OFF)
 #    launch).
 #  * The Dolphin team relies on the data in order to understand the behavior
 #    of our software in the wild.
-option(ENABLE_ANALYTICS "Enables opt-in Analytics collection" ON)
+option(ENABLE_ANALYTICS "Enables opt-in Analytics collection" OFF)
 
 option(ENCODE_FRAMEDUMPS "Encode framedumps in AVI format" ON)
 
@@ -114,7 +114,7 @@ endif()
 if(UNIX)
   # Builds a relocatable binary on Linux.
   # The Sys folder will need to be copied to the Binaries folder.
-  option(LINUX_LOCAL_DEV "Enable relocatable binary" OFF)
+  option(LINUX_LOCAL_DEV "Enable relocatable binary" ON)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH
@@ -148,6 +148,7 @@ endif()
 # here.  You must run "make install" to install these to the proper location
 # as defined above.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Binaries)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Binaries)
 
 if (WIN32)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Binary)
@@ -158,6 +159,8 @@ if (WIN32)
     string(APPEND CMAKE_RUNTIME_OUTPUT_DIRECTORY /ARM64)
   endif()
 endif()
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # setup CCache
 include(CCache)

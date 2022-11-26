@@ -18,7 +18,6 @@ extern dol_calloc_t interop_calloc;
 #include "UICommon/GameFile.h"
 
 #include <filesystem>
-#include <iostream>
 
 #include <QString>
 
@@ -141,29 +140,12 @@ bool Verify(UICommon::GameFile& game, uint8_t* sha1, bool* goodDump)
   return result->problems.empty();
 }
 
-bool VerifySafe(UICommon::GameFile& game, uint8_t* sha1, bool* goodDump)
-{
-  try
-  {
-    return Verify(game, sha1, goodDump);
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "verify disc: exception occurred: " << e.what() << std::endl;
-  }
-  catch (...)
-  {
-    std::cerr << "verify disc: unknown exception occurred" << std::endl;
-  }
-  return false;
-}
-
 }  // namespace VerifyDiscDetails
 
 static bool dol_Util_verifyDisc(dol_UICommon_GameFile* game, uint8_t* sha1, bool* goodDump)
 {
   auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
-  return VerifyDiscDetails::VerifySafe(*_game, sha1, goodDump);
+  return VerifyDiscDetails::Verify(*_game, sha1, goodDump);
 }
 
 namespace ExtractDiscDetails
@@ -223,29 +205,12 @@ bool Extract(UICommon::GameFile& game, const char* path)
   return true;
 }
 
-bool ExtractSafe(UICommon::GameFile& game, const char* path)
-{
-  try
-  {
-    return Extract(game, path);
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "extract disc: exception occurred: " << e.what() << std::endl;
-  }
-  catch (...)
-  {
-    std::cerr << "extract disc: unknown exception occurred" << std::endl;
-  }
-  return false;
-}
-
 }  // namespace ExtractDiscDetails
 
 static bool dol_Util_extractDisc(dol_UICommon_GameFile* game, const char* path)
 {
   auto _game = static_cast<UICommon::GameFile*>(game->getUnderlyingInstance(game));
-  return ExtractDiscDetails::ExtractSafe(*_game, path);
+  return ExtractDiscDetails::Extract(*_game, path);
 }
 
 EXPORT dol_Util* dol_Util_newInterface()
