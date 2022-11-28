@@ -10,6 +10,7 @@ struct dol_Gui_MainWindow
 {
   void (*init)(void);
   void (*shutdown)(void);
+  void (*setIcon)(const char* filename);
   void (*show)(void);
   void (*startGame1)(const char* path);
   void (*setResetCallback)(void (*callback)(void* userdata), void* userdata);

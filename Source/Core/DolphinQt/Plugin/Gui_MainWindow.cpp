@@ -19,6 +19,11 @@ static void dol_Gui_MainWindow_shutdown()
   delete _instance;
 }
 
+static void dol_Gui_MainWindow_setIcon(const char* filename)
+{
+  _instance->setWindowIcon(QIcon(QString::fromUtf8(filename)));
+}
+
 static void dol_Gui_MainWindow_show()
 {
   _instance->Show();
@@ -47,6 +52,7 @@ EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
   auto iface = static_cast<dol_Gui_MainWindow*>(interop_calloc(1, sizeof(dol_Gui_MainWindow)));
   iface->init = dol_Gui_MainWindow_init;
   iface->shutdown = dol_Gui_MainWindow_shutdown;
+  iface->setIcon = dol_Gui_MainWindow_setIcon;
   iface->show = dol_Gui_MainWindow_show;
   iface->startGame1 = dol_Gui_MainWindow_startGame1;
   iface->setResetCallback = dol_Gui_MainWindow_setResetCallback;
