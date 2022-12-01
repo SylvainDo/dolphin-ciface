@@ -17,6 +17,7 @@ struct dol_Gui_MainWindow
   void (*setEmulationStateChangedCallback)(void (*callback)(dol_Core_State state, void* userdata),
                                            void* userdata);
   void (*close)(void);
+  void* (*asWidget)(void);
 };
 
 typedef dol_Gui_MainWindow* (*dol_Gui_MainWindow_newInterface_t)(void);

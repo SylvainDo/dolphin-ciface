@@ -15,4 +15,14 @@ char* dupStdString(const std::string& src)
   return static_cast<char*>(v);
 }
 
+char* dupQString(const QString& str)
+{
+  return PluginUtil::dupStdString(str.toStdString());
+}
+
+QString toQString(const char* str)
+{
+  return QString::fromUtf8(str);
+}
+
 }  // namespace PluginUtil
