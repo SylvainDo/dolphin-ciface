@@ -47,6 +47,11 @@ static void dol_Gui_MainWindow_setEmulationStateChangedCallback(
   });
 }
 
+static void dol_Gui_MainWindow_close()
+{
+  _instance->close();
+}
+
 EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
 {
   auto iface = static_cast<dol_Gui_MainWindow*>(interop_calloc(1, sizeof(dol_Gui_MainWindow)));
@@ -57,6 +62,7 @@ EXPORT dol_Gui_MainWindow* dol_Gui_MainWindow_newInterface()
   iface->startGame1 = dol_Gui_MainWindow_startGame1;
   iface->setResetCallback = dol_Gui_MainWindow_setResetCallback;
   iface->setEmulationStateChangedCallback = dol_Gui_MainWindow_setEmulationStateChangedCallback;
+  iface->close = dol_Gui_MainWindow_close;
 
   return iface;
 }
