@@ -358,6 +358,8 @@ add_library(dolphin-emu SHARED
   Plugin/Interface/dol/Gui_Application.h
   Plugin/Interface/dol/Gui_Host.h
   Plugin/Interface/dol/Gui_MainWindow.h
+  Plugin/Interface/dol/Gui_Q_CommonDialogs.h
+  Plugin/Interface/dol/Gui_Q_MenuEtc.h
   Plugin/Interface/dol/Gui_Resources.h
   Plugin/Interface/dol/Gui_Settings.h
   Plugin/Interface/dol/Gui_Translation.h
@@ -378,6 +380,8 @@ add_library(dolphin-emu SHARED
   Plugin/Gui_Application.cpp
   Plugin/Gui_Host.cpp
   Plugin/Gui_MainWindow.cpp
+  Plugin/Gui_Q_CommonDialogs.cpp
+  Plugin/Gui_Q_MenuEtc.cpp
   Plugin/Gui_Resources.cpp
   Plugin/Gui_Settings.cpp
   Plugin/Gui_Translation.cpp
