@@ -6,6 +6,9 @@
 extern "C" {
 #endif
 
+struct dol_Gui_Q_MenuBar;
+struct dol_Gui_Q_Menu;
+
 struct dol_Gui_MainWindow
 {
   void (*init)(void);
@@ -18,6 +21,8 @@ struct dol_Gui_MainWindow
                                            void* userdata);
   void (*close)(void);
   void* (*asWidget)(void);
+  dol_Gui_Q_MenuBar* (*getMenuBar)(void);
+  dol_Gui_Q_Menu* (*findMenu)(const char* title);
 };
 
 typedef dol_Gui_MainWindow* (*dol_Gui_MainWindow_newInterface_t)(void);

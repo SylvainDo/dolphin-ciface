@@ -4,8 +4,6 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
-
 struct dol_Gui_Q_Color
 {
   int r;

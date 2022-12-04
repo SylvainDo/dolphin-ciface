@@ -161,6 +161,7 @@
     <ClCompile Include="Plugin\AddressSpace_Accessors.cpp" />
     <ClCompile Include="Plugin\Alloc.cpp" />
     <ClCompile Include="Plugin\Gui_Q_CommonDialogs.cpp" />
+    <ClCompile Include="Plugin\Gui_Q_MenuEtc.cpp" />
     <ClCompile Include="Plugin\Util.cpp" />
     <ClCompile Include="Plugin\Gui_Application.cpp" />
     <ClCompile Include="Plugin\Config.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="Plugin\Interface\dol\AddressSpace_Accessors.h" />
     <ClInclude Include="Plugin\Interface\dol\Alloc.h" />
     <ClInclude Include="Plugin\Interface\dol\Gui_Q_CommonDialogs.h" />
+    <ClInclude Include="Plugin\Interface\dol\Gui_Q_MenuEtc.h" />
     <ClInclude Include="Plugin\Interface\dol\Util.h" />
     <ClInclude Include="Plugin\Interface\dol\Gui_Application.h" />
     <ClInclude Include="Plugin\Interface\dol\Config.h" />

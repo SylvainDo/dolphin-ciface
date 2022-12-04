@@ -10,6 +10,7 @@
 #include "Gui_Host.h"
 #include "Gui_MainWindow.h"
 #include "Gui_Q_CommonDialogs.h"
+#include "Gui_Q_MenuEtc.h"
 #include "Gui_Resources.h"
 #include "Gui_Settings.h"
 #include "Gui_Translation.h"

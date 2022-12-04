@@ -216,6 +216,7 @@ void MenuBar::AddDVDBackupMenu(QMenu* file_menu)
 void MenuBar::AddFileMenu()
 {
   QMenu* file_menu = addMenu(tr("&File"));
+  file_menu->setObjectName(QStringLiteral("FileMenu"));
   if (!Config::Get(Config::MAIN_PLAY_MODE))
   {
     m_open_action = file_menu->addAction(tr("&Open..."), this, &MenuBar::Open, QKeySequence::Open);
@@ -238,6 +239,7 @@ void MenuBar::AddFileMenu()
 void MenuBar::AddToolsMenu()
 {
   QMenu* tools_menu = addMenu(tr("&Tools"));
+  tools_menu->setObjectName(QStringLiteral("ToolsMenu"));
 
   tools_menu->addAction(tr("&Resource Pack Manager"), this,
                         [this] { emit ShowResourcePackManager(); });
@@ -327,6 +329,7 @@ void MenuBar::AddToolsMenu()
 void MenuBar::AddEmulationMenu()
 {
   QMenu* emu_menu = addMenu(tr("&Emulation"));
+  emu_menu->setObjectName(QStringLiteral("EmulationMenu"));
   if (!Config::Get(Config::MAIN_PLAY_MODE))
   {
     m_play_action = emu_menu->addAction(tr("&Play"), this, &MenuBar::Play);
@@ -427,6 +430,7 @@ void MenuBar::UpdateStateSlotMenu()
 void MenuBar::AddViewMenu()
 {
   QMenu* view_menu = addMenu(tr("&View"));
+  view_menu->setObjectName(QStringLiteral("ViewMenu"));
   QAction* show_log = view_menu->addAction(tr("Show &Log"));
   show_log->setCheckable(true);
   show_log->setChecked(Settings::Instance().IsLogVisible());
@@ -553,6 +557,7 @@ void MenuBar::AddViewMenu()
 void MenuBar::AddOptionsMenu()
 {
   QMenu* options_menu = addMenu(tr("&Options"));
+  options_menu->setObjectName(QStringLiteral("OptionsMenu"));
   options_menu->addAction(tr("Co&nfiguration"), this, &MenuBar::Configure,
                           QKeySequence::Preferences);
   options_menu->addSeparator();
@@ -602,6 +607,7 @@ void MenuBar::InstallUpdateManually()
 void MenuBar::AddHelpMenu()
 {
   QMenu* help_menu = addMenu(tr("&Help"));
+  help_menu->setObjectName(QStringLiteral("HelpMenu"));
 
 #if 0
   QAction* website = help_menu->addAction(tr("&Website"));
@@ -763,6 +769,7 @@ void MenuBar::AddShowRegionsMenu(QMenu* view_menu)
 void MenuBar::AddMovieMenu()
 {
   auto* movie_menu = addMenu(tr("&Movie"));
+  movie_menu->setObjectName(QStringLiteral("MovieMenu"));
   m_recording_start =
       movie_menu->addAction(tr("Start Re&cording Input"), this, [this] { emit StartRecording(); });
   m_recording_play =
@@ -841,6 +848,7 @@ void MenuBar::AddMovieMenu()
 void MenuBar::AddJITMenu()
 {
   m_jit = addMenu(tr("JIT"));
+  m_jit->setObjectName(QStringLiteral("JITMenu"));
 
   m_jit_interpreter_core = m_jit->addAction(tr("Interpreter Core"));
   m_jit_interpreter_core->setCheckable(true);
@@ -997,6 +1005,7 @@ void MenuBar::AddJITMenu()
 void MenuBar::AddSymbolsMenu()
 {
   m_symbols = addMenu(tr("Symbols"));
+  m_symbols->setObjectName(QStringLiteral("SymbolsMenu"));
 
   m_symbols->addAction(tr("&Clear Symbols"), this, &MenuBar::ClearSymbols);
 
